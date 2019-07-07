@@ -1,0 +1,101 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<nav class="navbar-default navbar-side" role="navigation" th:fragment="sidebar">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="main-menu">
+
+            <li>
+                <a class="active-menu waves-effect waves-dark" th:href="@{/}"><i class="fa fa-dashboard"></i>
+                    首页</a>
+            </li>
+            <!--会员管理栏-->
+            <li>
+                <a href="javascript:void(0)" class="waves-effect waves-dark"><i class="fa fa-user"></i>会员管理<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a th:href="@{/addMember}">添加会员</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/queryMember}">查询会员</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/memberGrade}">会员类别</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/modifyMemberState}">会员状态修改</a>
+                    </li>
+
+                    <li>
+                        <a href="#">会员消费<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li>
+                                <a th:href="@{/integralExchange}">积分兑换</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/balanceRecharge}">余额充值</a>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <li>
+                        <a th:href="@{/deleteMember}">会员注销</a>
+                    </li>
+                </ul>
+            </li>
+            <!--礼品栏-->
+            <li>
+                <a href="javascript:void(0)" class="waves-effect waves-dark"><i class="fa fa-gift"></i>礼品消费<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a th:href="@{/setGift}">礼品设置</a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/modifyGiftNumber}">数量修改</a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/exchangeRecord}">兑换记录</a>
+                    </li>
+                </ul>
+            </li>
+            <!--商品消费-->
+            <li>
+                <a href="javascript:void(0)" class="waves-effect waves-dark"><i class="fa fa-yen"></i>商品消费<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a th:href="@{/addCommodity}">添加商品</a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/modifyCommodity}">商品修改</a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/purchaseCommodity}">商品购买</a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/transactionRecord}">积分记录</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="waves-effect waves-dark" th:href="@{/birthdayWarning}"><i class="fa fa-birthday-cake"></i>
+                    生日提醒</a>
+            </li>
+
+            <li>
+                <a class="waves-effect waves-dark" th:href="@{/integralLottery}"><i class="fa fa-star"></i>
+                    积分抽奖</a>
+            </li>
+        </ul>
+
+    </div>
+
+</nav>
+</html>
