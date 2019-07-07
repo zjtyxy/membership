@@ -6,8 +6,6 @@ import cn.lger.domain.Gift;
 import cn.lger.domain.Member;
 import cn.lger.domain.MemberGrade;
 
-import org.apache.coyote.Response;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
 
@@ -35,10 +31,21 @@ public class MiniAppController {
     //private BCryptPasswordEncoder encoder;
     @Resource
     private MemberGradeDao memberGradeDao;
+    @RequestMapping("/minapp/findMemberByOpenid")
+    public  Member userRegister(String openid)
+    {
+        return  memberDao.findMemberByOpenid(openid);
+    }
+
     @RequestMapping("/minapp/register")
     public  Member userRegister(Member member)
     {
         Member rst = new Member();
+        Member cm =  memberDao.findMemberByOpenid(member.getOpenid());
+        if(cm!=null)
+        {
+            member.setId(cm.getId());
+        }
         try {
 
             List<MemberGrade> list = memberGradeDao.findMemberGradeByGradeName("普通会员");

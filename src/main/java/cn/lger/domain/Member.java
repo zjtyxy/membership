@@ -37,7 +37,17 @@ public class Member {
     private String state;
 
 
+    private String openid;// 微信用户唯一标示
     private String memberName;
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
     private String zhiwu;
     private String zhengzhimianmao;
     private String sex;
