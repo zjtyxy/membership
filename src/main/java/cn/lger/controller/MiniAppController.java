@@ -32,6 +32,7 @@ public class MiniAppController {
     {
         Member rst = new Member();
         try {
+
             List<MemberGrade> list = memberGradeDao.findMemberGradeByGradeName("普通会员");
             //保证输入的会员名是存在的
             //设置会员类型
