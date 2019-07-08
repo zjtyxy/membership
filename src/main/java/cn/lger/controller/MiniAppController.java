@@ -6,6 +6,8 @@ import cn.lger.domain.Gift;
 import cn.lger.domain.Member;
 import cn.lger.domain.MemberGrade;
 
+import cn.lger.util.WordUtils;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
-import java.io.File;
+import java.io.*;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 public class MiniAppController {
@@ -35,6 +39,71 @@ public class MiniAppController {
     public  Member userRegister(String openid)
     {
         return  memberDao.findMemberByOpenid(openid);
+    }
+
+
+    @RequestMapping(value = "/minapp/exportWord")
+    public void exportWord(String memberid)  {
+        //String templatePath = request.getServletContext().getRealPath("") + "/template/会员登记表.docx";
+
+        Member member = memberDao.findMemberById(memberid);
+        try {
+            String templatePath = "d:/upload/template/会员登记表.docx";
+            String outfile = "d:/upload/template/test.docx";
+            String fileName = new String("税源信息比对".getBytes("gb2312"), "ISO8859-1") + ".docx";
+            /*数据*/
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("${name}", member.getMemberName());
+            params.put("${zhiwu}", member.getZhiwu());
+            params.put("${zzmm}", member.getZhengzhimianmao());
+            params.put("${sex}", member.getSex());
+            params.put("${minzu}", member.getMinzu());
+            params.put("${sheng}", member.getBirthday());
+            params.put("${xuli}", member.getXueli());
+            params.put("${email}", member.getEmail());
+
+            params.put("${shenfenzhenghao}", member.getShenfenzheng());
+            params.put("${phone}", member.getPhone());
+            params.put("${gongzuodanwei}", member.getGongzuodanwei());
+            params.put("${jiankang}", member.getJiankangzhuangkuang());
+            params.put("${address}", member.getAddress());
+
+            params.put("${youbian}", member.getYouzhengbianma());
+            params.put("${huodong}", member.getHuodongjianjie());
+            params.put("${techang}", member.getJinengtechang());
+            params.put("${fuwuyixiang}", member.getFuwuyixiang());
+            params.put("${zhiye}", member.getZhiye());
+            params.put("${image1}", "dd");
+
+
+
+            WordUtils wordUtil = new WordUtils();
+
+
+
+            XWPFDocument doc;
+            InputStream is = new FileInputStream(templatePath);
+            // is = getClass().getClassLoader().getResourceAsStream(templatePath);
+            doc = new XWPFDocument(is);  //只能使用.docx的
+
+       //     wordUtil.insertImage("${image}",doc);
+            wordUtil.replaceInPara(doc, params);
+            //替换表格里面的变量
+
+            wordUtil.replaceInTable(doc, params);
+            OutputStream os = new FileOutputStream(outfile);
+            //  response.setContentType("application/vnd.ms-excel");
+            // response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+            doc.write(os);
+            wordUtil.close(os);
+            wordUtil.close(is);
+            os.flush();
+            os.close();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     @RequestMapping("/minapp/register")
