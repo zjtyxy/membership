@@ -92,6 +92,10 @@
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
                                     >会员状态
                                     </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                    >操作
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody id="tableContent">
@@ -116,6 +120,196 @@
             <footer><p class="text-center">Copyright &copy; 2017.Company name All rights reserved.</p></footer>
         </div>
 
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel">修改会员信息</h5>
+            </div>
+            <div class="modal-body">
+
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>选择头像文件</span>
+                            <input id="file" type="file" name="icon" multiple="" placeholder="选择文件" accept="image/*"
+                                   onchange="changeToop()">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <!--<input class="file-path validate" type="text" placeholder="Upload one or more files">-->
+                            <img id="myimg" src="assets/icon/common.jpg" class="img-responsive img-thumbnail"
+                                 style="width: 20%;height: 20%"/>
+                        </div>
+                        <!--头像文件上传预览-->
+                        <script>
+                            function Id(id) {
+                                return document.getElementById(id);
+                            }
+
+                            function changeToop() {
+                                var file = Id("file");
+                                if (file.value === '') {
+                                    //设置默认图片
+                                    Id("myimg").src = 'assets/icon/common.jpg';
+                                } else {
+                                    preImg("file", "myimg");
+                                }
+                            }
+
+                            //获取input[file]图片的url Important
+                            function getFileUrl(fileId) {
+                                var url;
+                                var file = Id(fileId);
+                                var agent = navigator.userAgent;
+                                if (agent.indexOf("MSIE") >= 1) {
+                                    url = file.value;
+                                } else if (agent.indexOf("Firefox") > 0) {
+                                    url = window.URL.createObjectURL(file.files.item(0));
+                                } else if (agent.indexOf("Chrome") > 0) {
+                                    url = window.URL.createObjectURL(file.files.item(0));
+                                }
+                                return url;
+                            }
+
+                            //读取图片后预览
+                            function preImg(fileId, imgId) {
+                                var imgPre = Id(imgId);
+                                imgPre.src = getFileUrl(fileId);
+                            }
+                        </script>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="会员名" id="memberName" type="text" class="validate" name="memberName"
+                                   required/>
+                            <label for="memberName">会员名</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="phone" name="phone" type="tel" class="validate" placeholder="联系电话" required/>
+                            <label for="phone">联系电话</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="职务" id="zhiwu" type="text" class="validate" name="zhiwu" required/>
+                            <label for="zhiwu">职务</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="zhengzhimianmao" name="zhengzhimianmao" type="text" class="validate"
+                                   placeholder="政治面貌" required/>
+                            <label for="zhengzhimianmao">政治面貌</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="民族" id="minzu" type="text" class="validate" name="minzu" required/>
+                            <label for="memberName">民族</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="shenfenzheng" name="shenfenzheng" type="text" class="validate"
+                                   placeholder="身份证号" required/>
+                            <label for="shenfenzheng">身份证号</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="现在工作单位" id="gongzuodanwei" type="text" class="validate"
+                                   name="gongzuodanwei" required/>
+                            <label for="gongzuodanwei">现在工作单位</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="jiankanzhuangkuang" name="jiankanzhuangkuang" type="text" class="validate"
+                                   placeholder="健康状况" required/>
+                            <label for="jiankanzhuangkuang">健康状况</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="通讯地址" id="address" type="text" class="validate" name="address"
+                                   required/>
+                            <label for="address">通讯地址</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="youzhengbianma" name="youzhengbianma" type="tel" class="validate"
+                                   placeholder="邮政编码" required/>
+                            <label for="youzhengbianma">邮政编码</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="参加活动简介" id="canjiahuodong" type="text" class="validate"
+                                   name="canjiahuodong" required/>
+                            <label for="canjiahuodong">参加活动简介</label>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="特长技能" id="jinengtechang" type="text" class="validate"
+                                   name="jinengtechang" required/>
+                            <label for="jinengtechang">特长技能</label>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="服务意向" id="fuwuyixiang" type="text" class="validate"
+                                   name="fuwuyixiang" required/>
+                            <label for="fuwuyixiang">服务意向</label>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="从事何种职业" id="zhiye" type="text" class="validate" name="zhiye"
+                                   required/>
+                            <label for="zhiye">从事何种职业</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="email" name="email" type="email" class="validate" placeholder="邮箱" required/>
+                            <label for="email">邮箱</label>
+                        </div>
+                        <div class="input-field col s6">
+                            性别：
+                            <input name="sex" type="radio" id="man" value="男" checked/>
+                            <label for="man">男</label>
+                            <input name="sex" type="radio" id="woman" value="女"/>
+                            <label for="woman">女</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <input id="birthday" name="birthday" type="date" class="validate" placeholder="会员生日"
+                               required/>
+                        <label for="birthday">会员生日</label>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="input-field col s2">
+                            会员等级：
+                        </div>
+                        <div class="col s10">
+                            <label style="display: none" for="inputState">State</label>
+                            <select id="inputState" class="form-control" name="gradeName" required>
+
+                            </select>
+                        </div>
+
+                    </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn waves-effect waves-light" onclick="updateCommodity()">保存修改</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -175,7 +369,8 @@
                             '<td>' + content.balance + '</td>' +
                             '<td>' + content.memberGrade.gradeName + '</td>' +
                             '<td>' + content.sex + '</td>' +
-                            '<td>' + content.state + '</td>'
+                            '<td>' + content.state + '</td>'+
+                           '<td><button class="waves-effect waves-light btn" data-toggle="modal" data-target="#myModal" onclick="openModelWindow(this)">修改</button></td>' +
                             + '</tr>';
                     }
                 });
