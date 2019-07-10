@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -14,7 +15,7 @@ import java.time.LocalDate;
  * Created by Pro on 2017-12-06.
  */
 @Entity
-public class Member {
+public class Member implements Serializable {
 
     @Id
     @GeneratedValue(generator="id")

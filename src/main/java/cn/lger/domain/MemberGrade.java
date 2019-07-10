@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * Code that Changed the World
@@ -11,7 +12,7 @@ import javax.persistence.Id;
  * Created by Pro on 2017-12-06.
  */
 @Entity
-public class MemberGrade {
+public class MemberGrade implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
