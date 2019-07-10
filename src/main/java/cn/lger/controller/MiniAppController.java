@@ -25,6 +25,10 @@ import java.util.HashMap;
 
 @RestController
 public class MiniAppController {
+
+    private  static  String  uploadImagePath="c:/upload/images/";
+    private  static  String  wordTempltePath="c:/templte/word/";
+
     @Resource
     private MemberDao memberDao;
     @Resource
@@ -40,15 +44,13 @@ public class MiniAppController {
     {
         return  memberDao.findMemberByOpenid(openid);
     }
-
-
     @RequestMapping(value = "/minapp/exportWord")
-    public void exportWord(String memberid)  {
+    public void exportWord(String memberid,String tempplteName)  {
         //String templatePath = request.getServletContext().getRealPath("") + "/template/会员登记表.docx";
 
         Member member = memberDao.findMemberById(memberid);
         try {
-            String templatePath = "d:/upload/template/会员登记表.docx";
+            String templatePath = wordTempltePath+tempplteName+".docx";
             String outfile = "d:/upload/template/test.docx";
             String fileName = new String("税源信息比对".getBytes("gb2312"), "ISO8859-1") + ".docx";
             /*数据*/
@@ -75,21 +77,14 @@ public class MiniAppController {
             params.put("${zhiye}", member.getZhiye());
             params.put("${image1}", "dd");
 
-
-
             WordUtils wordUtil = new WordUtils();
-
-
-
             XWPFDocument doc;
             InputStream is = new FileInputStream(templatePath);
             // is = getClass().getClassLoader().getResourceAsStream(templatePath);
             doc = new XWPFDocument(is);  //只能使用.docx的
-
        //     wordUtil.insertImage("${image}",doc);
             wordUtil.replaceInPara(doc, params);
             //替换表格里面的变量
-
             wordUtil.replaceInTable(doc, params);
             OutputStream os = new FileOutputStream(outfile);
             //  response.setContentType("application/vnd.ms-excel");
@@ -173,10 +168,10 @@ public class MiniAppController {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
        // logger.info("上传的后缀名为：" + suffixName);
         // 文件上传后的路径
-        String filePath = "d:/upload/images/";
+      //  String filePath = "d:/upload/images/";
         // 解决中文问题，liunx下中文路径，图片显示问题
         // fileName = UUID.randomUUID() + suffixName;
-        File dest = new File(filePath + fileName);
+        File dest = new File(uploadImagePath + fileName);
         // 检测是否存在目录
         File parent = dest.getParentFile();
         if (!parent.exists()) {
