@@ -26,7 +26,7 @@ import java.util.HashMap;
 @RestController
 public class MiniAppController {
 
-    private  static  String  uploadImagePath="c:/upload/images/";
+    private  static  String  uploadImagePath="d:/upload/images/";
     private  static  String  wordTempltePath="c:/templte/word/";
 
     @Resource
