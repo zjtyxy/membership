@@ -29,7 +29,7 @@ public class MemberService {
     }
 
     public Member findMemberById(String id){
-        return memberDao.findMemberById(id);
+        return memberDao.findById(id).get();
     }
 
     public Page<Member> findMembers(Integer currentPage){
@@ -50,7 +50,7 @@ public class MemberService {
 
     @Transactional
     public void modifyMemberState(String id, String state) {
-        Member member = memberDao.findMemberById(id);
+        Member member = memberDao.findById(id).get();
         if (member !=null){
             member.setState(state);
             memberDao.save(member);
@@ -65,7 +65,7 @@ public class MemberService {
 
     @Transactional
     public void balanceRecharge(String id, String balance) {
-        Member member = memberDao.findMemberById(id);
+        Member member = memberDao.findById(id).get();
         if (member != null){
             member.setBalance(member.getBalance()+Float.valueOf(balance));
             memberDao.save(member);
@@ -90,7 +90,7 @@ public class MemberService {
     public List<String> findBirthdayToday() {
         List<String> email = new ArrayList<String>();
 //        List<Member> members = memberDao.findByBirthday(LocalDate.now());
-        List<Member> members = memberDao.findAll();
+        Iterable<Member> members = memberDao.findAll();
         int month = LocalDate.now().getMonthValue();
         int day = LocalDate.now().getDayOfMonth();
         for (Member m: members) {

@@ -57,7 +57,7 @@ public class GiftService {
 
     @Transactional
     public void integralExchange(String memberId, Integer giftId) {
-        Member member = memberDao.findMemberById(memberId);
+        Member member = memberDao.findById(memberId).get();
         Gift gift = giftDao.findById(giftId).isPresent()?giftDao.findById(giftId).get():null;
 
         //确保存在两个id的实体

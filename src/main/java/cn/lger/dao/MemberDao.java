@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,12 +15,12 @@ import java.util.List;
  * Pro said
  * Created by Pro on 2017-12-06.
  */
-public interface MemberDao extends JpaRepository<Member, String> {
+public interface MemberDao extends PagingAndSortingRepository<Member, String> {
 
     Member findMemberByOpenid(String openid);
-    Member findMemberById(String id);
 
-    Page<Member> findAll(Pageable pageable);
+
+
 
     @Query("select m from Member m where m.memberName = ?1")
     Page<Member> findAllByMemberName(String memberName, Pageable pageable);

@@ -48,7 +48,7 @@ public class MiniAppController {
     public void exportWord(String memberid,String tempplteName)  {
         //String templatePath = request.getServletContext().getRealPath("") + "/template/会员登记表.docx";
 
-        Member member = memberDao.findMemberById(memberid);
+        Member member = memberDao.findById(memberid).get();
         try {
             String templatePath = wordTempltePath+tempplteName+".docx";
             String outfile = "d:/upload/template/test.docx";

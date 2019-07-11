@@ -1,5 +1,6 @@
 package cn.lger.web;
 
+import cn.lger.dao.MemberDao;
 import cn.lger.domain.Member;
 import cn.lger.domain.MemberGrade;
 import cn.lger.exception.IdNotFoundException;
@@ -11,16 +12,22 @@ import cn.lger.util.FileUploadUtil;
 import cn.lger.util.MemberNumberRandomUtil;
 import cn.lger.util.UUIDRandomUtil;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Code that Changed the World
@@ -30,7 +37,8 @@ import java.util.Map;
 
 @Controller
 public class MemberController {
-
+    @Resource
+    private MemberDao memberDao;
     @Resource
     private MemberService memberService;
     @Resource
@@ -43,7 +51,21 @@ public class MemberController {
     public String getAddMemberView() {
         return "addMember";
     }
+    @GetMapping("/getMember")
+    public String getMember(String id,Model model)
+    {
+        Optional<Member> users = memberDao.findById(id);
+        if(users.isPresent())
+        {
+            model.addAttribute("member",users.get());
+        }
+        return  "modifyMember";
+    }
+    @GetMapping("/modifyMember")
+    public String modifyMemberView(Member member) {
 
+        return "addMember";
+    }
     @PostMapping("/addMember")
     public String addMember(Member member, String gradeName, MultipartFile icon, Map<String, Object> model) {
         //处理上传文件
@@ -84,7 +106,17 @@ public class MemberController {
     }
 
     @GetMapping("/queryMember")
-    public String getQueryMemberView() {
+    public String getQueryMemberView(Model model, @RequestParam(defaultValue = "0",required = false) Integer pageNum) {
+        if(pageNum == null)
+            pageNum=0;
+      //  Sort sort = Sort.by(new Sort.Order(Sort.Direction.DESC,"level"));
+        Pageable page =PageRequest.of(pageNum,10);
+        Page<Member> pages=memberDao.findAll(page);
+        model.addAttribute("memberlist",pages.getContent());
+        model.addAttribute("page",pages);
+        model.addAttribute("pageNum",pageNum);
+        model.addAttribute("totalPages",pages.getTotalPages());
+        model.addAttribute("totalElements",pages.getTotalElements());
         return "queryMember";
     }
 

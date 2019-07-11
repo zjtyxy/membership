@@ -37,7 +37,7 @@ public class CommodityService {
 
     @Transactional
     public void purchaseCommodity(String memberId, String commodityId, boolean balance) {
-        Member member = memberDao.findMemberById(memberId);
+        Member member = memberDao.findById(memberId).get();
         Commodity commodity = commodityDao.findCommodityById(commodityId);
         //确保存在两个id的实体
         if (member != null && commodity != null) {
