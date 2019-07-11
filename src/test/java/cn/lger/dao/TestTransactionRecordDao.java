@@ -37,7 +37,7 @@ public class TestTransactionRecordDao {
     public void test01(){
         TransactionRecord transactionRecord = new TransactionRecord();
         transactionRecord.setCommodity(commodityDao.findCommodityById("2c9ba08b60634aab016063caa6650000"));
-        transactionRecord.setMember(memberDao.findMemberById("20171215143945448"));
+        transactionRecord.setMember(memberDao.findById("20171215143945448").get());
         transactionRecordDao.save(transactionRecord);
     }
 

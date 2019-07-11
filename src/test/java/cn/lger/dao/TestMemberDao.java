@@ -50,7 +50,7 @@ public class TestMemberDao {
 
     @Test
     public void test02(){
-        Member member = memberDao.findMemberById("123123123");
+        Member member = memberDao.findById("123123123").get();
         System.out.println(member);
     }
 
