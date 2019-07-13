@@ -2,12 +2,11 @@ package cn.lger.domain;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Code that Changed the World
@@ -30,6 +29,19 @@ public class Member implements Serializable {
     //会员等级
     @ManyToOne
     private MemberGrade memberGrade;
+
+    public Set<Progeress> getProgeresses() {
+        if(progeresses == null)
+            progeresses = new HashSet<>();
+        return progeresses;
+    }
+
+    public void setProgeresses(Set<Progeress> progeresses) {
+        this.progeresses = progeresses;
+    }
+
+    @OneToMany
+    private Set<Progeress> progeresses;
     //会员积分
     private Long memberIntegral;
     //会员余额

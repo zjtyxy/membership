@@ -1,10 +1,7 @@
 package cn.lger.controller;
 
 import cn.lger.dao.*;
-import cn.lger.domain.Commodity;
-import cn.lger.domain.Gift;
-import cn.lger.domain.Member;
-import cn.lger.domain.MemberGrade;
+import cn.lger.domain.*;
 
 import cn.lger.util.WordUtils;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -12,16 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.*;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 @RestController
 public class MiniAppController {
@@ -101,8 +93,8 @@ public class MiniAppController {
 
     }
 
-    @RequestMapping("/minapp/register")
-    public  Member userRegister(Member member)
+    @RequestMapping(value ="/minapp/register",consumes="application/json")
+    public  Member userRegister(@RequestBody Member member)
     {
         Member rst = new Member();
         Member cm =  memberDao.findMemberByOpenid(member.getOpenid());
@@ -111,7 +103,6 @@ public class MiniAppController {
             member.setId(cm.getId());
         }
         try {
-
             List<MemberGrade> list = memberGradeDao.findMemberGradeByGradeName("普通会员");
             //保证输入的会员名是存在的
             //设置会员类型
@@ -122,6 +113,13 @@ public class MiniAppController {
             member.setPassword("123456");
             BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
             member.setPassword(encoder.encode(member.getPassword()));
+            Progeress progeress = new Progeress();
+            progeress.setName("报名");
+            progeress.setStatus("accept");
+            Map<String,String> nots = new HashMap<>();
+            nots.put("报名时间：",new Date().toString());
+            progeress.setProgresNote(nots);
+            member.getProgeresses().add(progeress);
             rst  =memberDao.save(member);
         }catch (Exception e)
         {

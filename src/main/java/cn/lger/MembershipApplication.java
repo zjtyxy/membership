@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,6 +14,7 @@ import javax.servlet.MultipartConfigElement;
 
 @SpringBootApplication
 //@ServletComponentScan 去掉该注解后filter登录验证无效
+@EnableScheduling
 @Controller
 public class MembershipApplication {
 
