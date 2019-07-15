@@ -3,6 +3,7 @@ package cn.lger.web;
 import cn.lger.dao.MemberDao;
 import cn.lger.domain.Member;
 import cn.lger.domain.MemberGrade;
+import cn.lger.domain.Progeress;
 import cn.lger.exception.IdNotFoundException;
 import cn.lger.exception.IntegralNotEnoughException;
 import cn.lger.service.GiftService;
@@ -17,17 +18,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.DateUtils;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Code that Changed the World
@@ -46,7 +44,43 @@ public class MemberController {
     @Resource
     private BCryptPasswordEncoder encoder;
 
-
+    /**
+     * 审批
+     * @param memberId
+     * @param ispass
+     * @param message
+     */
+    @RequestMapping("/approveMember")
+    @ResponseBody
+    public String approveMember(String memberId,boolean ispass,String message){
+        Optional<Member> rst = memberDao.findById(memberId);
+        if (rst.isPresent()){
+            Member ds = rst.get();
+            Progeress progeress = new Progeress();
+            if(ispass) {
+                progeress.setName(Progeress.progressName[1]);
+                progeress.setStatus("pass");
+                Map<String, String> nots = new HashMap<>();
+                nots.put("审批消息：", "恭喜你报名成功，请尽快完成支付");
+                nots.put("审批时间：",DateUtils.format(new Date(),"yyyy-mm-dd HH:MM:ss",Locale.CHINA));
+                progeress.setProgresNote(nots);
+                ds.getProgeresses().put(Progeress.progressName[1],progeress);
+            }
+            else
+            {
+                progeress.setName("驳回");
+                progeress.setStatus("accept");
+                Map<String, String> nots = new HashMap<>();
+                nots.put("审批时间：", DateUtils.format(new Date(),"yyyy-mm-dd HH:MM:ss",Locale.CHINA));
+                nots.put("驳回原因：", message);
+                progeress.setProgresNote(nots);
+                ds.getProgeresses().put(Progeress.progressName[5],progeress);
+            }
+            memberDao.save(ds);
+            return "success";
+        }
+        throw new RuntimeException("MemberGrade中不存在当前的id:"+memberId);
+    }
     @GetMapping("/addMember")
     public String getAddMemberView() {
         return "addMember";

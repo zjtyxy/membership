@@ -60,10 +60,7 @@
                                         colspan="1" aria-label="Platform(s): activate to sort column ascending"
                                     >会员电话
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >会员邮箱
-                                    </th>
+
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Engine version: activate to sort column ascending"
                                     >会员生日
@@ -80,13 +77,13 @@
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
                                     >会员等级
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >性别
-                                    </th>
+
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
                                     >会员状态
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >性别
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Platform(s): activate to sort column ascending"
@@ -98,7 +95,6 @@
                                     <td th:text="${member.getId()}"></td>
                                     <td th:text="${member.getMemberName()}"></td>
                                     <td th:text="${member.getPhone()}"></td>
-                                    <td th:text="${member.getEmail()}"></td>
                                     <td th:text="${member.getBirthday()}"></td>
                                     <td th:text="${member.getMemberIntegral()}"></td>
                                     <td th:text="${member.getBalance()}"></td>
@@ -106,6 +102,8 @@
                                     <td th:text="${member.getState()}"></td>
                                     <td th:text="${member.getSex()}"></td>
                                     <td><a href="customer-details.html" th:href="@{/getMember(id=${member.getId()})}">编辑</a>
+                                        <a href="customer-details.html" th:href="@{/getMember(id=${member.getId()})}">审批</a>
+
                                     </td>
                                 </tr>
                             </table>
@@ -123,7 +121,7 @@
                                          <a  th:case="${totalPages-1}"  class="page-link"  th:href="@{/queryMember(pageNum=${totalPages-1})}">下一页</a>
                                          <a th:case="*" class="page-link"  th:href="@{/queryMember(pageNum=${pageNum+1})}">下一页</a>
                                     </li>
-                                    <li class="page-item"><a class="page-link"  th:href="@{/queryMember(pageNum=${totalPages-1})}">尾页</a></li>
+                                    <li class="page-item"><a class="page-link"  th:href="@{queryMember(pageNum=${totalPages-1})}">尾页</a></li>
 
                                 </ul>
                             </div>

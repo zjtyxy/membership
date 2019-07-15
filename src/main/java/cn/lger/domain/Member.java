@@ -5,7 +5,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -30,18 +32,18 @@ public class Member implements Serializable {
     @ManyToOne
     private MemberGrade memberGrade;
 
-    public Set<Progeress> getProgeresses() {
+    public Map<String,Progeress> getProgeresses() {
         if(progeresses == null)
-            progeresses = new HashSet<>();
+            progeresses = new HashMap<>();
         return progeresses;
     }
 
-    public void setProgeresses(Set<Progeress> progeresses) {
+    public void setProgeresses(Map<String,Progeress> progeresses) {
         this.progeresses = progeresses;
     }
 
-    @OneToMany
-    private Set<Progeress> progeresses;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Map<String,Progeress> progeresses;
     //会员积分
     private Long memberIntegral;
     //会员余额

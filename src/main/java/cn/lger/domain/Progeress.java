@@ -6,6 +6,8 @@ import java.util.Map;
 @Entity
 
 public class Progeress {
+
+    final static public String[] progressName = new String []{"报名","报名审核","付款","证书制作","完成报名","驳回"};
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

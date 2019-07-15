@@ -2,6 +2,7 @@ package cn.lger.service;
 
 import cn.lger.dao.MemberDao;
 import cn.lger.domain.Member;
+import cn.lger.domain.Progeress;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Code that Changed the World
@@ -31,6 +30,8 @@ public class MemberService {
     public Member findMemberById(String id){
         return memberDao.findById(id).get();
     }
+
+
 
     public Page<Member> findMembers(Integer currentPage){
         if (currentPage == null){

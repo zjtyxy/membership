@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.DateUtils;
+
 import javax.annotation.Resource;
 import java.io.*;
 import java.util.*;
@@ -34,7 +36,8 @@ public class MiniAppController {
     @RequestMapping("/minapp/findMemberByOpenid")
     public  Member userRegister(String openid)
     {
-        return  memberDao.findMemberByOpenid(openid);
+        Member rst =  memberDao.findMemberByOpenid(openid);
+        return  rst;
     }
     @RequestMapping(value = "/minapp/exportWord")
     public void exportWord(String memberid,String tempplteName)  {
@@ -117,9 +120,9 @@ public class MiniAppController {
             progeress.setName("报名");
             progeress.setStatus("accept");
             Map<String,String> nots = new HashMap<>();
-            nots.put("报名时间：",new Date().toString());
+            nots.put("报名时间：",DateUtils.format(new Date(),"yyyy-mm-dd HH:MM:ss",Locale.CHINA));
             progeress.setProgresNote(nots);
-            member.getProgeresses().add(progeress);
+            member.getProgeresses().put(Progeress.progressName[0],progeress);
             rst  =memberDao.save(member);
         }catch (Exception e)
         {
