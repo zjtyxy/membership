@@ -51,6 +51,26 @@ public class Member implements Serializable {
     //会员状态 挂失、停用、正常
     private String state;
 
+   @Transient
+    public String getApprovedState()
+    {
+        String rst = null;
+        if(this.getProgeresses().get(Progeress.progressName[5])!=null)
+        {
+          return Progeress.progressName[5];
+        }
+        else {
+            for (String pa : Progeress.progressName) {
+                Progeress pg = this.getProgeresses().get(pa);
+                if (pg == null ) {
+                    return pa;
+                }
+            }
+        }
+        return Progeress.progressName[4];
+    }
+
+
 
     private String openid;// 微信用户唯一标示
     private String memberName;
