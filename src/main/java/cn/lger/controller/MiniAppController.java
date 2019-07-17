@@ -3,8 +3,10 @@ package cn.lger.controller;
 import cn.lger.dao.*;
 import cn.lger.domain.*;
 
+import cn.lger.service.WXPayService;
 import cn.lger.util.WordUtils;
 import com.github.wxpay.sdk.MyPayConfig;
+import com.github.wxpay.sdk.WXPay;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,8 @@ public class MiniAppController {
 
     private  static  String  uploadImagePath="d:/upload/images/";
     private  static  String  wordTempltePath="c:/templte/word/";
+    @Resource
+    WXPayService wXPayService;
 
     @Resource
     private MemberDao memberDao;
@@ -40,8 +44,13 @@ public class MiniAppController {
     @RequestMapping("/minapp/findMemberByOpenid")
     public  Member userRegister(String openid)
     {
-        MyPayConfig dd = MyPayConfig.getInstance();
         Member rst =  memberDao.findMemberByOpenid(openid);
+        return  rst;
+    }
+    @RequestMapping("/minapp/findOrder")
+    public  Order findOrder(String id)
+    {
+        Order rst =  orderDao.findById(id).get();
         return  rst;
     }
     @RequestMapping(value = "/minapp/exportWord")
@@ -111,7 +120,7 @@ public class MiniAppController {
             member.setId(cm.getId());
         }
         try {
-            List<MemberGrade> list = memberGradeDao.findMemberGradeByGradeName("普通会员");
+            List<MemberGrade> list = memberGradeDao.findByGradeName("普通会员");
             //保证输入的会员名是存在的
             //设置会员类型
             member.setMemberGrade(list.get(0));
@@ -135,9 +144,16 @@ public class MiniAppController {
         }
         return rst;
     }
-    @RequestMapping("/minapp/addorder")
+
+    /**
+     * 支付下单
+     * @param order
+     * @return
+     */
+    @RequestMapping("/minapp/unifiedorder")
     public String  addOrder(@RequestBody Order order) {
        try {
+
            orderDao.save(order);
            return  "success";
        }catch (Exception e)

@@ -22,12 +22,12 @@ public class MemberGradeService {
     @Resource
     private MemberGradeDao memberGradeDao;
 
-    public List<MemberGrade> findAll(){
+    public Iterable<MemberGrade> findAll(){
         return memberGradeDao.findAll();
     }
 
-    public List<MemberGrade> findMemberGradeByGradeName(String name){
-        return memberGradeDao.findMemberGradeByGradeName(name);
+    public Iterable<MemberGrade> findMemberGradeByGradeName(String name){
+        return memberGradeDao.findByGradeName(name);
     }
 
     public Page<MemberGrade> findAll(Integer currentPage){
@@ -37,7 +37,7 @@ public class MemberGradeService {
 
     @Transactional
     public void updateMemberGrade(MemberGrade memberGrade){
-        if (memberGradeDao.findMemberGradeById(memberGrade.getId())!=null){
+        if (!memberGradeDao.findById(memberGrade.getId()).isPresent()){
             memberGradeDao.save(memberGrade);
             return;
         }

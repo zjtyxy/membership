@@ -1,14 +1,18 @@
 package cn.lger.web;
 
 import cn.lger.dao.MemberDao;
+import cn.lger.dao.MemberGradeDao;
+import cn.lger.dao.OrderDao;
 import cn.lger.domain.Member;
 import cn.lger.domain.MemberGrade;
+import cn.lger.domain.Order;
 import cn.lger.domain.Progeress;
 import cn.lger.exception.IdNotFoundException;
 import cn.lger.exception.IntegralNotEnoughException;
 import cn.lger.service.GiftService;
 import cn.lger.service.MemberGradeService;
 import cn.lger.service.MemberService;
+import cn.lger.service.WXPayService;
 import cn.lger.util.FileUploadUtil;
 import cn.lger.util.MemberNumberRandomUtil;
 import cn.lger.util.UUIDRandomUtil;
@@ -36,14 +40,19 @@ import java.util.*;
 @Controller
 public class MemberController {
     @Resource
+    OrderDao orderDao;
+    @Resource
     private MemberDao memberDao;
+    @Resource
+    private MemberGradeDao memberGradeDao;
     @Resource
     private MemberService memberService;
     @Resource
     private MemberGradeService memberGradeService;
     @Resource
     private BCryptPasswordEncoder encoder;
-
+    @Resource
+    WXPayService wXPayService;
     /**
      * 审批
      * @param memberId
@@ -58,13 +67,21 @@ public class MemberController {
             Member ds = rst.get();
             Progeress progeress = new Progeress();
             if(ispass) {
-                progeress.setName(Progeress.progressName[1]);
-                progeress.setStatus("pass");
-                Map<String, String> nots = new HashMap<>();
-                nots.put("审批消息：", "恭喜你报名成功，请尽快完成支付");
-                nots.put("审批时间：",DateUtils.format(new Date(),"yyyy-mm-dd HH:MM:ss",Locale.CHINA));
-                progeress.setProgresNote(nots);
-                ds.getProgeresses().put(Progeress.progressName[1],progeress);
+                Order order = wXPayService.unifiedOrder(ds.getOpenid(),ds.getShenfenzheng()+new Date().getYear()+"m","会费支付",10);
+                if(order!=null)
+                {
+                    orderDao.save(order);
+                    progeress.setName(Progeress.progressName[1]);
+                    progeress.setStatus("pass");
+                    Map<String, String> nots = new HashMap<>();
+                    nots.put("审批消息：", "恭喜你报名成功，请尽快完成支付");
+                    nots.put("审批时间：",DateUtils.format(new Date(),"yyyy-mm-dd HH:MM:ss",Locale.CHINA));
+                    nots.put("订单号：",order.getId());
+                    progeress.setProgresNote(nots);
+                    ds.getProgeresses().put(Progeress.progressName[1],progeress);
+                    memberDao.save(ds);
+                }
+
             }
             else
             {
@@ -75,8 +92,9 @@ public class MemberController {
                 nots.put("驳回原因：", message);
                 progeress.setProgresNote(nots);
                 ds.getProgeresses().put(Progeress.progressName[5],progeress);
+                memberDao.save(ds);
             }
-            memberDao.save(ds);
+
             return "success";
         }
         throw new RuntimeException("MemberGrade中不存在当前的id:"+memberId);
@@ -116,7 +134,7 @@ public class MemberController {
         }
        // member.setId(MemberNumberRandomUtil.randomMemberNumber());
         //通过会员等级名获取会员类型
-        List<MemberGrade> list = memberGradeService.findMemberGradeByGradeName(gradeName);
+        List<MemberGrade> list = memberGradeDao.findByGradeName(gradeName);
         //保证输入的会员名是存在的
         if (list.get(0) == null)
             return "error";
@@ -135,8 +153,8 @@ public class MemberController {
 
     @GetMapping("/getGrade")
     @ResponseBody
-    public List<MemberGrade> getGrade() {
-        return memberGradeService.findAll();
+    public Iterable<MemberGrade> getGrade() {
+        return memberGradeDao.findAll();
     }
 
     @GetMapping("/queryMember")

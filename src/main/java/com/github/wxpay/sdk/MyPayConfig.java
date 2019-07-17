@@ -75,6 +75,16 @@ public class MyPayConfig extends WXPayConfig {
 
     @Override
     protected IWXPayDomain getWXPayDomain() {
-        return null;
+        IWXPayDomain iwxPayDomain = new IWXPayDomain() {
+            public void report(String domain, long elapsedTimeMillis, Exception ex) {
+
+            }
+            public DomainInfo getDomain(WXPayConfig config) {
+                return new IWXPayDomain.DomainInfo(WXPayConstants.DOMAIN_API, true);
+            }
+        };
+        return iwxPayDomain;
+
     }
+
 }

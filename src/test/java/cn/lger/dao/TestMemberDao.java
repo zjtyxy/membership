@@ -26,27 +26,6 @@ public class TestMemberDao {
     @Resource
     private MemberGradeDao memberGradeDao;
 
-    /**
-     * 测试会员保存
-     */
-    @Test
-    public void test01(){
-        Member member = new Member();
-        member.setId("123123123");
-        member.setBalance((float) 123.0);
-        member.setSex("男");
-        member.setBirthday(LocalDate.now().toString());
-        member.setIconPath("/assets/icon/01.jpg");
-        MemberGrade memberGrade = memberGradeDao.findMemberGradeById(1);
-        member.setMemberGrade(memberGrade);
-        member.setPassword("123");
-        member.setPhone("122222222");
-        member.setState("正常");
-        member.setMemberName("sdhfhsdf");
-        member.setMemberIntegral(123L);
-
-        System.out.println(memberDao.save(member));
-    }
 
     @Test
     public void test02(){
