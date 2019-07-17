@@ -4,7 +4,9 @@ import cn.lger.dao.*;
 import cn.lger.domain.*;
 
 import cn.lger.util.WordUtils;
+import com.github.wxpay.sdk.MyPayConfig;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,8 @@ public class MiniAppController {
     @Resource
     private MemberDao memberDao;
     @Resource
+    private OrderDao orderDao;
+    @Resource
     private CommodityDao commodityDao;
     @Resource
     private GiftDao giftDao;
@@ -36,6 +40,7 @@ public class MiniAppController {
     @RequestMapping("/minapp/findMemberByOpenid")
     public  Member userRegister(String openid)
     {
+        MyPayConfig dd = MyPayConfig.getInstance();
         Member rst =  memberDao.findMemberByOpenid(openid);
         return  rst;
     }
@@ -129,6 +134,28 @@ public class MiniAppController {
             e.printStackTrace();
         }
         return rst;
+    }
+    @RequestMapping("/minapp/addorder")
+    public String  addOrder(@RequestBody Order order) {
+       try {
+           orderDao.save(order);
+           return  "success";
+       }catch (Exception e)
+       {
+
+       }
+        return "fail";
+    }
+    @RequestMapping("/minapp/getorder")
+    public Order  gerOrder(String orderid) {
+        try {
+            return  orderDao.findById(orderid).get();
+
+        }catch (Exception e)
+        {
+
+        }
+        return null;
     }
     @RequestMapping("/minapp/member")
     public Page<Member> findMember(Integer currentPage) {

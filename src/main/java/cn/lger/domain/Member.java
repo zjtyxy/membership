@@ -87,6 +87,15 @@ public class Member implements Serializable {
     private String zhengzhimianmao;
     private String sex;
     private LocalDate birthday;
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
     private String minzu;
     private String shenfenzheng;
     private String xueli;
@@ -117,9 +126,7 @@ public class Member implements Serializable {
         this.zhengzhimianmao = zhengzhimianmao;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
+
 
     public String getMinzu() {
         return minzu;
@@ -257,13 +264,6 @@ public class Member implements Serializable {
         this.phone = phone;
     }
 
-    public String getBirthday() {
-        return birthday.toString();
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = LocalDate.parse(birthday);
-    }
 
     public String getSex() {
         return sex;
@@ -305,9 +305,7 @@ public class Member implements Serializable {
         this.state = state;
     }
 
-    public LocalDate getLocalDate(){
-        return this.birthday;
-    }
+
 
     @Override
     public String toString() {

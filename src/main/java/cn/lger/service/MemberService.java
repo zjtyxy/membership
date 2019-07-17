@@ -95,7 +95,7 @@ public class MemberService {
         int month = LocalDate.now().getMonthValue();
         int day = LocalDate.now().getDayOfMonth();
         for (Member m: members) {
-            if (m.getLocalDate().getMonthValue() == month && m.getLocalDate().getDayOfMonth() == day)
+            if (m.getBirthday().getMonthValue() == month && m.getBirthday().getDayOfMonth() == day)
                 email.add(m.getEmail());
         }
         return email;
