@@ -11,13 +11,13 @@ public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    //主题name
+    //活动名称
     private String name;
-    //主题图片url
+    //活动图片url
     private String url;
-    //主题图片跳转详情地址
+    //活动图片详情
     private String link;
-    //详情中title
+    //详情标题
     private String title;
     //详情中发布人
     private String userName;

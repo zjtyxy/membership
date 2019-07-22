@@ -11,7 +11,7 @@ public class Market  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    //商品name
+    //商品名称
     private String name;
     //商品图片地址
     private String url;
@@ -43,8 +43,6 @@ public class Market  {
     public void setDetailImgs(String[] detailImgs) {
         this.detailImgs = detailImgs;
     }
-
-
 
     public void setImgsUrl(String[] imgsUrl) {
         this.imgsUrl = imgsUrl;

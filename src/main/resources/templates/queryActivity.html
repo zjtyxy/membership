@@ -44,40 +44,40 @@
                                 <tr role="row">
                                     <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Rendering engine: activate to sort column ascending"
-                                        aria-sort="ascending">会员账号
+                                        aria-sort="ascending">活动名称
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Browser: activate to sort column ascending"
-                                    >会员名
+                                    >活动图片
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Platform(s): activate to sort column ascending"
-                                    >会员电话
+                                    >图片详情
                                     </th>
 
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Engine version: activate to sort column ascending"
-                                    >会员生日
+                                    >详情名称
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >会员积分
+                                    >发布人
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >会员余额
+                                    >发布时间
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >会员等级
+                                    >文字介绍
                                     </th>
 
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >会员状态
+                                    >详情图片集
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >性别
+                                    >文字介绍
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Platform(s): activate to sort column ascending"
@@ -88,15 +88,16 @@
                                 <tr th:each="entity,userStat : ${entitylist}">
                                     <td th:text="${entity.getId()}"></td>
                                     <td th:text="${entity.getName()}"></td>
+                                    <td th:text="${entity.getUrl() }"></td>
+                                    <td th:text="${entity.getLink() }"></td>
+                                    <td th:text="${entity.getTitle()}"></td>
                                     <td th:text="${entity.getUserName()}"></td>
                                     <td th:text="${entity.getUserDate()}"></td>
-                                    <td th:text="${entity.getTitle()}"></td>
                                     <td th:text="${entity.getText()}"></td>
-                                    <td th:text="${entity.getLink()}"></td>
-                                    <td th:text="${entity.getUrl()}"></td>
+                                    <td th:text="${entity.getImgsUrl()}"></td>
                                     <td th:text="${entity.getInfo()}"></td>
-                                    <td><a href="customer-details.html" th:href="@{/getMember(id=${entity.getId()})}">编辑</a>
-                                        <a href="customer-details.html" th:href="@{/getMember(id=${entity.getId()})}">审批</a>
+                                    <td><a href="customer-details.html" th:href="@{/getActivity(id=${entity.getId()})}">编辑</a>
+                                        <a href="customer-details.html" th:href="@{/getActivity(id=${entity.getId()})}">审批</a>
 
                                     </td>
                                 </tr>
