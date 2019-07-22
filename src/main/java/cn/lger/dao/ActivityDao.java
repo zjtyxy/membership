@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ActivityDao extends JpaRepository<Activity, String> {
+public interface ActivityDao extends JpaRepository<Activity, Integer> {
 
     @Query("select m from Activity m where m.name = ?1")
     Page<Activity> findAllByActivityName(String name, Pageable pageable);

@@ -57,7 +57,7 @@ public class MiniAppController {
     }
 
     @RequestMapping("/minapp/findActivity")
-    public  Activity findActivity(String id)
+    public  Activity findActivity(Integer id)
     {
         Activity rst =  activityDao.findById(id).get();
         return  rst;

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>活动页面</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection"/>
+    <!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
+    <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet"/>
+    <!-- Morris Chart Styles-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet"/>
+    <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    <div th:replace="title :: html"></div>
+    <!--侧边栏-->
+    <div th:replace="sidebar :: html"></div>
+    <!--内容主体-->
+    <div id="page-wrapper">
+        <!--内容主题-->
+        <div class="header">
+            <h1 class="page-header">
+                活动详情
+            </h1>
+        </div>
+        <div id="page-inner">
+            <!--自定义内容-->
+            <!--<div class="container">-->
+            <div class="card">
+                <div class="card-content">
+                    <form th:action="@{/modifyActivity}" method="post" id="modifyActivity" th:object="${entity}"  >
+                        <input placeholder="会员名" id="memberName" type="hidden" class="validate" name="id" th:value="*{getId()}"
+                               required/>
+                        <div class="row">
+                            <div class="file-path-wrapper">
+                                <img id="myimg" th:src="*{getImgsUrl()}" class="img-responsive img-thumbnail"
+                                     style="width: 20%;height: 20%"/>
+                            </div>
+                        </div>
+                        <div class="row">
+
+
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="phone">活动名称</label>
+                                <input id="phone" name="name" type="tel" class="validate" placeholder="活动名称"  th:value="*{getName()}" required/>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="zhiwu">图片链接</label>
+                                <input placeholder="职务" id="zhiwu" type="text" class="validate" name="url" th:value="*{getUrl()}" required/>
+
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="zhengzhimianmao">主题链接</label>
+                                <input id="zhengzhimianmao" name="link" type="text" class="validate"
+                                       placeholder="政治面貌" th:value="*{getLink()}" required/>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="memberName">主题名称</label>
+                                <input placeholder="民族" id="minzu" type="text" class="validate" name="title" th:value="*{getTitle()}" required/>
+
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="shenfenzheng">发布者</label>
+                                <input id="shenfenzheng" name="userName" type="text" class="validate" th:value="*{getUserName()}"
+                                       placeholder="身份证号" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="userDate">发布时间</label>
+                                <input placeholder="发布时间" id="userDate" type="text" class="validate"
+                                       name="userDate" th:value="*{getUserDate()}" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="jiankangzhuangkuang">详情描述</label>
+                                <input id="jiankangzhuangkuang" name="text" type="text" class="validate"
+                                       placeholder="健康状况" th:value="*{getText()}" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="email">信息</label>
+                                <input id="email" name="info" type="text" class="validate" th:value="*{getInfo()}" placeholder="info" required/>
+
+                            </div>
+
+                        </div>
+
+
+                       <div class="row">
+                           <button onclick="submitForm()" class="waves-effect waves-light btn" type="button" >确认修改</button>
+                       </div>
+                    </form>
+
+                    <div class="clearBoth"></div>
+                </div>
+                <!--</div>-->
+            </div>
+            <!--页脚-->
+            <br>
+            <br>
+            <br>
+            <div th:replace="footer :: html"></div>
+        </div>
+
+    </div>
+</div>
+
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<script src="assets/js/jquery-1.10.2.js"></script>
+
+<!-- Bootstrap Js -->
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script src="assets/materialize/js/materialize.min.js"></script>
+
+<!-- Metis Menu Js -->
+<script src="assets/js/jquery.metisMenu.js"></script>
+
+<script src="assets/js/easypiechart.js"></script>
+<script src="assets/js/easypiechart-data.js"></script>
+
+<script src="assets/js/Lightweight-Chart/jquery.chart.js"></script>
+
+<!-- Custom Js -->
+<script src="assets/js/custom-scripts.js"></script>
+
+<script>
+    function submitForm() {
+        $('#modifyActivity').submit();
+    }
+
+</script>
+</body>
+
+</html>

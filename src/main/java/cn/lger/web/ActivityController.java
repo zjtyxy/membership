@@ -7,10 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Optional;
@@ -63,25 +60,33 @@ public class ActivityController {
         return activityDao.findAllByActivityName(activityName, pageable);
     }
 
-    @GetMapping("/getActivity")
-    public String getActivity(String id,Model model)
-    {
-        Optional<Activity> users = activityDao.findById(id);
-        if(users.isPresent())
+    /**
+     * 修改新建都调用这个方法，修改时要带参数id
+     * @param model
+     * @param activity
+     * @return
+     */
+    @RequestMapping("/addActivity")
+    public String addActivity(Model model, Activity activity){
+        Activity rst = activity;
+        if(activity.getId()!=null)
         {
-            model.addAttribute("activity",users.get());
+            rst =  activityDao.findById(activity.getId()).get();
         }
-        return  "modifyActivity";
+        model.addAttribute("entity",rst);
+        return "modifyActivity";
     }
 
-    @GetMapping("/modifyActivity")
-    public String modifyActivityView(Activity activity) {
-
-        return "addActivity";
-    }
-
-    @GetMapping("/addActivity")
-    public String getAddActivityView(){
-        return "success";
+    /**
+     * 修改或者添加提交调用
+     * @param model
+     * @param activity
+     * @return
+     */
+    @RequestMapping("/modifyActivity")
+    public String modifyActivity(Model model,Activity activity) {
+        activityDao.save(activity);
+        model.addAttribute("entity",activity);
+        return "redirect:queryActivity";
     }
 }
