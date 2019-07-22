@@ -37,10 +37,32 @@ public class MiniAppController {
     private CommodityDao commodityDao;
     @Resource
     private GiftDao giftDao;
+
+    @Resource
+    private MarketDao marketDao;
+
+    @Resource
+    private ActivityDao activityDao;
+
     //@Resource
     //private BCryptPasswordEncoder encoder;
     @Resource
     private MemberGradeDao memberGradeDao;
+
+    @RequestMapping("/minapp/findMarket")
+    public  Market findMarket(String openid)
+    {
+        Market rst =  marketDao.findById(openid).get();
+        return  rst;
+    }
+
+    @RequestMapping("/minapp/findActivity")
+    public  Activity findActivity(String id)
+    {
+        Activity rst =  activityDao.findById(id).get();
+        return  rst;
+    }
+
     @RequestMapping("/minapp/findMemberByOpenid")
     public  Member userRegister(String openid)
     {
@@ -189,6 +211,26 @@ public class MiniAppController {
         }
         Pageable pageable = new PageRequest(currentPage, 3);
         Page<Gift> rs = giftDao.findAll(pageable);
+        return rs;
+    }
+
+//    @RequestMapping("/minapp/Activity")
+//    public Page<Activity> findActivity(Integer currentPage) {
+//        if (currentPage == null) {
+//            currentPage = 0;
+//        }
+//        Pageable pageable = new PageRequest(currentPage, 3);
+//        Page<Activity> rs = activityDao.findAll(pageable);
+//        return rs;
+//    }
+
+    @RequestMapping("/minapp/Market")
+    public Page<Market> findMarket(Integer currentPage) {
+        if (currentPage == null) {
+            currentPage = 0;
+        }
+        Pageable pageable = new PageRequest(currentPage, 3);
+        Page<Market> rs = marketDao.findAll(pageable);
         return rs;
     }
 
