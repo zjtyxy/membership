@@ -95,8 +95,8 @@
                                     <td th:text="${entity.getLink()}"></td>
                                     <td th:text="${entity.getUrl()}"></td>
                                     <td th:text="${entity.getInfo()}"></td>
-                                    <td><a href="customer-details.html" th:href="@{/getMember(id=${entity.getId()})}">编辑</a>
-                                        <a href="customer-details.html" th:href="@{/getMember(id=${entity.getId()})}">审批</a>
+                                    <td><a href="customer-details.html" th:href="@{/addActivity(id=${entity.getId()})}">编辑</a>
+                                        <a href="customer-details.html" th:href="@{/addActivity(id=${entity.getId()})}">删除</a>
 
                                     </td>
                                 </tr>
