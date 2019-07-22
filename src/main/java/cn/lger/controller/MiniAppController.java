@@ -37,33 +37,32 @@ public class MiniAppController {
     private CommodityDao commodityDao;
     @Resource
     private GiftDao giftDao;
+
+    @Resource
+    private MarketDao marketDao;
+
+    @Resource
+    private ActivityDao activityDao;
+
     //@Resource
     //private BCryptPasswordEncoder encoder;
     @Resource
     private MemberGradeDao memberGradeDao;
 
-    /**
-     * 会费支付完成后调用，进入证书制作流程，实质上已完成报名的所有程序，
-     * 可以享受到会员所有的权益
-     * @param openid
-     * @return
-     */
-    @RequestMapping("/minapp/paySuccess")
-    public  Member paySuccess(String openid)
+    @RequestMapping("/minapp/findMarket")
+    public  Market findMarket(String openid)
     {
-        Member rst =  memberDao.findMemberByOpenid(openid);
-        if(rst == null) return new Member();
-        Progeress progeress = new Progeress();
-        progeress.setName(Progeress.progressName[3]);
-        progeress.setStatus("accept");
-        Map<String,String> nots = new HashMap<>();
-        nots.put("支付时间：",DateUtils.format(new Date(),"yyyy-mm-dd HH:MM:ss",Locale.CHINA));
-        nots.put("消息：","证书制作完会第一时间通知您");
-        progeress.setProgresNote(nots);
-        rst.getProgeresses().put(Progeress.progressName[3],progeress);
-        rst  =memberDao.save(rst);
+        Market rst =  marketDao.findById(openid).get();
         return  rst;
     }
+
+    @RequestMapping("/minapp/findActivity")
+    public  Activity findActivity(String id)
+    {
+        Activity rst =  activityDao.findById(id).get();
+        return  rst;
+    }
+
     @RequestMapping("/minapp/findMemberByOpenid")
     public  Member userRegister(String openid)
     {
@@ -212,6 +211,26 @@ public class MiniAppController {
         }
         Pageable pageable = new PageRequest(currentPage, 3);
         Page<Gift> rs = giftDao.findAll(pageable);
+        return rs;
+    }
+
+//    @RequestMapping("/minapp/Activity")
+//    public Page<Activity> findActivity(Integer currentPage) {
+//        if (currentPage == null) {
+//            currentPage = 0;
+//        }
+//        Pageable pageable = new PageRequest(currentPage, 3);
+//        Page<Activity> rs = activityDao.findAll(pageable);
+//        return rs;
+//    }
+
+    @RequestMapping("/minapp/Market")
+    public Page<Market> findMarket(Integer currentPage) {
+        if (currentPage == null) {
+            currentPage = 0;
+        }
+        Pageable pageable = new PageRequest(currentPage, 3);
+        Page<Market> rs = marketDao.findAll(pageable);
         return rs;
     }
 
