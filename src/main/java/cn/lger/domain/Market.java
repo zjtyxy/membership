@@ -11,17 +11,40 @@ public class Market  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    //商品name
     private String name;
-    private String normalPrice;
-    private String discountPrice;
+    //商品图片地址
     private String url;
+    //商品图片跳转地址
     private String link;
+    //商品折扣价格
+    private String discountPrice;
+    //商品原价
+    private String normalPrice;
+    //商品全称
     private String title;
-    private String userName;
-    private String userDate;
+    //商品轮播图片
+    private String[]  imgsUrl;
+//    private String userName;
+//    private String userDate;
+    //商品规格
     private String value;
+    //商品数量
     private String num;
+    //商品文字介绍
     private String info;
+    //商品图片介绍
+    private String[]  detailImgs;
+
+    public String[] getDetailImgs() {
+        return detailImgs;
+    }
+
+    public void setDetailImgs(String[] detailImgs) {
+        this.detailImgs = detailImgs;
+    }
+
+
 
     public void setImgsUrl(String[] imgsUrl) {
         this.imgsUrl = imgsUrl;
@@ -30,8 +53,6 @@ public class Market  {
     public String[] getImgsUrl() {
         return imgsUrl;
     }
-
-    private String[]  imgsUrl;
 
     public Integer getId() {
         return id;
@@ -89,21 +110,21 @@ public class Market  {
         this.title = title;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserDate() {
-        return userDate;
-    }
-
-    public void setUserDate(String userDate) {
-        this.userDate = userDate;
-    }
+//    public String getUserName() {
+//        return userName;
+//    }
+//
+//    public void setUserName(String userName) {
+//        this.userName = userName;
+//    }
+//
+//    public String getUserDate() {
+//        return userDate;
+//    }
+//
+//    public void setUserDate(String userDate) {
+//        this.userDate = userDate;
+//    }
 
     public String getValue() {
         return value;

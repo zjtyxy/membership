@@ -11,15 +11,33 @@ public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    //主题name
     private String name;
+    //主题图片url
     private String url;
+    //主题图片跳转详情地址
     private String link;
+    //详情中title
     private String title;
+    //详情中发布人
     private String userName;
+    //详情中发布时间
     private String userDate;
+    //详情中文字介绍
     private String text;
-//    private String imgsUrl;
+    //详情中所有图片链接
+    private String imgsUrl;
+    //详情中文字介绍
     private String info;
+
+
+    public String getImgsUrl() {
+        return imgsUrl;
+    }
+
+    public void setImgsUrl(String imgsUrl) {
+        this.imgsUrl = imgsUrl;
+    }
 
     public Integer getId() {
         return id;
