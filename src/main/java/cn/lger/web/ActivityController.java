@@ -2,6 +2,7 @@ package cn.lger.web;
 
 import cn.lger.dao.ActivityDao;
 import cn.lger.domain.Activity;
+import cn.lger.domain.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +19,7 @@ public class ActivityController {
     @Resource
     private ActivityDao activityDao;
 
-    @GetMapping("/queryActivity")
+    @RequestMapping("/queryActivity")
     public String getQueryActivityView(Model model, @RequestParam(defaultValue = "0",required = false) Integer pageNum) {
         if(pageNum == null)
             pageNum=0;
@@ -88,5 +89,23 @@ public class ActivityController {
         activityDao.save(activity);
         model.addAttribute("entity",activity);
         return "redirect:queryActivity";
+    }
+
+    /**
+     * 删除指定的活动
+     * @param id
+     * @return
+     */
+    @RequestMapping("/deleteActivity")
+    @ResponseBody
+    public String deleteActivity(Integer id) {
+
+        Optional<Activity> rst = activityDao.findById(id);
+        if(rst.isPresent())
+        {
+            activityDao.deleteById(id);
+            return  "success";
+        }
+      return "fail";
     }
 }
