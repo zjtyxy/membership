@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>商品页面</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection"/>
+    <!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
+    <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet"/>
+    <!-- Morris Chart Styles-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet"/>
+    <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    <div th:replace="title :: html"></div>
+    <!--侧边栏-->
+    <div th:replace="sidebar :: html"></div>
+    <!--内容主体-->
+    <div id="page-wrapper">
+        <!--内容主题-->
+        <div class="header">
+            <h1 class="page-header">
+                添加商品
+            </h1>
+        </div>
+        <div id="page-inner">
+            <!--自定义内容-->
+            <!--<div class="container">-->
+            <div class="card">
+                <div class="card-content">
+                    <form th:action="@{/modifyMarket}" method="post" id="modifyMarket" th:object="${entity}"  >
+                        <input id="idx" name="id" type="hidden" class="validate" th:value="*{getId()}" required/>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="name">商品名称</label>
+                                <input id="name" name="name" type="text" class="validate" placeholder="商品名称"  th:value="*{getName()}" required/>
+
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url">商品图片</label>
+                                <input placeholder="商品图片" id="url" type="text" class="validate" name="url" th:value="*{getUrl()}" required/>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="link">详情地址</label>
+                                <input id="link" name="link" type="text" class="validate"
+                                       placeholder="详情地址" th:value="*{getLink()}" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="title">详情标题</label>
+                                <input placeholder="详情标题" id="title" type="text" class="validate" name="title" th:value="*{getTitle()}" required/>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="imgsUrl">商品轮播集</label>
+                                <input id="imgsUrl" name="info" type="text" class="validate" th:value="*{getImgsUrl()}" placeholder="商品轮播集" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="normalPrice">商品正价</label>
+                                <input id="normalPrice" name="normalPrice" type="text" class="validate" th:value="*{getNormalPrice()}"
+                                       placeholder="商品正价" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="discountPrice">商品折扣价</label>
+                                <input placeholder="商品折扣价" id="discountPrice" type="text" class="validate"
+                                       name="discountPrice" th:value="*{getDiscountPrice()}" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="value">商品规格</label>
+                                <input id="value" name="value" type="text" class="validate"
+                                       placeholder="商品规格" th:value="*{getValue()}" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="num">商品数量</label>
+                                <input id="num" name="num" type="text" class="validate" th:value="*{getNum()}" placeholder="详情图片集" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="info">详情介绍</label>
+                                <input id="info" name="info" type="text" class="validate" th:value="*{getInfo()}" placeholder="详情介绍" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="detailImgs">详情图片集</label>
+                                <input id="detailImgs" name="detailImgs" type="text" class="validate"
+                                       placeholder="详情图片集" th:value="*{getDetailImgs()}" required/>
+                            </div>
+                        </div>
+                       <div class="row">
+                           <button onclick="submitForm()" class="waves-effect waves-light btn" type="button" >确认修改</button>
+                       </div>
+                    </form>
+
+                    <div class="clearBoth"></div>
+                </div>
+                <!--</div>-->
+            </div>
+            <!--页脚-->
+            <br>
+            <br>
+            <br>
+            <div th:replace="footer :: html"></div>
+        </div>
+
+    </div>
+</div>
+
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<script src="assets/js/jquery-1.10.2.js"></script>
+
+<!-- Bootstrap Js -->
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script src="assets/materialize/js/materialize.min.js"></script>
+
+<!-- Metis Menu Js -->
+<script src="assets/js/jquery.metisMenu.js"></script>
+
+<script src="assets/js/easypiechart.js"></script>
+<script src="assets/js/easypiechart-data.js"></script>
+
+<script src="assets/js/Lightweight-Chart/jquery.chart.js"></script>
+
+<!-- Custom Js -->
+<script src="assets/js/custom-scripts.js"></script>
+
+<script>
+    function submitForm() {
+        $('#modifyMarket').submit();
+    }
+
+</script>
+</body>
+
+</html>
