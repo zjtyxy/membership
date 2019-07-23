@@ -39,10 +39,11 @@
             <div class="card">
                 <div class="card-content">
                     <form th:action="@{/modifyActivity}" method="post" id="modifyActivity" th:object="${entity}"  >
+                        <input id="idx" name="id" type="hidden" class="validate" th:value="*{getId()}" required/>
                         <div class="row">
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
                                 <label for="name">活动名称</label>
-                                <input id="name" name="name" type="tel" class="validate" placeholder="活动名称"  th:value="*{getName()}" required/>
+                                <input id="name" name="name" type="text" class="validate" placeholder="活动名称"  th:value="*{getName()}" required/>
 
                             </div>
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
