@@ -108,9 +108,9 @@
                                     <td th:text="${entity.getNum()}"></td>
                                     <td th:text="${entity.getInfo()}"></td>
                                     <td th:text="${entity.getImgsUrl()}"></td>
-                                    <td><a href="customer-details.html" th:href="@{/addMarket(id=${entity.getId()})}">编辑</a>
-                                        <a href="customer-details.html" th:href="@{/deleteMarket(id=${entity.getId()})}">删除</a>
-
+                                    <td><a th:href="@{/addMarket(id=${entity.getId()})}">编辑</a>
+<!--                                        <a th:href="@{/deleteMarket(id=${entity.getId()})}">删除</a>-->
+                                        <button  th:onclick="deleteMarket([[${entity.getId()}]])">删除</button>
                                     </td>
                                 </tr>
                             </table>
@@ -142,7 +142,24 @@
 
     </div>
 </div>
-
+<script src="assets/js/jquery-1.10.2.js"></script>
+<script>
+    function deleteMarket(id) {
+        if (confirm('确认删除此条记录？删除以后不可恢复！')) {
+            $.ajax({
+                url: '/deleteMarket',
+                type: 'POST',
+                data: {id: id},
+                success: function (data) {
+                    alert(data);
+                    if (data === 'success'){
+                        window.location.href ="/queryMarket";
+                    }
+                }
+            })
+        }
+    }
+</script>
 </body>
 
 </html>

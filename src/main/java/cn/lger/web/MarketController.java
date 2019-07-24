@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 @Controller
 public class MarketController {
@@ -45,7 +46,7 @@ public class MarketController {
         return "redirect:queryMarket";
     }
 
-    @GetMapping("/queryMarket")
+    @RequestMapping("/queryMarket")
     public String getQueryMarketView(Model model, @RequestParam(defaultValue = "0",required = false) Integer pageNum) {
         if(pageNum == null)
             pageNum=0;
@@ -86,15 +87,21 @@ public class MarketController {
         return marketDao.findAllByMarketName(marketName, pageable);
     }
 
-    @PostMapping("/deleteMarket")
+    /**
+     * 删除指定的活动
+     * @param id
+     * @return
+     */
+    @RequestMapping("/deleteMarket")
     @ResponseBody
     public String deleteMarket(Integer id) {
-        try {
+
+        Optional<Market> rst = marketDao.findById(id);
+        if(rst.isPresent())
+        {
             marketDao.deleteById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "error";
+            return  "success";
         }
-        return "queryMarket";
+        return "fail";
     }
 }
