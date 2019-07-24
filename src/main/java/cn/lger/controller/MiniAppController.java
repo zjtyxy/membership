@@ -214,15 +214,15 @@ public class MiniAppController {
         return rs;
     }
 
-//    @RequestMapping("/minapp/Activity")
-//    public Page<Activity> findActivity(Integer currentPage) {
-//        if (currentPage == null) {
-//            currentPage = 0;
-//        }
-//        Pageable pageable = new PageRequest(currentPage, 3);
-//        Page<Activity> rs = activityDao.findAll(pageable);
-//        return rs;
-//    }
+    @RequestMapping("/minapp/activity")
+    public Page<Activity> activity(Integer currentPage) {
+        if (currentPage == null) {
+            currentPage = 0;
+        }
+        Pageable pageable = new PageRequest(currentPage, 3);
+        Page<Activity> rs = activityDao.findAll(pageable);
+        return rs;
+    }
 
 //    @RequestMapping("/minapp/Market")
 //    public Page<Market> findMarket(Integer currentPage) {
