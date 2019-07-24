@@ -50,9 +50,9 @@ public class MiniAppController {
     private MemberGradeDao memberGradeDao;
 
     @RequestMapping("/minapp/findMarket")
-    public  Market findMarket(String openid)
+    public  Market findMarket(Integer id)
     {
-        Market rst =  marketDao.findById(openid).get();
+        Market rst =  marketDao.findById(id).get();
         return  rst;
     }
 
@@ -214,25 +214,25 @@ public class MiniAppController {
         return rs;
     }
 
-//    @RequestMapping("/minapp/Activity")
-//    public Page<Activity> findActivity(Integer currentPage) {
-//        if (currentPage == null) {
-//            currentPage = 0;
-//        }
-//        Pageable pageable = new PageRequest(currentPage, 3);
-//        Page<Activity> rs = activityDao.findAll(pageable);
-//        return rs;
-//    }
-
-    @RequestMapping("/minapp/Market")
-    public Page<Market> findMarket(Integer currentPage) {
+    @RequestMapping("/minapp/activity")
+    public Page<Activity> activity(Integer currentPage) {
         if (currentPage == null) {
             currentPage = 0;
         }
         Pageable pageable = new PageRequest(currentPage, 3);
-        Page<Market> rs = marketDao.findAll(pageable);
+        Page<Activity> rs = activityDao.findAll(pageable);
         return rs;
     }
+
+//    @RequestMapping("/minapp/Market")
+//    public Page<Market> findMarket(Integer currentPage) {
+//        if (currentPage == null) {
+//            currentPage = 0;
+//        }
+//        Pageable pageable = new PageRequest(currentPage, 3);
+//        Page<Market> rs = marketDao.findAll(pageable);
+//        return rs;
+//    }
 
     @RequestMapping("/minapp/findCommodity")
     public Page<Commodity> findCommodity(Integer currentPage) {

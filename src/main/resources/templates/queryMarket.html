@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>商品</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection"/>
+    <!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
+    <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet"/>
+    <!-- Morris Chart Styles-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet"/>
+    <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet"/>
+
+</head>
+
+<body>
+<div id="wrapper">
+    <div th:replace="title :: html"></div>
+    <!--侧边栏-->
+    <div th:replace="sidebar :: html"></div>
+    <!--内容主体-->
+    <div id="page-wrapper">
+        <!--内容主题-->
+        <div class="header">
+            <h1 class="page-header">
+                商品列表
+            </h1>
+        </div>
+        <div id="page-inner">
+            <!--自定义内容-->
+            <div class="card">
+                <div class="card-content">
+                    <div class="table-responsive">
+                        <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                   id="dataTables-example" aria-describedby="dataTables-example_info">
+                                <thead>
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="Rendering engine: activate to sort column ascending"
+                                        aria-sort="ascending">编号
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending"
+                                    >商品名称
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                    >商品图片
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="Engine version: activate to sort column ascending"
+                                    >详情地址
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >详情标题
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >商品轮播集
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >商品正价
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >商品折扣价
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >商品规格
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >商品数量
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >详情介绍
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >详情图片集
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                    >操作
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tr th:each="entity,userStat : ${entitylist}">
+                                    <td th:text="${entity.getId()}"></td>
+                                    <td th:text="${entity.getName()}"></td>
+                                    <td th:text="${entity.getUrl() }"></td>
+                                    <td th:text="${entity.getLink() }"></td>
+                                    <td th:text="${entity.getTitle()}"></td>
+                                    <td th:text="${entity.getImgsUrl()}"></td>
+                                    <td th:text="${entity.getNormalPrice()}"></td>
+                                    <td th:text="${entity.getDiscountPrice()}"></td>
+                                    <td th:text="${entity.getValue()}"></td>
+                                    <td th:text="${entity.getNum()}"></td>
+                                    <td th:text="${entity.getInfo()}"></td>
+                                    <td th:text="${entity.getImgsUrl()}"></td>
+                                    <td><a href="customer-details.html" th:href="@{/addMarket(id=${entity.getId()})}">编辑</a>
+                                        <a href="customer-details.html" th:href="@{/deleteMarket(id=${entity.getId()})}">删除</a>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div aria-label="Page navigation example">
+                                <ul class="pagination" id="page">
+                                    <li class="page-item"><a class="page-link" th:text="'当前第'+${pageNum+1}+'页总共'+${totalPages+1}+'页'"></a></li>
+                                    <li class="page-item"><a class="page-link" th:text="'--'"></a></li>
+                                    <li class="page-item"><a class="page-link" th:href="@{/queryMarket?pageNum=0}">首页</a></li>
+                                    <li class="page-item" th:switch="${pageNum}">
+                                            <a th:case="0" class="page-link" th:href="@{/queryMarket?pageNum=0}">上一页</a>
+                                            <a th:case="*" class="page-link" th:href="@{/queryMarket(pageNum=${pageNum-1})}">上一页</a>
+                                    </li>
+                                    <li class="page-item"  th:switch="${pageNum}">
+                                         <a  th:case="${totalPages-1}"  class="page-link"  th:href="@{/queryMarket(pageNum=${totalPages-1})}">下一页</a>
+                                         <a th:case="*" class="page-link"  th:href="@{/queryMarket(pageNum=${pageNum+1})}">下一页</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link"  th:href="@{queryMarket(pageNum=${totalPages-1})}">尾页</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--页脚-->
+            <div th:replace="footer :: html"></div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+
+</html>
