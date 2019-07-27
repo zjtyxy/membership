@@ -215,24 +215,20 @@ public class MiniAppController {
     }
 
     @RequestMapping("/minapp/activity")
-    public Page<Activity> activity(Integer currentPage) {
-        if (currentPage == null) {
-            currentPage = 0;
-        }
-        Pageable pageable = new PageRequest(currentPage, 3);
-        Page<Activity> rs = activityDao.findAll(pageable);
-        return rs;
+    public Iterable<Activity>  activity(){
+        System.out.println("微信小程序正在调用。。。");
+        Iterable<Activity> acticity = activityDao.findAll();
+        System.out.println("微信小程序调用完成。。。");
+        return acticity;
     }
 
-//    @RequestMapping("/minapp/Market")
-//    public Page<Market> findMarket(Integer currentPage) {
-//        if (currentPage == null) {
-//            currentPage = 0;
-//        }
-//        Pageable pageable = new PageRequest(currentPage, 3);
-//        Page<Market> rs = marketDao.findAll(pageable);
-//        return rs;
-//    }
+    @RequestMapping("/minapp/market")
+    public Iterable<Market>  market(){
+        System.out.println("微信小程序正在调用。。。");
+        Iterable<Market> market = marketDao.findAll();
+        System.out.println("微信小程序调用完成。。。");
+        return market;
+    }
 
     @RequestMapping("/minapp/findCommodity")
     public Page<Commodity> findCommodity(Integer currentPage) {

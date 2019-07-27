@@ -51,16 +51,7 @@
                                     >活动名称
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                        colspan="1" aria-label="Platform(s): activate to sort column ascending"
-                                    >活动图片
-                                    </th>
-
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Engine version: activate to sort column ascending"
-                                    >图片详情
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
                                     >详情标题
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
@@ -71,18 +62,25 @@
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
                                     >发布时间
                                     </th>
-
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >文字介绍
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >详情图片集
-                                    </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
                                     >文字介绍
                                     </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >活动图片
+<!--                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"-->
+<!--                                        colspan="1" aria-label="Platform(s): activate to sort column ascending"-->
+<!--                                    >文字介绍-->
+<!--                                    </th>-->
+<!--                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"-->
+<!--                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"-->
+<!--                                    >活动图片-->
+<!--                                    </th>-->
+<!--                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"-->
+<!--                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"-->
+<!--                                    >文字介绍-->
+<!--                                    </th>-->
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Platform(s): activate to sort column ascending"
                                     >操作
@@ -92,13 +90,10 @@
                                 <tr th:each="entity,userStat : ${entitylist}">
                                     <td th:text="${entity.getId()}"></td>
                                     <td th:text="${entity.getName()}"></td>
-                                    <td th:text="${entity.getUrl() }"></td>
-                                    <td th:text="${entity.getLink() }"></td>
-                                    <td th:text="${entity.getTitle()}"></td>
-                                    <td th:text="${entity.getUserName()}"></td>
+                                    <td th:text="${entity.getTitle() }"></td>
+                                    <td th:text="${entity.getUserName() }"></td>
                                     <td th:text="${entity.getUserDate()}"></td>
-                                    <td th:text="${entity.getText()}"></td>
-                                    <td th:text="${entity.getImgsUrl()}"></td>
+                                    <td th:text="${entity.getUrl()}"></td>
                                     <td th:text="${entity.getInfo()}"></td>
                                     <td><a  th:href="@{/addActivity(id=${entity.getId()})}">编辑</a>
                                         <button  th:onclick="deleteActivity([[${entity.getId()}]])">删除</button>

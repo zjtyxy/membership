@@ -30,7 +30,7 @@
         <!--内容主题-->
         <div class="header">
             <h1 class="page-header">
-                活动详情
+                活动页面
             </h1>
         </div>
         <div id="page-inner">
@@ -44,24 +44,17 @@
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
                                 <label for="name">活动名称</label>
                                 <input id="name" name="name" type="text" class="validate" placeholder="活动名称"  th:value="*{getName()}" required/>
-
                             </div>
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
-                                <label for="url">活动图片</label>
-                                <input placeholder="活动图片" id="url" type="text" class="validate" name="url" th:value="*{getUrl()}" required/>
-
+                                <label for="link">主页图片地址</label>
+                                <input id="link" name="link" type="text" class="validate"
+                                       placeholder="主页图片地址" th:value="*{getLink()}" required/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
-                                <label for="link">详情地址</label>
-                                <input id="link" name="link" type="text" class="validate"
-                                       placeholder="详情地址" th:value="*{getLink()}" required/>
-                            </div>
-                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
                                 <label for="title">详情标题</label>
                                 <input placeholder="详情标题" id="title" type="text" class="validate" name="title" th:value="*{getTitle()}" required/>
-
                             </div>
                         </div>
                         <div class="row">
@@ -78,22 +71,60 @@
                         </div>
                         <div class="row">
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
-                                <label for="text">详情介绍</label>
-                                <input id="text" name="text" type="text" class="validate"
-                                       placeholder="详情介绍" th:value="*{getText()}" required/>
+                                <label for="url">活动图片</label>
+                                <input placeholder="活动图片" id="url" type="text" class="validate" name="url" th:value="*{getUrl()}" required/>
                             </div>
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
-                                <label for="imgsUrl">详情图片集</label>
-                                <input id="imgsUrl" name="info" type="text" class="validate" th:value="*{getImgsUrl()}" placeholder="详情图片集" required/>
+                                <label for="info">详情介绍</label>
+                                <input id="info" name="info" type="text" class="validate" th:value="*{getInfo()}" placeholder="详情介绍" required/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
-                                <label for="info">详情描述</label>
-                                <input id="info" name="info" type="text" class="validate" th:value="*{getInfo()}" placeholder="详情描述" required/>
+                                <label for="url1">活动图片1</label>
+                                <input placeholder="活动图片1" id="url1" type="text" class="validate" name="url1" th:value="*{getUrl1()}" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="info1">详情介绍1</label>
+                                <input id="info1" name="info1" type="text" class="validate" th:value="*{getInfo1()}" placeholder="详情介绍1" required/>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url2">活动图片2</label>
+                                <input placeholder="活动图片2" id="url2" type="text" class="validate" name="url2" th:value="*{getUrl2()}" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="info2">详情介绍2</label>
+                                <input id="info2" name="info2" type="text" class="validate" th:value="*{getInfo2()}" placeholder="详情介绍2" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url3">活动图片3</label>
+                                <input placeholder="活动图片3" id="url3" type="text" class="validate" name="url3" th:value="*{getUrl3()}" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="info3">详情介绍3</label>
+                                <input id="info3" name="info3" type="text" class="validate" th:value="*{getInfo3()}" placeholder="详情介绍3" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="info4">详情介绍4</label>
+                                <input id="info4" name="info4" type="text" class="validate" th:value="*{getInfo4()}" placeholder="详情介绍4" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="info5">详情介绍5</label>
+                                <input id="info5" name="info5" type="text" class="validate" th:value="*{getInfo5()}" placeholder="详情介绍5" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="info6">详情介绍6</label>
+                                <input id="info6" name="info6" type="text" class="validate" th:value="*{getInfo6()}" placeholder="详情介绍6" required/>
+                            </div>
+                        </div>
                        <div class="row">
                            <button onclick="submitForm()" class="waves-effect waves-light btn" type="button" >确认修改</button>
                        </div>
