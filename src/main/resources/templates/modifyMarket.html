@@ -44,30 +44,11 @@
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
                                 <label for="name">商品名称</label>
                                 <input id="name" name="name" type="text" class="validate" placeholder="商品名称"  th:value="*{getName()}" required/>
-
                             </div>
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
-                                <label for="url">商品图片</label>
-                                <input placeholder="商品图片" id="url" type="text" class="validate" name="url" th:value="*{getUrl()}" required/>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
-                                <label for="link">详情地址</label>
+                                <label for="link">商品图片地址</label>
                                 <input id="link" name="link" type="text" class="validate"
-                                       placeholder="详情地址" th:value="*{getLink()}" required/>
-                            </div>
-                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
-                                <label for="title">详情标题</label>
-                                <input placeholder="详情标题" id="title" type="text" class="validate" name="title" th:value="*{getTitle()}" required/>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
-                                <label for="imgsUrl">商品轮播集</label>
-                                <input id="imgsUrl" name="info" type="text" class="validate" th:value="*{getImgsUrl()}" placeholder="商品轮播集" required/>
+                                       placeholder="商品图片地址" th:value="*{getLink()}" required/>
                             </div>
                         </div>
                         <div class="row">
@@ -84,6 +65,32 @@
                         </div>
                         <div class="row">
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="title">详情标题</label>
+                                <input placeholder="详情标题" id="title" type="text" class="validate" name="title" th:value="*{getTitle()}" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="imgsUrl">商品图片1</label>
+                                <input id="imgsUrl" name="imgsUrl" type="text" class="validate" th:value="*{getImgsUrl()}" placeholder="商品图片1" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="imgsUrl2">商品图片2</label>
+                                <input id="imgsUrl2" name="imgsUrl2" type="text" class="validate" th:value="*{getImgsUrl1()}" placeholder="商品图片2" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="imgsUrl3">商品图片3</label>
+                                <input id="imgsUrl3" name="imgsUrl3" type="text" class="validate" th:value="*{getImgsUrl2()}" placeholder="商品图片3" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="imgsUrl4">商品图片4</label>
+                                <input id="imgsUrl4" name="imgsUrl4" type="text" class="validate" th:value="*{getImgsUrl3()}" placeholder="商品图片4" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
                                 <label for="value">商品规格</label>
                                 <input id="value" name="value" type="text" class="validate"
                                        placeholder="商品规格" th:value="*{getValue()}" required/>
@@ -94,16 +101,84 @@
                             </div>
                         </div>
                         <div class="row">
-
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
-                                <label for="info">详情介绍</label>
-                                <input id="info" name="info" type="text" class="validate" th:value="*{getInfo()}" placeholder="详情介绍" required/>
+                                <label for="url">详情图片</label>
+                                <input placeholder="详情图片" id="url" type="text" class="validate" name="url" th:value="*{getUrl()}" required/>
                             </div>
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
-                                <label for="detailImgs">详情图片集</label>
-                                <input id="detailImgs" name="detailImgs" type="text" class="validate"
-                                       placeholder="详情图片集" th:value="*{getDetailImgs()}" required/>
+                                <label for="url1">详情图片1</label>
+                                <input placeholder="详情图片1" id="url1" type="text" class="validate" name="url1" th:value="*{getUrl1()}" required/>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url2">详情图片2</label>
+                                <input placeholder="详情图片2" id="url2" type="text" class="validate" name="url2" th:value="*{getUrl2()}" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url3">详情图片3</label>
+                                <input placeholder="详情图片3" id="url3" type="text" class="validate" name="url3" th:value="*{getUrl3()}" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url4">详情图片4</label>
+                                <input placeholder="详情图片4" id="url4" type="text" class="validate" name="url4" th:value="*{getUrl4()}" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url5">详情图片5</label>
+                                <input placeholder="详情图片5" id="url5" type="text" class="validate" name="url5" th:value="*{getUrl5()}" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url6">详情图片6</label>
+                                <input placeholder="详情图片6" id="url6" type="text" class="validate" name="url6" th:value="*{getUrl6()}" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url7">详情图片7</label>
+                                <input placeholder="详情图片7" id="url7" type="text" class="validate" name="url7" th:value="*{getUrl7()}" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url8">详情图片8</label>
+                                <input placeholder="详情图片8" id="url8" type="text" class="validate" name="url8" th:value="*{getUrl8()}" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url9">详情图片9</label>
+                                <input placeholder="详情图片9" id="url9" type="text" class="validate" name="url9" th:value="*{getUrl9()}" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url10">详情图片10</label>
+                                <input placeholder="详情图片10" id="url10" type="text" class="validate" name="url10" th:value="*{getUrl10()}" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url11">详情图片11</label>
+                                <input placeholder="详情图片11" id="url11" type="text" class="validate" name="url11" th:value="*{getUrl11()}" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url12">详情图片12</label>
+                                <input placeholder="详情图片12" id="url12" type="text" class="validate" name="url12" th:value="*{getUrl12()}" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url13">详情图片13</label>
+                                <input placeholder="详情图片13" id="url13" type="text" class="validate" name="url13" th:value="*{getUrl13()}" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="url14">详情图片14</label>
+                                <input placeholder="详情图片14" id="url14" type="text" class="validate" name="url14" th:value="*{getUrl14()}" required/>
+                            </div>
+<!--                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">-->
+<!--                                <label for="info">详情介绍</label>-->
+<!--                                <input id="info" name="info" type="text" class="validate" th:value="*{getInfo()}" placeholder="详情介绍" required/>-->
+<!--                            </div>-->
                         </div>
                        <div class="row">
                            <button onclick="submitForm()" class="waves-effect waves-light btn" type="button" >确认修改</button>

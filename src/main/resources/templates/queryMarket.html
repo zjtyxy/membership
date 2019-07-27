@@ -52,19 +52,11 @@
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Platform(s): activate to sort column ascending"
-                                    >商品图片
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                        colspan="1" aria-label="Engine version: activate to sort column ascending"
-                                    >详情地址
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
                                     >详情标题
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >商品轮播集
+                                        colspan="1" aria-label="Engine version: activate to sort column ascending"
+                                    >商品折扣价
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
@@ -72,22 +64,11 @@
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >商品折扣价
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
                                     >商品规格
+                                    </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
                                     >商品数量
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >详情介绍
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >详情图片集
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Platform(s): activate to sort column ascending"
@@ -98,16 +79,11 @@
                                 <tr th:each="entity,userStat : ${entitylist}">
                                     <td th:text="${entity.getId()}"></td>
                                     <td th:text="${entity.getName()}"></td>
-                                    <td th:text="${entity.getUrl() }"></td>
-                                    <td th:text="${entity.getLink() }"></td>
-                                    <td th:text="${entity.getTitle()}"></td>
-                                    <td th:text="${entity.getImgsUrl()}"></td>
+                                    <td th:text="${entity.getTitle() }"></td>
+                                    <td th:text="${entity.getDiscountPrice() }"></td>
                                     <td th:text="${entity.getNormalPrice()}"></td>
-                                    <td th:text="${entity.getDiscountPrice()}"></td>
                                     <td th:text="${entity.getValue()}"></td>
                                     <td th:text="${entity.getNum()}"></td>
-                                    <td th:text="${entity.getInfo()}"></td>
-                                    <td th:text="${entity.getImgsUrl()}"></td>
                                     <td><a th:href="@{/addMarket(id=${entity.getId()})}">编辑</a>
 <!--                                        <a th:href="@{/deleteMarket(id=${entity.getId()})}">删除</a>-->
                                         <button  th:onclick="deleteMarket([[${entity.getId()}]])">删除</button>
