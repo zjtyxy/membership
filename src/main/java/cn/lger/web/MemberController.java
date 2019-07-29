@@ -16,6 +16,8 @@ import cn.lger.service.WXPayService;
 import cn.lger.util.FileUploadUtil;
 import cn.lger.util.MemberNumberRandomUtil;
 import cn.lger.util.UUIDRandomUtil;
+import cn.lger.util.WordUtils;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +31,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.DateUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.*;
 
 /**
@@ -39,6 +47,7 @@ import java.util.*;
 
 @Controller
 public class MemberController {
+    private  static  String  wordTempltePath="D:/upload/template/";
     @Resource
     OrderDao orderDao;
     @Resource
@@ -242,5 +251,63 @@ public class MemberController {
             e.printStackTrace();
         }
         return null;
+    }
+    @RequestMapping(value = "/exportWord")
+    public void exportWord(HttpServletRequest req, HttpServletResponse response, String memberid)  {
+
+        //String templatePath = request.getServletContext().getRealPath("") + "/template/会员登记表.docx";
+
+        Member member = memberDao.findById(memberid).get();
+        try {
+            String templatePath = wordTempltePath+"会员登记表.docx";
+            String outfile = "d:/upload/template/test.docx";
+            String fileName = new String("会员登记表".getBytes("gb2312"), "ISO8859-1") + ".docx";
+            /*数据*/
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("${name}", member.getMemberName());
+            params.put("${zhiwu}", member.getZhiwu());
+            params.put("${zzmm}", member.getZhengzhimianmao());
+            params.put("${sex}", member.getSex());
+            params.put("${minzu}", member.getMinzu());
+            params.put("${sheng}", member.getBirthday().toString());
+            params.put("${xuli}", member.getXueli());
+            params.put("${email}", member.getEmail());
+
+            params.put("${shenfenzhenghao}", member.getShenfenzheng());
+            params.put("${phone}", member.getPhone());
+            params.put("${gongzuodanwei}", member.getGongzuodanwei());
+            params.put("${jiankang}", member.getJiankangzhuangkuang());
+            params.put("${address}", member.getAddress());
+
+            params.put("${youbian}", member.getYouzhengbianma());
+            params.put("${huodong}", member.getHuodongjianjie());
+            params.put("${techang}", member.getJinengtechang());
+            params.put("${fuwuyixiang}", member.getFuwuyixiang());
+            params.put("${zhiye}", member.getZhiye());
+            params.put("${image1}", "dd");
+
+            WordUtils wordUtil = new WordUtils();
+            XWPFDocument doc;
+            InputStream is = new FileInputStream(templatePath);
+            // is = getClass().getClassLoader().getResourceAsStream(templatePath);
+            doc = new XWPFDocument(is);  //只能使用.docx的
+            //     wordUtil.insertImage("${image}",doc);
+            wordUtil.replaceInPara(doc, params);
+            //替换表格里面的变量
+            wordUtil.replaceInTable(doc, params);
+           // OutputStream os = new FileOutputStream(outfile);
+            OutputStream  os = response.getOutputStream();
+             response.setContentType("application/vnd.ms-word");
+             response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+            doc.write(os);
+            wordUtil.close(os);
+            wordUtil.close(is);
+            os.flush();
+            os.close();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }

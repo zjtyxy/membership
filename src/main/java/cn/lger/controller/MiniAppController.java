@@ -25,7 +25,7 @@ import java.util.*;
 public class MiniAppController {
 
     private  static  String  uploadImagePath="d:/upload/images/";
-    private  static  String  wordTempltePath="c:/templte/word/";
+
     @Resource
     WXPayService wXPayService;
 
@@ -75,62 +75,7 @@ public class MiniAppController {
         Order rst =  orderDao.findById(id).get();
         return  rst;
     }
-    @RequestMapping(value = "/minapp/exportWord")
-    public void exportWord(String memberid,String tempplteName)  {
-        //String templatePath = request.getServletContext().getRealPath("") + "/template/会员登记表.docx";
 
-        Member member = memberDao.findById(memberid).get();
-        try {
-            String templatePath = wordTempltePath+tempplteName+".docx";
-            String outfile = "d:/upload/template/test.docx";
-            String fileName = new String("税源信息比对".getBytes("gb2312"), "ISO8859-1") + ".docx";
-            /*数据*/
-            Map<String, Object> params = new HashMap<String, Object>();
-            params.put("${name}", member.getMemberName());
-            params.put("${zhiwu}", member.getZhiwu());
-            params.put("${zzmm}", member.getZhengzhimianmao());
-            params.put("${sex}", member.getSex());
-            params.put("${minzu}", member.getMinzu());
-            params.put("${sheng}", member.getBirthday());
-            params.put("${xuli}", member.getXueli());
-            params.put("${email}", member.getEmail());
-
-            params.put("${shenfenzhenghao}", member.getShenfenzheng());
-            params.put("${phone}", member.getPhone());
-            params.put("${gongzuodanwei}", member.getGongzuodanwei());
-            params.put("${jiankang}", member.getJiankangzhuangkuang());
-            params.put("${address}", member.getAddress());
-
-            params.put("${youbian}", member.getYouzhengbianma());
-            params.put("${huodong}", member.getHuodongjianjie());
-            params.put("${techang}", member.getJinengtechang());
-            params.put("${fuwuyixiang}", member.getFuwuyixiang());
-            params.put("${zhiye}", member.getZhiye());
-            params.put("${image1}", "dd");
-
-            WordUtils wordUtil = new WordUtils();
-            XWPFDocument doc;
-            InputStream is = new FileInputStream(templatePath);
-            // is = getClass().getClassLoader().getResourceAsStream(templatePath);
-            doc = new XWPFDocument(is);  //只能使用.docx的
-       //     wordUtil.insertImage("${image}",doc);
-            wordUtil.replaceInPara(doc, params);
-            //替换表格里面的变量
-            wordUtil.replaceInTable(doc, params);
-            OutputStream os = new FileOutputStream(outfile);
-            //  response.setContentType("application/vnd.ms-excel");
-            // response.setHeader("Content-disposition", "attachment;filename=" + fileName);
-            doc.write(os);
-            wordUtil.close(os);
-            wordUtil.close(is);
-            os.flush();
-            os.close();
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
 
     @RequestMapping(value ="/minapp/register",consumes="application/json")
     public  Member userRegister(@RequestBody Member member)

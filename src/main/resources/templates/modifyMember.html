@@ -183,7 +183,7 @@
 
                         </div>
                        <div class="row">
-                           <button onclick="submitForm()" class="waves-effect waves-light btn" type="button" >确认修改</button>
+                           <button th:onclick="submitPrint([[${member.getId()}]])"  class="waves-effect waves-light btn" type="button" >打印报名表</button>
                            <button th:onclick="submitPass([[${member.getId()}]])" class="waves-effect waves-light btn" type="button" th:style="'display:' + @{(${member.getApprovedState()=='报名审核'} ? 'inline-block' : 'none')} + ''">报名确认</button>
                            <button onclick="submitForm()" class="waves-effect waves-light btn" type="button" th:style="'display:' + @{(${member.getApprovedState()=='报名审核'} ? 'inline-block' : 'none')} + ''">报名驳回</button>
                            <button onclick="submitForm()" class="waves-effect waves-light btn" type="button" th:style="'display:' + @{(${member.getApprovedState()=='证书制作'} ? 'inline-block' : 'none')} + ''">打印报名表</button>
@@ -258,7 +258,12 @@
             })
         }
     }
+    function submitPrint(memberId) {
+        if (confirm('即将导出word报名表？')) {
+            window.location.href="/exportWord?memberid="+memberId;
 
+        }
+    }
 
 </script>
 </body>
