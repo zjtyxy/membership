@@ -76,7 +76,7 @@
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px"
                                  th:each="stat:*{getImgsUrl()}">
                                 <label for="imgsUrl">商品图片1</label>
-                                <input id="imgsUrl" name="imgsUrl" type="text" class="validate" th:value="*{stat}"
+                                <input id="imgsUrl" name="imgsUrl" type="text" class="validate" th:value="${stat}"
                                        placeholder="商品图片1" required/>
                             </div>
 
@@ -158,8 +158,8 @@
 
     function addImageUrl() {
         let htmlstr = '<div class="form-group" style="width: 48%;float: left;padding-left: 20px">\n' +
-            '            <label for="url">商品图片</label>\n' +
-            '            <input placeholder="商品图片" id="url" type="text" class="validate" name="url" />\n' +
+            '            <label for="imgsUrl">商品图片</label>\n' +
+            '            <input placeholder="商品图片" id="imgsUrl" type="text" class="validate" name="imgsUrl" />\n' +
             '            </div>'
         var htmllet = '<p>' + 'sdfasdf' + '</p>'
         $('#imgurllist').append(htmlstr);
