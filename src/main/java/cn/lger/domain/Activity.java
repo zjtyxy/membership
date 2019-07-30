@@ -1,9 +1,10 @@
 package cn.lger.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Activity {
@@ -13,36 +14,30 @@ public class Activity {
     private Integer id;
     //活动名称
     private String name;
-    //活动图片
-    private String link;
-    //详情标题
-    private String title;
-    //详情中发布人
-    private String userName;
-    //详情中发布时间
-    private String userDate;
-    //详情中文字介绍
+    //活动中介绍
+    @Column(length = 50000)
     private String info;
-    //详情中图片显示
-    private String url;
-    //详情中文字介绍
-    private String info1;
-    //详情中图片显示
-    private String url1;
-    //详情中文字介绍
-    private String info2;
-    //详情中图片显示
-    private String url2;
-    //详情中文字介绍
-    private String info3;
-    //详情中图片显示
-    private String url3;
-    //详情中文字介绍
-    private String info4;
-    //详情中文字介绍
-    private String info5;
-    //详情中文字介绍
-    private String info6;
+    //行程列表
+
+    @ElementCollection
+    private Map<String,String> routingday =new HashMap<String,String>();
+    //报名截止日期
+    private LocalDate endDate;
+    //最大参见人数
+    private Integer   maxNumber;
+    //报名方式
+    private String   signupMode;
+    //其他增值服务
+    @ElementCollection
+    private Map<Integer,String> increment;
+    //活动天数
+    private  Integer  days;
+    //活动主图片
+    private String link;
+    //活动相册
+    @ElementCollection
+     private  List<String> imageurls;
+
 
     public Integer getId() {
         return id;
@@ -60,38 +55,6 @@ public class Activity {
         this.name = name;
     }
 
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserDate() {
-        return userDate;
-    }
-
-    public void setUserDate(String userDate) {
-        this.userDate = userDate;
-    }
-
     public String getInfo() {
         return info;
     }
@@ -100,83 +63,67 @@ public class Activity {
         this.info = info;
     }
 
-    public String getUrl() {
-        return url;
+    public Map<String, String> getRoutingday() {
+        return routingday;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setRoutingday(Map<String, String> routingday) {
+        this.routingday = routingday;
     }
 
-    public String getInfo1() {
-        return info1;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setInfo1(String info1) {
-        this.info1 = info1;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
-    public String getUrl1() {
-        return url1;
+    public Integer getMaxNumber() {
+        return maxNumber;
     }
 
-    public void setUrl1(String url1) {
-        this.url1 = url1;
+    public void setMaxNumber(Integer maxNumber) {
+        this.maxNumber = maxNumber;
     }
 
-    public String getInfo2() {
-        return info2;
+    public String getSignupMode() {
+        return signupMode;
     }
 
-    public void setInfo2(String info2) {
-        this.info2 = info2;
+    public void setSignupMode(String signupMode) {
+        this.signupMode = signupMode;
     }
 
-    public String getUrl2() {
-        return url2;
+    public Map<Integer, String> getIncrement() {
+        return increment;
     }
 
-    public void setUrl2(String url2) {
-        this.url2 = url2;
+    public void setIncrement(Map<Integer, String> increment) {
+        this.increment = increment;
     }
 
-    public String getInfo3() {
-        return info3;
+    public Integer getDays() {
+        return days;
     }
 
-    public void setInfo3(String info3) {
-        this.info3 = info3;
+    public void setDays(Integer days) {
+        this.days = days;
     }
 
-    public String getUrl3() {
-        return url3;
+    public String getLink() {
+        return link;
     }
 
-    public void setUrl3(String url3) {
-        this.url3 = url3;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    public String getInfo4() {
-        return info4;
+    public List<String> getImageurls() {
+        return imageurls;
     }
 
-    public void setInfo4(String info4) {
-        this.info4 = info4;
-    }
-
-    public String getInfo5() {
-        return info5;
-    }
-
-    public void setInfo5(String info5) {
-        this.info5 = info5;
-    }
-
-    public String getInfo6() {
-        return info6;
-    }
-
-    public void setInfo6(String info6) {
-        this.info6 = info6;
+    public void setImageurls(List<String> imageurls) {
+        this.imageurls = imageurls;
     }
 }
