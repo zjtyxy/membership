@@ -4,11 +4,6 @@ import cn.lger.dao.*;
 import cn.lger.domain.*;
 
 import cn.lger.service.WXPayService;
-import cn.lger.util.WordUtils;
-import com.github.wxpay.sdk.MyPayConfig;
-import com.github.wxpay.sdk.WXPay;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,12 +20,14 @@ import java.util.*;
 public class MiniAppController {
 
     private  static  String  uploadImagePath="d:/upload/images/";
-
     @Resource
     WXPayService wXPayService;
 
+
     @Resource
     private MemberDao memberDao;
+    @Resource
+    private MemberAddressDao memberAddressDao;
     @Resource
     private OrderDao orderDao;
     @Resource
@@ -61,6 +58,32 @@ public class MiniAppController {
     {
         Activity rst =  activityDao.findById(id).get();
         return  rst;
+    }
+
+    @RequestMapping("/minapp/findAddress")
+    public MiniAppRest findAddress(String memberId)
+    {
+        MiniAppRest rst = new MiniAppRest();
+        rst.setResult( memberAddressDao.findByMemberId(memberId));
+        return  rst;
+    }
+    @RequestMapping("/minapp/addAddress")
+    public  MiniAppRest  addAddress(@RequestBody MemberAddress address)
+    {
+        MiniAppRest rst = new MiniAppRest();
+        memberAddressDao.save(address);
+        rst.setResult( memberAddressDao.findByMemberId(address.getMemberId()));
+        return  rst;
+    }
+    @RequestMapping("/minapp/deleteAddress")
+    public  List<MemberAddress> deleteAddress(String id)
+    {
+        Optional<MemberAddress> rp = memberAddressDao.findById(id);
+        if(rp.isPresent()) {
+            memberAddressDao.deleteById(id);
+            return memberAddressDao.findByMemberId(rp.get().getMemberId());
+        }
+        return null;
     }
 
     @RequestMapping("/minapp/findMemberByOpenid")
@@ -118,10 +141,17 @@ public class MiniAppController {
      * @return
      */
     @RequestMapping("/minapp/unifiedorder")
-    public String  addOrder(@RequestBody Order order) {
+    public String  addOrder(String memberId) {
        try {
-
-           orderDao.save(order);
+           Optional<Member> rst = memberDao.findById(memberId);
+           if (rst.isPresent()) {
+               Member ds = rst.get();
+               Order order = wXPayService.unifiedOrder(ds.getOpenid(), ds.getShenfenzheng() + new Date().getYear() + "m", "会费支付", 10);
+           }
+//           if(order!=null) {
+//               orderDao.save(order);
+//           }
+//           orderDao.save(order);
            return  "success";
        }catch (Exception e)
        {
@@ -130,12 +160,15 @@ public class MiniAppController {
         return "fail";
     }
     @RequestMapping("/minapp/getorder")
-    public Order  gerOrder(String orderid) {
-        try {
-            return  orderDao.findById(orderid).get();
-
-        }catch (Exception e)
-        {
+    public Order  gerOrder(String memberId) {
+        Optional<Member> rst = memberDao.findById(memberId);
+        if (rst.isPresent()) {
+            Member ds = rst.get();
+            Order order = wXPayService.unifiedOrder(ds.getOpenid(), ds.getShenfenzheng() + new Date().getYear() + "m", "会费支付", 10);
+            if(order!=null) {
+                orderDao.save(order);
+                return order;
+            }
 
         }
         return null;

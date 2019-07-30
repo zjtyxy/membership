@@ -60,10 +60,9 @@ public class MemberController {
     private MemberGradeService memberGradeService;
     @Resource
     private BCryptPasswordEncoder encoder;
-    @Resource
-    WXPayService wXPayService;
+
     /**
-     * 审批
+     * 审批报名表
      * @param memberId
      * @param ispass
      * @param message
@@ -76,20 +75,15 @@ public class MemberController {
             Member ds = rst.get();
             Progeress progeress = new Progeress();
             if(ispass) {
-                Order order = wXPayService.unifiedOrder(ds.getOpenid(),ds.getShenfenzheng()+new Date().getYear()+"m","会费支付",10);
-                if(order!=null)
-                {
-                    orderDao.save(order);
                     progeress.setName(Progeress.progressName[1]);
                     progeress.setStatus("pass");
                     Map<String, String> nots = new HashMap<>();
                     nots.put("审批消息：", "恭喜你报名成功，请尽快完成支付");
                     nots.put("审批时间：",DateUtils.format(new Date(),"yyyy-mm-dd HH:MM:ss",Locale.CHINA));
-                    nots.put("订单号：",order.getId());
+                    //nots.put("订单号：",order.getId());
                     progeress.setProgresNote(nots);
                     ds.getProgeresses().put(Progeress.progressName[1],progeress);
                     memberDao.save(ds);
-                }
 
             }
             else
@@ -252,6 +246,13 @@ public class MemberController {
         }
         return null;
     }
+
+    /**
+     * 打印报名表
+     * @param req
+     * @param response
+     * @param memberid
+     */
     @RequestMapping(value = "/exportWord")
     public void exportWord(HttpServletRequest req, HttpServletResponse response, String memberid)  {
 
