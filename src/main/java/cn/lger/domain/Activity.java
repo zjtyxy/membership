@@ -19,8 +19,8 @@ public class Activity {
     private String info;
     //行程列表
 
-    @ElementCollection
-    private Map<String,String> routingday =new HashMap<String,String>();
+    @OneToMany(fetch = FetchType.EAGER)
+    private Map<Integer,DayTrip> routingday;
     //报名截止日期
     private LocalDate endDate;
     //最大参见人数
@@ -28,14 +28,14 @@ public class Activity {
     //报名方式
     private String   signupMode;
     //其他增值服务
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Map<Integer,String> increment;
     //活动天数
     private  Integer  days;
     //活动主图片
     private String link;
     //活动相册
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
      private  List<String> imageurls;
 
 
@@ -63,11 +63,11 @@ public class Activity {
         this.info = info;
     }
 
-    public Map<String, String> getRoutingday() {
+    public Map<Integer, DayTrip> getRoutingday() {
         return routingday;
     }
 
-    public void setRoutingday(Map<String, String> routingday) {
+    public void setRoutingday(Map<Integer, DayTrip> routingday) {
         this.routingday = routingday;
     }
 
