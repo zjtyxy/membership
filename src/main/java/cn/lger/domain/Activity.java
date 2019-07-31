@@ -2,9 +2,7 @@ package cn.lger.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 public class Activity {
@@ -19,7 +17,7 @@ public class Activity {
     private String info;
     //行程列表
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     private Map<Integer,DayTrip> routingday;
     //报名截止日期
     private LocalDate endDate;
@@ -29,15 +27,33 @@ public class Activity {
     private String   signupMode;
     //其他增值服务
     @ElementCollection(fetch = FetchType.EAGER)
-    private Map<Integer,String> increment;
+    private Map<String,String> increment;
     //活动天数
     private  Integer  days;
     //活动主图片
     private String link;
     //活动相册
     @ElementCollection(fetch = FetchType.EAGER)
-     private  List<String> imageurls;
+     private Set<String> imageurls = new HashSet<>();
 
+     private  String userName;
+     private  String userDate;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserDate() {
+        return userDate;
+    }
+
+    public void setUserDate(String userDate) {
+        this.userDate = userDate;
+    }
 
     public Integer getId() {
         return id;
@@ -95,11 +111,11 @@ public class Activity {
         this.signupMode = signupMode;
     }
 
-    public Map<Integer, String> getIncrement() {
+    public Map<String, String> getIncrement() {
         return increment;
     }
 
-    public void setIncrement(Map<Integer, String> increment) {
+    public void setIncrement(Map<String, String> increment) {
         this.increment = increment;
     }
 
@@ -119,11 +135,11 @@ public class Activity {
         this.link = link;
     }
 
-    public List<String> getImageurls() {
+    public Set<String> getImageurls() {
         return imageurls;
     }
 
-    public void setImageurls(List<String> imageurls) {
+    public void setImageurls(Set<String> imageurls) {
         this.imageurls = imageurls;
     }
 }

@@ -10,4 +10,28 @@ public class DayTrip {
     private  String title;
     @ElementCollection
     private Map<String,String> content;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Map<String, String> getContent() {
+        return content;
+    }
+
+    public void setContent(Map<String, String> content) {
+        this.content = content;
+    }
 }
