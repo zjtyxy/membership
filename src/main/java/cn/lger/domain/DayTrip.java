@@ -1,6 +1,7 @@
 package cn.lger.domain;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.Map;
 @Entity
 public class DayTrip {
@@ -9,7 +10,7 @@ public class DayTrip {
     private Integer id;
     private  String title;
     @ElementCollection
-    private Map<String,String> content;
+    private Map<String,String> content  = new HashMap<>();
 
     public Integer getId() {
         return id;
