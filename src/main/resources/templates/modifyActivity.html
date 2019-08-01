@@ -16,7 +16,19 @@
     <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet"/>
     <!-- Custom Styles-->
     <link href="assets/css/custom-styles.css" rel="stylesheet"/>
+    <style>
+        .modal {
+            background-color: #76767600;
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.0);
+            height: 100%;
+        }
 
+        .contents {
+            border: 1px solid #000;
+            margin-left: 25px;
+            width: 96%;
+        }
+    </style>
 </head>
 
 <body>
@@ -38,12 +50,13 @@
             <!--<div class="container">-->
             <div class="card">
                 <div class="card-content">
-                    <form th:action="@{/modifyActivity}" method="post" id="modifyActivity" th:object="${entity}"  >
+                    <form th:action="@{/modifyActivity}" method="post" id="modifyActivity" th:object="${entity}">
                         <input id="idx" name="id" type="hidden" class="validate" th:value="*{getId()}" required/>
                         <div class="row">
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
                                 <label for="name">活动名称</label>
-                                <input id="name" name="name" type="text" class="validate" placeholder="活动名称"  th:value="*{getName()}" required/>
+                                <input id="name" name="name" type="text" class="validate" placeholder="活动名称"
+                                       th:value="*{getName()}" required/>
                             </div>
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
                                 <label for="link">主页图片地址</label>
@@ -51,8 +64,6 @@
                                        placeholder="主页图片地址" th:value="*{getLink()}" required/>
                             </div>
                         </div>
-
-
 
 
                         <div class="row">
@@ -69,32 +80,40 @@
                         </div>
                         <div>
                             <div class="row">
-                                <div class="form-group"  style="width: 100%;float: left;padding-left: 20px">
-                                    <label >活动日程</label>
-                                    <button type="button" onclick="showDayTrip(true)" data-toggle="modal" data-target="#tripModal">添加日程
+                                <div class="form-group" style="width: 100%;float: left;padding-left: 20px">
+                                    <label>活动日程</label>
+                                    <button type="button" onclick="showDayTrip()" data-toggle="modal"
+                                            data-target="#tripModal">添加日程
                                     </button>
                                 </div>
                             </div>
                             <div class="row" id="daytrip">
-                                <div class="form-group"  style="width: 48%;float: left;padding-left: 20px"   th:each="stat:*{getRoutingday()}">
-                                    <label placeholder="日程"    type="text" th:text="'第'+${stat.key}+'天'"/>
-                                    <input placeholder="简介"   class="validate" th:field="*{routingday[__${stat.key}__].title}" />
+                                <div class="form-group" style="width: 48%;float: left;padding-left: 20px"
+                                     th:each="stat:*{getRoutingday()}">
+                                    <label placeholder="日程" type="text" th:text="'第'+${stat.key}+'天'"/>
+                                    <button type="button" onclick="showDayTrip(this)" data-toggle="modal"
+                                            data-target="#tripModal">查看
+                                    </button>
+                                    <input placeholder="简介" class="validate"
+                                           th:field="*{routingday[__${stat.key}__].title}"/>
                                 </div>
                             </div>
 
                         </div>
                         <div>
                             <div class="row">
-                                <div class="form-group"  style="width: 100%;float: left;padding-left: 20px">
-                                    <label >增值项目</label>
+                                <div class="form-group" style="width: 100%;float: left;padding-left: 20px">
+                                    <label>增值项目</label>
                                     <button type="button" data-toggle="modal" data-target="#myModal">添加项目
                                     </button>
                                 </div>
                             </div>
                             <div class="row" id="project">
-                                <div class="form-group"  style="width: 48%;float: left;padding-left: 20px"   th:each="stat:*{getIncrement()}">
-                                    <label placeholder="项目名称"   id="increment.key" type="text" th:text="${stat.key}"/>
-                                    <input placeholder="项目描述"   class="validate" th:field="*{increment[__${stat.key}__]}" />
+                                <div class="form-group" style="width: 48%;float: left;padding-left: 20px"
+                                     th:each="stat:*{getIncrement()}">
+                                    <label placeholder="项目名称" id="increment.key" type="text" th:text="${stat.key}"/>
+                                    <input placeholder="项目描述" class="validate"
+                                           th:field="*{increment[__${stat.key}__]}"/>
                                 </div>
 
                             </div>
@@ -102,25 +121,29 @@
                         </div>
                         <div>
                             <div class="row">
-                                <div class="form-group"  style="width: 100%;float: left;padding-left: 20px">
-                                <label >活动图片列表</label>
-                                <button onclick="addImageUrl()"type="button">添加图片
-                                </button>
+                                <div class="form-group" style="width: 100%;float: left;padding-left: 20px">
+                                    <label>活动图片列表</label>
+                                    <button onclick="addImageUrl()" type="button">添加图片
+                                    </button>
                                 </div>
                             </div>
-                        <div class="row" id="imgurllist">
-                            <div class="form-group"  style="width: 48%;float: left;padding-left: 20px"   th:each="stat:*{getImageurls()}">
-                                <input placeholder="活动图片" id="imageurls" type="text" class="validate" name="imageurls" th:value="${stat}" required/>
+                            <div class="row" id="imgurllist">
+                                <div class="form-group" style="width: 48%;float: left;padding-left: 20px"
+                                     th:each="stat:*{getImageurls()}">
+                                    <button type="button" onclick="removeImage(this)">删除</button>
+                                    <input placeholder="活动图片" id="imageurls" type="text" class="validate"
+                                           name="imageurls" th:value="${stat}" required/>
+                                </div>
+
                             </div>
 
                         </div>
 
+                        <div class="row">
+
+                            <button onclick="submitForm()" class="waves-effect waves-light btn" type="button">确认修改
+                            </button>
                         </div>
-
-                       <div class="row">
-
-                           <button onclick="submitForm()" class="waves-effect waves-light btn" type="button" >确认修改</button>
-                       </div>
                     </form>
 
                     <div class="clearBoth"></div>
@@ -137,8 +160,8 @@
     </div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div role="document">
+        <div>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
@@ -157,15 +180,17 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn waves-effect waves-light" onclick="addServer()" data-dismiss="modal">保存修改</button>
+                <button type="button" class="btn waves-effect waves-light" onclick="addServer()" data-dismiss="modal">
+                    保存修改
+                </button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="tripModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+<div class="modal fade" id="tripModal" tabindex="-1" role="dialog" ondrop="tripclose()">
+    <div role="document">
+        <div>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
@@ -178,9 +203,9 @@
                 </div>
                 <div>
                     <div class="row">
-                        <div class="form-group"  style="width: 100%;float: left;padding-left: 20px">
-                            <label >日程内容</label>
-                            <button type="button" onclick="addContent()">添加
+                        <div class="form-group" style="width: 100%;float: left;padding-left: 20px">
+                            <label>日程内容</label>
+                            <button type="button" onclick="addContent(-1,'','')">添加
                             </button>
                         </div>
                     </div>
@@ -191,7 +216,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                    <button type="button" class="btn waves-effect waves-light" onclick="addDayTrip()" data-dismiss="modal">保存修改</button>
+                <button type="button" class="btn waves-effect waves-light" onclick="addDayTrip()" data-dismiss="modal">
+                    保存修改
+                </button>
             </div>
         </div>
     </div>
@@ -216,66 +243,120 @@
 <!-- Custom Js -->
 <script src="assets/js/custom-scripts.js"></script>
 
-<script  th:inline="javascript">
+<script th:inline="javascript">
     function submitForm() {
         $('#modifyActivity').submit();
     }
+
     function addImageUrl() {
-        let htmlstr = '<div class="form-group" style="width: 48%;float: left;padding-left: 20px">\n' +
+        var htmlstr = '<div class="form-group" style="width: 48%;float: left;padding-left: 20px">\n' +
             '            <input placeholder="活动图片" id="imageurls" type="text" class="validate" name="imageurls" />\n' +
             '            </div>'
-        var htmllet = '<p>' + 'sdfasdf' + '</p>'
         $('#imgurllist').append(htmlstr);
     }
 
-    function addContent() {
-        var cindex  = tripdaycontent[tripday]++;
-        var htmlstr = '<div class="form-group" style="width: 48%;float: left;padding-left: 20px">\n' +
-            '            <input placeholder="标题" id="contentTitle'+(cindex)+'" type="text" class="validate"  />\n' +
-            '            <input placeholder="内容" id="contentDesc'+(cindex)+'" type="text" class="validate" />\n' +
+    function removeImage(btn) {
+        $(btn).parent().remove();
+    }
+
+    function addContent(cindex, t, c) {
+        if (cindex == -1) {
+            cindex = tripdaycontent[tripday]++;
+        }
+        var htmlstr = '<div class="contents">\n' +
+            '<label >活动标题</label>' +
+            '            <input placeholder="标题" id="contentTitle' + (cindex) + '" type="text"  value="' + t + '" class="validate" style="width: 96%" />\n' +
+            '<label >活动内容</label>' +
+            '            <input placeholder="内容" id="contentDesc' + (cindex) + '" type="text" value="' + c + '" class="validate" style="width: 96%" />\n' +
             '            </div>'
         $('#daytripcontent').append(htmlstr);
     }
+
     function addServer() {
         var name = $('#serverName').val();
         var desc = $('#serverDesc').val();
-         var  htmlstr = '<div class="form-group" style="width: 48%;float: left;padding-left: 20px">\n' +
-            '            <label placeholder="项目名称" id="increment.key" type="text">'+name+'</label>\n' +
-           '            <input placeholder="项目介绍" id="increment" type="text" class="validate" name="increment['+name
-             +']" value="'+desc+'"/>\n' +
+        var htmlstr = '<div class="form-group" style="width: 48%;float: left;padding-left: 20px">\n' +
+            '            <label placeholder="项目名称" id="increment.key" type="text">' + name + '</label>\n' +
+            '            <input placeholder="项目介绍" id="increment" type="text" class="validate" name="increment[' + name
+            + ']" value="' + desc + '"/>\n' +
             '            </div>'
         $('#project').append(htmlstr);
     }
-    var tripday =[[${entity.getRoutingday().size()}]];
-    var tripdaycontent={};
-    function showDayTrip(isnew) {
-        tripday++;
-        $('#currentDay').html("第"+(tripday)+"天");
-        var  asdfa =[[${entity.routingday}]]
-        //
-        if(isnew)
-        tripdaycontent[tripday]=0;
-        else
-            tripdaycontent[tripday]=Object.keys(asdfa[tripday].content).length
-        alert(tripday)
 
-    }
-    function addDayTrip() {
-        var name = $('#tripTitle').val();
-        var  htmlstr = '<div class="form-group" style="width: 48%;float: left;padding-left: 20px">\n' +
-            ' <label type="text">第'+tripday+'天</label>'+
-            '            <input placeholder="项目介绍" id="increment" type="text" class="validate" name="routingday['+tripday
-            +'].title" value="'+name+'"/>\n' ;
-        for(var i=0;i<tripdaycontent[tripday];i++)
+    var tripday = [[${entity.getRoutingday().size()}]];
+    var tripdaycontent = {};
+    var issubmitday = false;
+
+    function showDayTrip(isnew) {
+        $('#daytripcontent').empty();
+        issubmitday = true;
+        if (!isnew)//是不是新添加
         {
-            htmlstr += '<input  id="increment" type="text" class="validate" name="routingday['+tripday
-            +'].content['+$('#contentTitle'+i).val()+']" value="'+$('#contentDesc'+i).val()+'"/>\n' ;
+            tripday++;
+            tripdaycontent[tripday] = 0;
+            $('#tripTitle').val("");
+        }
+        else {
+            var info = $(isnew).parent().children();
+            tripday = info[0].textContent.replace("第", "").replace("天", "");
+            $('#tripTitle').val($(info[2]).val());
+            var cccc = $('#daytripContent' + tripday).children();
+            tripdaycontent[tripday] = cccc.length/2;
+            for (var i = 0; i < cccc.length; i+=2) {
+                addContent(i, cccc[i].textContent, $(cccc[i+1]).val())
+            }
+            $('#currentDay').html("第" + (tripday) + "天");
         }
 
-     htmlstr += ' </div>'
-        $('#daytrip').append(htmlstr);
+
     }
 
+    function addDayTrip() {
+        issubmitday = true;
+        var name = $('#tripTitle').val();
+        var sd =$('#tdaytrip'+tripday);
+        var htmlstr = '<div id ="tdaytrip'+tripday+'" class="form-group" style="width: 96%;float: left;padding-left: 20px">\n' +
+            '<label type="text">第' + tripday + '天</label>' +
+            '<button type="button" onclick="showDayTrip(this)" data-toggle="modal"data-target="#tripModal">查看 </button>' +
+            '<input placeholder="日程介绍" id="increment" type="text" class="validate" name="routingday[' + tripday
+            + '].title" value="' + name + '"/>\n' + '<div class="contents" id="daytripContent' + tripday + '">';
+        if(sd.length>0)//是更新
+        {
+            $(sd).empty();
+            htmlstr ='<label type="text">第' + tripday + '天</label>' +
+                '<button type="button" onclick="showDayTrip(this)" data-toggle="modal"data-target="#tripModal">查看 </button>' +
+                '<input placeholder="日程介绍" id="increment" type="text" class="validate" name="routingday[' + tripday
+                + '].title" value="' + name + '"/>\n' + '<div class="contents" id="daytripContent' + tripday + '">';
+            for (var i = 0; i < tripdaycontent[tripday]; i++) {
+                htmlstr += '<input  id="increment" type="text" class="validate" name="routingday[' + tripday
+                    + '].content[' + $('#contentTitle' + i).val() + ']" value="' + $('#contentDesc' + i).val() + '"/>\n';
+            }
+            htmlstr += ' </div>'
+            $(sd).append(htmlstr);
+        }
+        else
+        {
+            htmlstr = '<div id ="tdaytrip'+tripday+'" class="form-group" style="width: 96%;float: left;padding-left: 20px">\n' +
+                '<label type="text">第' + tripday + '天</label>' +
+                '<button type="button" onclick="showDayTrip(this)" data-toggle="modal"data-target="#tripModal">查看 </button>' +
+                '<input placeholder="日程介绍" id="increment" type="text" class="validate" name="routingday[' + tripday
+                + '].title" value="' + name + '"/>\n' + '<div class="contents" id="daytripContent' + tripday + '">';
+            for (var i = 0; i < tripdaycontent[tripday]; i++) {
+                htmlstr +=   '<label type="text">'+ $('#contentTitle' + i).val()+'</label>' +
+                    '<input  type="text" class="validate" name="routingday[' + tripday
+                    + '].content[' + $('#contentTitle' + i).val() + ']" value="' + $('#contentDesc' + i).val() + '"/>\n';
+            }
+            htmlstr += ' </div>'
+            htmlstr += ' </div>'
+            $('#daytrip').append(htmlstr);
+        }
+
+    }
+
+    $('#tripModal').on('hide.bs.modal', function () {
+        if (!issubmitday)
+            alert('模态框关闭了');
+    });
 </script>
 </body>
 
