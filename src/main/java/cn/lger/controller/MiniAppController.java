@@ -99,7 +99,11 @@ public class MiniAppController {
         return  rst;
     }
 
-
+    /**
+     * 会员注册
+     * @param member
+     * @return
+     */
     @RequestMapping(value ="/minapp/register",consumes="application/json")
     public  Member userRegister(@RequestBody Member member)
     {
