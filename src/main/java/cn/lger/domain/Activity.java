@@ -18,7 +18,7 @@ public class Activity {
     //行程列表
 
     @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
-    private Map<Integer,DayTrip> routingday;
+    private Map<Integer,DayTrip> routingday = new HashMap<>();
     //报名截止日期
     private LocalDate endDate;
     //最大参见人数
