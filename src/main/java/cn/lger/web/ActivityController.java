@@ -69,7 +69,7 @@ public class ActivityController {
      */
     @RequestMapping("/addActivity")
     public String addActivity(Model model, Activity activity){
-        Activity rst = activity;
+        Activity rst = new Activity();
         if(activity.getId()!=null)
         {
             rst =  activityDao.findById(activity.getId()).get();
