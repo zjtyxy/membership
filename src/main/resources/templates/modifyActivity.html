@@ -24,8 +24,15 @@
         }
 
         .contents {
-            border: 1px solid #000;
+                border: 1px solid #000;
+                margin-left: 25px;
+                margin-top: 10px;
+                width: 96%;
+            }
+        .contents1 {
+            border: 1px solid #aa00ff;
             margin-left: 25px;
+            margin-top: 10px;
             width: 96%;
         }
     </style>
@@ -78,29 +85,36 @@
                                        name="userDate" th:value="*{getUserDate()}" required/>
                             </div>
                         </div>
-                        <div>
+                        <div class="contents1">
                             <div class="row">
                                 <div class="form-group" style="width: 100%;float: left;padding-left: 20px">
                                     <label>活动日程</label>
                                     <button type="button" onclick="showDayTrip()" data-toggle="modal"
                                             data-target="#tripModal">添加日程
                                     </button>
+                                    <button type="button" onclick="removeDayTrip()">删除行程
+                                    </button>
                                 </div>
                             </div>
                             <div class="row" id="daytrip">
-                                <div class="form-group" style="width: 48%;float: left;padding-left: 20px"
-                                     th:each="stat:*{getRoutingday()}">
+                                <div class="contents" th:id="'tdaytrip'+${statx.count}"
+                                     th:each="stat,statx:*{getRoutingday()}">
                                     <label placeholder="日程" type="text" th:text="'第'+${stat.key}+'天'"/>
                                     <button type="button" onclick="showDayTrip(this)" data-toggle="modal"
                                             data-target="#tripModal">查看
                                     </button>
-                                    <input placeholder="简介" class="validate"
+                                    <input placeholder="日程介绍" class="validate"
                                            th:field="*{routingday[__${stat.key}__].title}"/>
+
+                                    <div class="contents"  th:id="'daytripContent'+${statx.count}" th:each="dayentity:${stat.value.content}">
+                                        <label type="text" th:text="${dayentity.key}"></label>
+                                        <input   class="validate" th:field="*{routingday[__${stat.key}__].content[__${dayentity.key}__]}"/>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
-                        <div>
+                        <div class="contents1">
                             <div class="row">
                                 <div class="form-group" style="width: 100%;float: left;padding-left: 20px">
                                     <label>增值项目</label>
@@ -109,9 +123,11 @@
                                 </div>
                             </div>
                             <div class="row" id="project">
-                                <div class="form-group" style="width: 48%;float: left;padding-left: 20px"
+                                <div class="contents"
                                      th:each="stat:*{getIncrement()}">
+
                                     <label placeholder="项目名称" id="increment.key" type="text" th:text="${stat.key}"/>
+                                    <button type="button" onclick="removeServer(this)">删除</button>
                                     <input placeholder="项目描述" class="validate"
                                            th:field="*{increment[__${stat.key}__]}"/>
                                 </div>
@@ -119,7 +135,7 @@
                             </div>
 
                         </div>
-                        <div>
+                        <div class="contents1">
                             <div class="row">
                                 <div class="form-group" style="width: 100%;float: left;padding-left: 20px">
                                     <label>活动图片列表</label>
@@ -128,7 +144,7 @@
                                 </div>
                             </div>
                             <div class="row" id="imgurllist">
-                                <div class="form-group" style="width: 48%;float: left;padding-left: 20px"
+                                <div class="contents"
                                      th:each="stat:*{getImageurls()}">
                                     <button type="button" onclick="removeImage(this)">删除</button>
                                     <input placeholder="活动图片" id="imageurls" type="text" class="validate"
@@ -249,7 +265,7 @@
     }
 
     function addImageUrl() {
-        var htmlstr = '<div class="form-group" style="width: 48%;float: left;padding-left: 20px">\n' +
+        var htmlstr = '<div class="contents">\n' +
             '            <input placeholder="活动图片" id="imageurls" type="text" class="validate" name="imageurls" />\n' +
             '            </div>'
         $('#imgurllist').append(htmlstr);
@@ -275,9 +291,10 @@
     function addServer() {
         var name = $('#serverName').val();
         var desc = $('#serverDesc').val();
-        var htmlstr = '<div class="form-group" style="width: 48%;float: left;padding-left: 20px">\n' +
+        var htmlstr = '<div class="contents">\n' +
             '            <label placeholder="项目名称" id="increment.key" type="text">' + name + '</label>\n' +
-            '            <input placeholder="项目介绍" id="increment" type="text" class="validate" name="increment[' + name
+                '<button type="button" onclick="removeServer(this)">删除</button>'+
+            ' <input placeholder="项目介绍" id="increment" type="text" class="validate" name="increment[' + name
             + ']" value="' + desc + '"/>\n' +
             '            </div>'
         $('#project').append(htmlstr);
@@ -285,14 +302,19 @@
 
     var tripday = [[${entity.getRoutingday().size()}]];
     var tripdaycontent = {};
-    var issubmitday = false;
-
+    function removeDayTrip() {
+        tripday=$('#daytrip').children().length;
+        $('#tdaytrip'+tripday).remove();
+        tripday=$('#daytrip').children().length;
+    }
+    function removeServer(btn) {
+        $(btn).parent().remove();
+    }
     function showDayTrip(isnew) {
         $('#daytripcontent').empty();
-        issubmitday = true;
         if (!isnew)//是不是新添加
         {
-            tripday++;
+            tripday=$('#daytrip').children().length+1;
             tripdaycontent[tripday] = 0;
             $('#tripTitle').val("");
         }
@@ -305,14 +327,13 @@
             for (var i = 0; i < cccc.length; i+=2) {
                 addContent(i, cccc[i].textContent, $(cccc[i+1]).val())
             }
-            $('#currentDay').html("第" + (tripday) + "天");
         }
 
-
+        $('#currentDay').html("第" + (tripday) + "天");
     }
 
     function addDayTrip() {
-        issubmitday = true;
+
         var name = $('#tripTitle').val();
         var sd =$('#tdaytrip'+tripday);
         var htmlstr = '<div id ="tdaytrip'+tripday+'" class="form-group" style="width: 96%;float: left;padding-left: 20px">\n' +
@@ -328,7 +349,8 @@
                 '<input placeholder="日程介绍" id="increment" type="text" class="validate" name="routingday[' + tripday
                 + '].title" value="' + name + '"/>\n' + '<div class="contents" id="daytripContent' + tripday + '">';
             for (var i = 0; i < tripdaycontent[tripday]; i++) {
-                htmlstr += '<input  id="increment" type="text" class="validate" name="routingday[' + tripday
+                htmlstr +=   '<label type="text">'+ $('#contentTitle' + i).val()+'</label>'+
+                    '<input  id="increment" type="text" class="validate" name="routingday[' + tripday
                     + '].content[' + $('#contentTitle' + i).val() + ']" value="' + $('#contentDesc' + i).val() + '"/>\n';
             }
             htmlstr += ' </div>'
@@ -353,10 +375,7 @@
 
     }
 
-    $('#tripModal').on('hide.bs.modal', function () {
-        if (!issubmitday)
-            alert('模态框关闭了');
-    });
+
 </script>
 </body>
 

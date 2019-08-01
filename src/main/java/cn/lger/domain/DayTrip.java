@@ -9,7 +9,7 @@ public class DayTrip {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private  String title;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Map<String,String> content  = new HashMap<>();
 
     public Integer getId() {
