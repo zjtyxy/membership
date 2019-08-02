@@ -1,239 +1,232 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>活动页面</title>
     <link rel="stylesheet" href="assets/layui/css/layui.css" media="all">
     <link href="assets/css/bootstrap.css" rel="stylesheet"/>
-    <style>
-        .layui-upload-img{width: 92px; height: 92px; margin: 0 10px 10px 0;}
-    </style>
-    <style>
-        .modal {
-            background-color: #76767600;
-           // box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.0);
-            width:  50%;;
+    <style> .layui-upload-img {
+        width: 92px;
+        height: 92px;
+        margin: 0 10px 10px 0;
+    } </style>
+    <style> .modal {
+        background-color: #76767600;
+    / / box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.0);
+        width: 50%;;
+        height: 100%;
+        margin: 160px auto;
+    }
 
-            height: 100%;
-            margin:160px auto;
-        }
-        .grid-demo{padding: 10px; line-height: 50px; text-align: center; background-color: #79C48C; color: #fff;}
-        .contents {
-                border: 1px solid #000;
-                margin-left: 25px;
-                margin-top: 10px;
-                width: 96%;
-            }
-        .contents1 {
-            border: 1px solid #aa00ff;
-            margin-left: 25px;
-            margin-top: 10px;
-            width: 96%;
-        }
-    </style>
+    .grid-demo {
+        padding: 10px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #79C48C;
+        color: #fff;
+    }
+
+    .contents {
+        border: 1px solid #000;
+        margin-left: 25px;
+        margin-top: 10px;
+        width: 96%;
+    }
+
+    .contents1 {
+        border: 1px solid #aa00ff;
+        margin-left: 25px;
+        margin-top: 10px;
+        width: 96%;
+    } </style>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <div th:replace="title :: html"></div>
-    <!--侧边栏-->
-    <div th:replace="sidebar :: html"></div>
-    <!--内容主体-->
-    <div  class="layui-body" id="page-wrapper">
-        <!--内容主题-->
-
-
+    <div th:replace="title :: html"></div> <!--侧边栏-->
+    <div th:replace="sidebar :: html"></div> <!--内容主体-->
+    <div class="layui-body" id="page-wrapper"> <!--内容主题-->
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>活动页面 </legend>
-          </fieldset>
-        <div id="page-inner">
-            <!--自定义内容-->
-            <!--<div class="container">-->
+            <legend>活动页面</legend>
+        </fieldset>
+        <div id="page-inner"> <!--自定义内容--> <!--<div class="container">-->
             <div class="card">
                 <div class="card-content">
-                    <form class="layui-form" th:action="@{/modifyActivity}" method="post" id="modifyActivity" th:object="${entity}">
-                        <input id="idx" name="id" type="hidden" class="layui-input" th:value="*{getId()}" required/>
+                    <form class="layui-form" th:action="@{/modifyActivity}" method="post" id="modifyActivity"
+                          th:object="${entity}"><input id="idx" name="id" type="hidden" class="layui-input"
+                                                       th:value="*{getId()}" required/>
                         <div class="layui-form-item">
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
-                                <label class="layui-form-label" style="width: 120px;" for="name">活动名称</label>
-                                <div class="layui-input-block" style="margin-left: 130px;">
-                                <input id="name" name="name" type="text" class="layui-input" placeholder="活动名称"
-                                       th:value="*{getName()}" required/>
-                                </div>
+                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
+                                    class="layui-form-label" style="width: 120px;" for="name">活动名称</label>
+                                <div class="layui-input-block" style="margin-left: 130px;"><input id="name" name="name"
+                                                                                                  type="text"
+                                                                                                  class="layui-input"
+                                                                                                  placeholder="活动名称"
+                                                                                                  th:value="*{getName()}"
+                                                                                                  required/></div>
                             </div>
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
-                                <label class="layui-form-label" style="width: 120px;"  for="link">主页图片地址</label>
-                                <div class="layui-input-block" style="margin-left: 130px;" >
-                                <input id="link" name="link" type="url" class="layui-input"
-                                       placeholder="主页图片地址" th:value="*{getLink()}" required/>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="layui-form-item">
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
-                                <label class="layui-form-label" style="width: 120px;" for="userName">最大参加人数</label>
-                                <div class="layui-input-block" style="margin-left: 130px;">
-                                <input id="maxNumber"  class="layui-input" type="number" th:field="*{maxNumber}"
-                                       placeholder="发布者" required/>
-                                </div>
-                            </div>
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
-                                <label class="layui-form-label" style="width: 120px;" for="signupMode">报名方式</label>
-                                <div class="layui-input-block" style="margin-left: 130px;">
-                                <input placeholder="报名方式" id="signupMode" class="layui-input"
-                                        th:field="*{signupMode}" required/>
-                                </div>
+                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
+                                    class="layui-form-label" style="width: 120px;" for="link">主页图片地址</label>
+                                <div class="layui-input-block" style="margin-left: 130px;"><input id="link" name="link"
+                                                                                                  type="url"
+                                                                                                  class="layui-input"
+                                                                                                  placeholder="主页图片地址"
+                                                                                                  th:value="*{getLink()}"
+                                                                                                  required/></div>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
-                                <label class="layui-form-label" style="width: 120px;" for="endDate">报名截止日</label>
-                                <div class="layui-input-block" style="margin-left: 130px;">
-                                <input id="endDate" type="date" class="layui-input" name="endDate" th:value="*{endDate}"
-                                       placeholder="报名截止日" required/>
-                                </div>
+                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
+                                    class="layui-form-label" style="width: 120px;" for="userName">最大参加人数</label>
+                                <div class="layui-input-block" style="margin-left: 130px;"><input id="maxNumber"
+                                                                                                  class="layui-input"
+                                                                                                  type="number"
+                                                                                                  th:field="*{maxNumber}"
+                                                                                                  placeholder="发布者"
+                                                                                                  required/></div>
                             </div>
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
-                                <label class="layui-form-label" style="width: 120px;" for="days">活动天数</label>
-                                <div class="layui-input-block" style="margin-left: 130px;">
-                                <input placeholder="活动天数" id="days" type="number"  class="layui-input"
-                                       th:field="*{days}" required/>
-                                </div>
+                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
+                                    class="layui-form-label" style="width: 120px;" for="signupMode">报名方式</label>
+                                <div class="layui-input-block" style="margin-left: 130px;"><input placeholder="报名方式"
+                                                                                                  id="signupMode"
+                                                                                                  class="layui-input"
+                                                                                                  th:field="*{signupMode}"
+                                                                                                  required/></div>
                             </div>
                         </div>
-
-
                         <div class="layui-form-item">
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
-                                <label class="layui-form-label" style="width: 120px;" for="money">活动费用</label>
-                                <div class="layui-input-block" style="margin-left: 130px;">
-                                <input placeholder="活动费用" id="money" type="number"  class="layui-input"
-                                      th:field="*{money}" required/>
-                                </div>
+                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
+                                    class="layui-form-label" style="width: 120px;" for="endDate">报名截止日</label>
+                                <div class="layui-input-block" style="margin-left: 130px;"><input id="endDate"
+                                                                                                  type="date"
+                                                                                                  class="layui-input"
+                                                                                                  name="endDate"
+                                                                                                  th:value="*{endDate}"
+                                                                                                  placeholder="报名截止日"
+                                                                                                  required/></div>
                             </div>
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
-                                <label class="layui-form-label" style="width: 120px;" for="userName">发布者</label>
-                                <div class="layui-input-block" style="margin-left: 130px;">
-                                <input id="userName" name="userName" type="text" class="layui-input" th:field="*{userName}"
-                                       placeholder="发布者" required/>
-                                </div>
+                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
+                                    class="layui-form-label" style="width: 120px;" for="days">活动天数</label>
+                                <div class="layui-input-block" style="margin-left: 130px;"><input placeholder="活动天数"
+                                                                                                  id="days"
+                                                                                                  type="number"
+                                                                                                  class="layui-input"
+                                                                                                  th:field="*{days}"
+                                                                                                  required/></div>
                             </div>
-
                         </div>
-
-
+                        <div class="layui-form-item">
+                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
+                                    class="layui-form-label" style="width: 120px;" for="money">活动费用</label>
+                                <div class="layui-input-block" style="margin-left: 130px;"><input placeholder="活动费用"
+                                                                                                  id="money"
+                                                                                                  type="number"
+                                                                                                  class="layui-input"
+                                                                                                  th:field="*{money}"
+                                                                                                  required/></div>
+                            </div>
+                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
+                                    class="layui-form-label" style="width: 120px;" for="userName">发布者</label>
+                                <div class="layui-input-block" style="margin-left: 130px;"><input id="userName"
+                                                                                                  name="userName"
+                                                                                                  type="text"
+                                                                                                  class="layui-input"
+                                                                                                  th:field="*{userName}"
+                                                                                                  placeholder="发布者"
+                                                                                                  required/></div>
+                            </div>
+                        </div>
                         <div class="layui-form-item">
                             <div class="layui-collapse" lay-filter="test">
-                                <div class="layui-colla-item">
-                                    <h2 class="layui-colla-title">活动日程</h2>
+                                <div class="layui-colla-item"><h2 class="layui-colla-title">活动日程</h2>
                                     <div class="layui-colla-content">
                                         <div class="layui-inline" style="width: 100%;float: left;padding-left: 20px">
-                                            <button type="button" class="layui-btn layui-btn-sm" onclick="showDayTrip()" data-toggle="modal"
-                                                    data-target="#tripModal">添加日程
+                                            <button type="button" class="layui-btn layui-btn-sm" onclick="showDayTrip()"
+                                                    data-toggle="modal" data-target="#tripModal">添加日程
                                             </button>
-                                            <button class="layui-btn layui-btn-sm" type="button" onclick="removeDayTrip()">删除行程
+                                            <button class="layui-btn layui-btn-sm" type="button"
+                                                    onclick="removeDayTrip()">删除行程
                                             </button>
                                         </div>
                                         <div class="layui-form-item" id="daytrip">
                                             <div class="layui-card" th:id="'tdaytrip'+${statx.count}"
-                                                 th:each="stat,statx:*{getRoutingday()}">
-                                                <label th:text="'第'+${stat.key}+'天'"/>
-                                                <button type="button" class="layui-btn layui-btn-xs" onclick="showDayTrip(this)" data-toggle="modal"
+                                                 th:each="stat,statx:*{getRoutingday()}"><label
+                                                    th:text="'第'+${stat.key}+'天'"/>
+                                                <button type="button" class="layui-btn layui-btn-xs"
+                                                        onclick="showDayTrip(this)" data-toggle="modal"
                                                         data-target="#tripModal">查看
                                                 </button>
-                                                <div class="layui-form-item">
-                                                <label class="layui-form-label" style="width: 120px;">日程介绍</label>
-                                                <div class="layui-input-block" style="margin-left: 130px;">
-                                                <input placeholder="日程介绍" class="layui-input"
-                                                       th:field="*{routingday[__${stat.key}__].title}"/>
+                                                <div class="layui-form-item"><label class="layui-form-label"
+                                                                                    style="width: 120px;">日程介绍</label>
+                                                    <div class="layui-input-block" style="margin-left: 130px;"><input
+                                                            placeholder="日程介绍" class="layui-input"
+                                                            th:field="*{routingday[__${stat.key}__].title}"/></div>
                                                 </div>
-                                                </div>
-
-                                                    <legend>日程项目</legend>
-
-                                                <div class="layui-form-item"  th:id="'daytripContent'+${statx.count}" th:each="dayentity:${stat.value.content}">
-                                                    <label class="layui-form-label" style="width: 150px;" th:text="${dayentity.key}"></label>
-                                                    <div class="layui-input-block" style="margin-left: 160px;">
-                                                    <input   class="layui-input" th:field="*{routingday[__${stat.key}__].content[__${dayentity.key}__]}"/>
+                                                <legend>日程项目</legend>
+                                                <div class="layui-form-item" th:id="'daytripContent'+${statx.count}"
+                                                     th:each="dayentity:${stat.value.content}"><label
+                                                        class="layui-form-label" style="width: 150px;"
+                                                        th:text="${dayentity.key}"></label>
+                                                    <div class="layui-input-block" style="margin-left: 160px;"><input
+                                                            class="layui-input"
+                                                            th:field="*{routingday[__${stat.key}__].content[__${dayentity.key}__]}"/>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="layui-colla-item">
-                                    <h2 class="layui-colla-title">增值服务</h2>
+                                <div class="layui-colla-item"><h2 class="layui-colla-title">增值服务</h2>
                                     <div class="layui-colla-content">
                                         <div class="layui-inline" style="width: 100%;float: left;padding-left: 20px">
-                                            <button type="button"  class="layui-btn layui-btn-sm" data-toggle="modal" data-target="#myModal">添加
+                                            <button type="button" class="layui-btn layui-btn-sm" data-toggle="modal"
+                                                    data-target="#myModal">添加
                                             </button>
                                         </div>
                                         <div class="layui-card" id="project">
-                                            <div  class="layui-row" th:each="stat:*{getIncrement()}">
-                                                <div class="layui-col-xs3" style="width:12%">
-                                                    <label  class="layui-form-label" style="width: 150px;" placeholder="项目名称" th:text="${stat.key}"/>
-                                                </div>
-                                                <div class="layui-col-xs3" style="width:82%">
-
-                                                        <input class="layui-input"
-                                                               th:field="*{increment[__${stat.key}__]}"/>
-
+                                            <div class="layui-row" th:each="stat:*{getIncrement()}">
+                                                <div class="layui-col-xs3" style="width:12%"><label
+                                                        class="layui-form-label" style="width: 150px;"
+                                                        placeholder="项目名称" th:text="${stat.key}"/></div>
+                                                <div class="layui-col-xs3" style="width:82%"><input class="layui-input"
+                                                                                                    th:field="*{increment[__${stat.key}__]}"/>
                                                 </div>
                                                 <div class="layui-col-xs3" style="width:6%">
-                                                    <button class="layui-btn layui-btn-sm" style="float:right" type="button" onclick="removeServer(this)">删除</button>
+                                                    <button class="layui-btn layui-btn-sm" style="float:right"
+                                                            type="button" onclick="removeServer(this)">删除
+                                                    </button>
                                                 </div>
-
-
-
-
-
-
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
-                                <div class="layui-colla-item">
-                                    <h2 class="layui-colla-title">活动图片列表</h2>
+                                <div class="layui-colla-item"><h2 class="layui-colla-title">活动图片列表</h2>
                                     <div class="layui-colla-content">
                                         <div class="layui-inline" style="width: 100%;float: left;padding-left: 20px">
                                             <label>活动图片列表</label>
-                                            <button class="layui-btn layui-btn-sm" onclick="addImageUrl()" type="button">添加图片
+                                            <button class="layui-btn layui-btn-sm" onclick="addImageUrl()"
+                                                    type="button">添加图片
                                             </button>
                                         </div>
                                         <div class="layui-form-item" id="imgurllist">
-                                            <div class="layui-card"
-                                                 th:each="stat:*{getImageurls()}">
-                                                <button type="button" class="layui-btn layui-btn-xs" onclick="removeImage(this)">删除</button>
+                                            <div class="layui-card" th:each="stat:*{getImageurls()}">
+                                                <button type="button" class="layui-btn layui-btn-xs"
+                                                        onclick="removeImage(this)">删除
+                                                </button>
                                                 <input placeholder="活动图片" id="imageurls" type="url" class="layui-input"
-                                                       name="imageurls" th:value="${stat}" required/>
-                                            </div>
-
+                                                       name="imageurls" th:value="${stat}" required/></div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <button onclick="submitForm()" class="waves-effect waves-light btn" type="button">确认修改
                             </button>
                         </div>
                     </form>
-
                     <div class="clearBoth"></div>
-                </div>
-                <!--</div>-->
-            </div>
-            <!--页脚-->
-            <br>
-            <br>
-            <br>
+                </div> <!--</div>--> </div> <!--页脚--> <br> <br> <br>
             <div th:replace="footer :: html"></div>
         </div>
-
     </div>
 </div>
 <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -242,20 +235,19 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="modal-title" id="myModalLabel">添加增值服务</h5>
-            </div>
+                <h5 class="modal-title" id="myModalLabel">添加增值服务</h5></div>
             <div class="modal-body">
-                <div class="layui-form-item">
-                    <label class="layui-form-label" style="width: 120px;" for="serverName">服务名称</label>
-                    <div class="layui-input-block" style="margin-left: 130px;">
-                    <input type="text" class="form-control" id="serverName" placeholder="服务名称">
-                    </div>
+                <div class="layui-form-item"><label class="layui-form-label" style="width: 120px;"
+                                                    for="serverName">服务名称</label>
+                    <div class="layui-input-block" style="margin-left: 130px;"><input type="text" class="form-control"
+                                                                                      id="serverName"
+                                                                                      placeholder="服务名称"></div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label" style="width: 120px;" for="serverDesc">服务介绍</label>
-                    <div class="layui-input-block" style="margin-left: 130px;">
-                    <input type="text" class="form-control" id="serverDesc" placeholder="服务介绍">
-                    </div>
+                <div class="layui-form-item"><label class="layui-form-label" style="width: 120px;"
+                                                    for="serverDesc">服务介绍</label>
+                    <div class="layui-input-block" style="margin-left: 130px;"><input type="text" class="form-control"
+                                                                                      id="serverDesc"
+                                                                                      placeholder="服务介绍"></div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -266,200 +258,88 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="tripModal" tabindex="-1" role="dialog" ondrop="tripclose()">
     <div class="layui-card" role="document">
         <div>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="modal-title">添加<span id="currentDay"></span>活动日程</h5>
-            </div>
+                <h5 class="modal-title">添加<span id="currentDay"></span>活动日程</h5></div>
             <div class="modal-body">
-                <div class="layui-form-item">
-                    <label class="layui-form-label" style="width: 120px;" for="serverName">日程标题</label>
-                    <div class="layui-input-block" style="margin-left: 130px;">
-                    <input type="text" class="form-control" id="tripTitle" placeholder="日程标题">
+                <div class="layui-form-item"><label class="layui-form-label" style="width: 120px;"
+                                                    for="serverName">日程标题</label>
+                    <div class="layui-input-block" style="margin-left: 130px;"><input type="text" class="form-control"
+                                                                                      id="tripTitle" placeholder="日程标题">
                     </div>
                 </div>
                 <div>
                     <div class="layui-form-item">
                         <div class="layui-inline" style="width: 100%;float: left;padding-left: 20px">
-                            <legend>日程项目  <button type="button" class="layui-btn layui-btn-xs" onclick="addContent(-1,'','')">添加</button></legend>
-
+                            <legend>日程项目
+                                <button type="button" class="layui-btn layui-btn-xs" onclick="addContent(-1,'','')">添加
+                                </button>
+                            </legend>
                         </div>
                     </div>
-                    <div class="layui-form-item" id="daytripcontent">
-
-                    </div>
-
+                    <div class="layui-form-item" id="daytripcontent"></div>
                 </div>
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn waves-effect waves-light" onclick="addDayTrip()" data-dismiss="modal">
                     保存修改
                 </button>
             </div>
-
         </div>
     </div>
-</div>
-<!-- JS Scripts-->
-<!-- jQuery Js -->
-<script src="assets/js/jquery-1.10.2.js"></script>
-<!-- Bootstrap Js -->
+</div> <!-- JS Scripts--> <!-- jQuery Js -->
+<script src="assets/js/jquery-1.10.2.js"></script> <!-- Bootstrap Js -->
 <script src="assets/js/bootstrap.min.js"></script>
+<script th:inline="javascript"> function submitForm() {
+    $('#modifyActivity').submit();
+}
 
-<script th:inline="javascript">
-    function submitForm() {
-        $('#modifyActivity').submit();
+function addImageUrl() {
+    var htmlstr = '<div class="contents">\n' + '            <input placeholder="活动图片" id="imageurls" type="text" class="layui-input" name="imageurls" />\n' + '            </div>'
+    $('#imgurllist').append(htmlstr);
+}
+
+function removeImage(btn) {
+    $(btn).parent().remove();
+}
+
+function addContent(cindex, t, c) {
+    if (cindex == -1) {
+        cindex = tripdaycontent[tripday]++;
     }
+    var htmlstr = '<div class="layui-card">\n' + '<label class="layui-form-label" style="width: 120px;">活动标题</label>' + '<div class="layui-input-block" style="margin-left: 130px;">' + '<input placeholder="标题" id="contentTitle' + (cindex) + '" type="text"  value="' + t + '" class="layui-input" /> ' + '</div>' + '</div>' + '<div class="layui-form-item">' + '<label class="layui-form-label" style="width: 120px;">活动内容</label>' + '<div class="layui-input-block" style="margin-left: 130px;">' + '<input placeholder="内容" id="contentDesc' + (cindex) + '" type="text" value="' + c + '" class="layui-input"/>\n' + '</div>' + '</div>'
+    $('#daytripcontent').append(htmlstr);
+}
 
-    function addImageUrl() {
-        var htmlstr = '<div class="contents">\n' +
-            '            <input placeholder="活动图片" id="imageurls" type="text" class="layui-input" name="imageurls" />\n' +
-            '            </div>'
-        $('#imgurllist').append(htmlstr);
-    }
+function addServer() {
+    var name = $('#serverName').val();
+    var desc = $('#serverDesc').val();
+    var htmlstr = '<div class="contents">\n' + '            <label placeholder="项目名称" id="increment.key" type="text">' + name + '</label>\n' + '<button type="button" onclick="removeServer(this)">删除</button>' + ' <input placeholder="项目介绍" id="increment" type="text" class="layui-input" name="increment[' + name + ']" value="' + desc + '"/>\n' + '            </div>'
+    $('#project').append(htmlstr);
+}
 
-    function removeImage(btn) {
-        $(btn).parent().remove();
-    }
+var tripday = [[${entity.getRoutingday().size()}]];
+var tripdaycontent = {};
 
-    function addContent(cindex, t, c) {
-        if (cindex == -1) {
-            cindex = tripdaycontent[tripday]++;
-        }
-        var htmlstr = '<div class="layui-card">\n' +
-            '<label class="layui-form-label" style="width: 120px;">活动标题</label>' +
-            '<div class="layui-input-block" style="margin-left: 130px;">'+
-            '<input placeholder="标题" id="contentTitle' + (cindex) + '" type="text"  value="' + t + '" class="layui-input" /> ' +
-            '</div>'+ '</div>'+
-            '<div class="layui-form-item">'+
-            '<label class="layui-form-label" style="width: 120px;">活动内容</label>' +
-            '<div class="layui-input-block" style="margin-left: 130px;">'+
-            '<input placeholder="内容" id="contentDesc' + (cindex) + '" type="text" value="' + c + '" class="layui-input"/>\n' +
-            '</div>'+'</div>'
+function removeDayTrip() {
+    tripday = $('#daytrip').children().length;
+    $('#tdaytrip' + tripday).remove();
+    tripday = $('#daytrip').children().length;
+}
 
-        $('#daytripcontent').append(htmlstr);
-    }
+function removeServer(btn) {
+    $(btn).parent().remove();
+}
 
-    function addServer() {
-        var name = $('#serverName').val();
-        var desc = $('#serverDesc').val();
-        var htmlstr = '<div class="contents">\n' +
-            '            <label placeholder="项目名称" id="increment.key" type="text">' + name + '</label>\n' +
-                '<button type="button" onclick="removeServer(this)">删除</button>'+
-            ' <input placeholder="项目介绍" id="increment" type="text" class="layui-input" name="increment[' + name
-            + ']" value="' + desc + '"/>\n' +
-            '            </div>'
-        $('#project').append(htmlstr);
-    }
-
-    var tripday = [[${entity.getRoutingday().size()}]];
-    var tripdaycontent = {};
-    function removeDayTrip() {
-        tripday=$('#daytrip').children().length;
-        $('#tdaytrip'+tripday).remove();
-        tripday=$('#daytrip').children().length;
-    }
-    function removeServer(btn) {
-        $(btn).parent().remove();
-    }
-    function showDayTrip(isnew) {
-        $('#daytripcontent').empty();
-        if (!isnew)//是不是新添加
-        {
-            tripday=$('#daytrip').children().length+1;
-            tripdaycontent[tripday] = 0;
-            $('#tripTitle').val("");
-        }
-        else {
-            var info = $(isnew).parent().children();
-            tripday = info[0].textContent.replace("第", "").replace("天", "");
-            $('#tripTitle').val($(info[2]).val());
-            var cccc = $('#daytripContent' + tripday).children();
-            tripdaycontent[tripday] = cccc.length/2;
-            for (var i = 0; i < cccc.length; i+=2) {
-                addContent(i, cccc[i].textContent, $(cccc[i+1]).val())
-            }
-        }
-
-        $('#currentDay').html("第" + (tripday) + "天");
-    }
-
-    function addDayTrip() {
-
-        var name = $('#tripTitle').val();
-        var sd =$('#tdaytrip'+tripday);
-        var htmlstr;
-        if(sd.length>0)//是更新
-        {
-            $(sd).empty();
-            htmlstr ='<label type="text">第' + tripday + '天</label>' +
-                '<button type="button" onclick="showDayTrip(this)" data-toggle="modal" class="layui-btn layui-btn-xs" data-target="#tripModal">查看 </button>' +
-                '<input placeholder="日程介绍" id="increment" type="text" class="layui-input" name="routingday[' + tripday
-                + '].title" value="' + name + '"/>\n' + '<div class="contents" id="daytripContent' + tripday + '">';
-            for (var i = 0; i < tripdaycontent[tripday]; i++) {
-                htmlstr +=   '<label type="text">'+ $('#contentTitle' + i).val()+'</label>'+
-                    '<input  id="increment" type="text" class="layui-input" name="routingday[' + tripday
-                    + '].content[' + $('#contentTitle' + i).val() + ']" value="' + $('#contentDesc' + i).val() + '"/>\n';
-            }
-            htmlstr += ' </div>'
-            $(sd).append(htmlstr);
-        }
-        else
-        {
-            htmlstr = '<div id ="tdaytrip'+tripday+'" class="layui-inline" style="width: 96%;float: left;padding-left: 20px">\n' +
-                '<label type="text">第' + tripday + '天</label>' +
-                '<button type="button" onclick="showDayTrip(this)" class="layui-btn layui-btn-xs" data-toggle="modal"data-target="#tripModal">查看 </button>' +
-                '<input placeholder="日程介绍" id="increment" type="text" class="layui-input" name="routingday[' + tripday
-                + '].title" value="' + name + '"/>\n' + '<div class="contents" id="daytripContent' + tripday + '">';
-            for (var i = 0; i < tripdaycontent[tripday]; i++) {
-                htmlstr +=   '<label type="text">'+ $('#contentTitle' + i).val()+'</label>' +
-                    '<input  type="text" class="layui-input" name="routingday[' + tripday
-                    + '].content[' + $('#contentTitle' + i).val() + ']" value="' + $('#contentDesc' + i).val() + '"/>\n';
-            }
-            htmlstr += ' </div>'
-            htmlstr += ' </div>'
-            $('#daytrip').append(htmlstr);
-        }
-
-    }
-
-
-</script>
-<script>
-    layui.use('upload', function(){
-        var $ = layui.jquery
-            ,upload = layui.upload;
-
-        //普通图片上传
-        var uploadInst =  upload.render({
-            elem: '#test2'
-            ,url: '/minapp/upload/'
-            ,multiple: true
-            ,before: function(obj){
-                //预读本地文件示例，不支持ie8
-                obj.preview(function(index, file, result){
-                    $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
-                });
-            }
-            ,done: function(res){
-                //上传完毕
-            }
-        });
-
-
-
-
-    });
-    layui.use(['element', 'layer'], function(){
-        var element = layui.element;
-        var layer = layui.layer;
-    });
-</script>
+function showDayTrip(isnew) {
+    $('#daytripcontent').empty();
+    if (!isnew)//是不是新添加 { tripday=$('#daytrip').children().length+1; tripdaycontent[tripday] = 0; $('#tripTitle').val(""); } else { var info = $(isnew).parent().children(); tripday = info[0].textContent.replace("第", "").replace("天", ""); $('#tripTitle').val($(info[2]).val()); var cccc = $('#daytripContent' + tripday).children(); tripdaycontent[tripday] = cccc.length/2; for (var i = 0; i < cccc.length; i+=2) { addContent(i, cccc[i].textContent, $(cccc[i+1]).val()) } }  $('#currentDay').html("第" + (tripday) + "天"); }  function addDayTrip() {  var name = $('#tripTitle').val(); var sd =$('#tdaytrip'+tripday); var htmlstr; if(sd.length>0)//是更新 { $(sd).empty(); htmlstr ='<label type="text">第' + tripday + '天</label>' + '<button type="button" onclick="showDayTrip(this)" data-toggle="modal" class="layui-btn layui-btn-xs" data-target="#tripModal">查看 </button>' + '<input placeholder="日程介绍" id="increment" type="text" class="layui-input" name="routingday[' + tripday + '].title" value="' + name + '"/>\n' + '<div class="contents" id="daytripContent' + tripday + '">'; for (var i = 0; i < tripdaycontent[tripday]; i++) { htmlstr +=   '<label type="text">'+ $('#contentTitle' + i).val()+'</label>'+ '<input  id="increment" type="text" class="layui-input" name="routingday[' + tripday + '].content[' + $('#contentTitle' + i).val() + ']" value="' + $('#contentDesc' + i).val() + '"/>\n'; } htmlstr += ' </div>' $(sd).append(htmlstr); } else { htmlstr = '<div id ="tdaytrip'+tripday+'" class="layui-inline" style="width: 96%;float: left;padding-left: 20px">\n' + '<label type="text">第' + tripday + '天</label>' + '<button type="button" onclick="showDayTrip(this)" class="layui-btn layui-btn-xs" data-toggle="modal"data-target="#tripModal">查看 </button>' + '<input placeholder="日程介绍" id="increment" type="text" class="layui-input" name="routingday[' + tripday + '].title" value="' + name + '"/>\n' + '<div class="contents" id="daytripContent' + tripday + '">'; for (var i = 0; i < tripdaycontent[tripday]; i++) { htmlstr +=   '<label type="text">'+ $('#contentTitle' + i).val()+'</label>' + '<input  type="text" class="layui-input" name="routingday[' + tripday + '].content[' + $('#contentTitle' + i).val() + ']" value="' + $('#contentDesc' + i).val() + '"/>\n'; } htmlstr += ' </div>' htmlstr += ' </div>' $('#daytrip').append(htmlstr); }  }   </script>
+<script> layui.use('upload', function () {
+    var $ = layui.jquery,
+        upload = layui.upload;  //普通图片上传 var uploadInst =  upload.render({ elem: '#test2' ,url: '/minapp/upload/' ,multiple: true ,before: function(obj){ //预读本地文件示例，不支持ie8 obj.preview(function(index, file, result){ $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">') }); } ,done: function(res){ //上传完毕 } });     }); layui.use(['element', 'layer'], function(){ var element = layui.element; var layer = layui.layer; }); </script>
 </body>
-
 </html>
