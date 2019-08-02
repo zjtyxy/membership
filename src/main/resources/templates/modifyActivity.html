@@ -169,28 +169,31 @@
                                     <h2 class="layui-colla-title">增值服务</h2>
                                     <div class="layui-colla-content">
                                         <div class="layui-inline" style="width: 100%;float: left;padding-left: 20px">
-                                            <button type="button"  class="layui-btn" data-toggle="modal" data-target="#myModal">添加
+                                            <button type="button"  class="layui-btn layui-btn-sm" data-toggle="modal" data-target="#myModal">添加
                                             </button>
-                                            <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">居中弹出</button>
                                         </div>
                                         <div class="layui-card" id="project">
-                                            <div class="layui-row"
-                                                 th:each="stat:*{getIncrement()}">
-                                                <label placeholder="项目名称" th:text="${stat.key}"/>
-                                                <label placeholder="项目名称" th:text="${stat.key}"/>
-                                                <input class="layui-input" style="width:80%"
-                                                       th:field="*{increment[__${stat.key}__]}"/>
-                                                <button type="button" onclick="removeServer(this)">删除</button>
-                                                <button type="button" onclick="removeServer(this)">删除</button>
-                                            </div>
-                                            <div class="layui-row">
-                                                <div class="layui-col-xs6">
-                                                    <div class="grid-demo grid-demo-bg1">6/12</div>
+                                            <div  class="layui-row" th:each="stat:*{getIncrement()}">
+                                                <div class="layui-col-xs3" style="width:12%">
+                                                    <label  class="layui-form-label" style="width: 150px;" placeholder="项目名称" th:text="${stat.key}"/>
                                                 </div>
-                                                <div class="layui-col-xs6">
-                                                    <div class="grid-demo">6/12</div>
+                                                <div class="layui-col-xs3" style="width:82%">
+
+                                                        <input class="layui-input"
+                                                               th:field="*{increment[__${stat.key}__]}"/>
+
                                                 </div>
+                                                <div class="layui-col-xs3" style="width:6%">
+                                                    <button class="layui-btn layui-btn-sm" style="float:right" type="button" onclick="removeServer(this)">删除</button>
+                                                </div>
+
+
+
+
+
+
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -199,13 +202,13 @@
                                     <div class="layui-colla-content">
                                         <div class="layui-inline" style="width: 100%;float: left;padding-left: 20px">
                                             <label>活动图片列表</label>
-                                            <button onclick="addImageUrl()" type="button">添加图片
+                                            <button class="layui-btn layui-btn-sm" onclick="addImageUrl()" type="button">添加图片
                                             </button>
                                         </div>
                                         <div class="layui-form-item" id="imgurllist">
                                             <div class="layui-card"
                                                  th:each="stat:*{getImageurls()}">
-                                                <button type="button" onclick="removeImage(this)">删除</button>
+                                                <button type="button" class="layui-btn layui-btn-xs" onclick="removeImage(this)">删除</button>
                                                 <input placeholder="活动图片" id="imageurls" type="url" class="layui-input"
                                                        name="imageurls" th:value="${stat}" required/>
                                             </div>
