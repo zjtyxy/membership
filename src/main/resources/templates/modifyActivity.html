@@ -72,18 +72,44 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="userName">最大参加人数</label>
+                                <input id="maxNumber"  class="validate" th:field="*{maxNumber}"
+                                       placeholder="发布者" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="signupMode">报名方式</label>
+                                <input placeholder="报名方式" id="signupMode" class="validate"
+                                        th:field="*{signupMode}" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="endDate">报名截止日</label>
+                                <input id="endDate" type="date" class="validate" name="endDate" th:value="*{endDate}"
+                                       placeholder="报名截止日" required/>
+                            </div>
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="days">活动天数</label>
+                                <input placeholder="活动天数" id="days" class="validate"
+                                       th:field="*{days}" required/>
+                            </div>
+                        </div>
+
 
                         <div class="row">
+                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
+                                <label for="money">活动费用</label>
+                                <input placeholder="活动费用" id="money" t class="validate"
+                                      th:field="*{money}" required/>
+                            </div>
                             <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
                                 <label for="userName">发布者</label>
                                 <input id="userName" name="userName" type="text" class="validate" th:field="*{userName}"
                                        placeholder="发布者" required/>
                             </div>
-                            <div class="form-group" style="width: 48%;float: left;padding-left: 20px">
-                                <label for="userDate">发布时间</label>
-                                <input placeholder="发布时间" id="userDate" type="text" class="validate"
-                                       name="userDate" th:value="*{getUserDate()}" required/>
-                            </div>
+
                         </div>
                         <div class="contents1">
                             <div class="row">

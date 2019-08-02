@@ -85,9 +85,8 @@ public class ActivityController {
      * @return
      */
     @RequestMapping("/modifyActivity")
-    public String modifyActivity(Model model,Activity activity) {
+    public String modifyActivity(Model model, Activity activity) {
         activityDao.save(activity);
-        model.addAttribute("entity",activity);
         return "redirect:queryActivity";
     }
 

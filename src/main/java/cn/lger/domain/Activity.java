@@ -1,5 +1,7 @@
 package cn.lger.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -20,9 +22,12 @@ public class Activity {
     @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     private Map<Integer,DayTrip> routingday = new HashMap<>();
     //报名截止日期
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate endDate;
     //最大参见人数
     private Integer   maxNumber;
+    //活动费用
+    private Integer   money;
     //报名方式
     private String   signupMode;
     //其他增值服务
@@ -38,6 +43,14 @@ public class Activity {
 
      private  String userName;
      private  String userDate;
+
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
 
     public String getUserName() {
         return userName;
