@@ -6,49 +6,32 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Home</title>
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-    <link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection"/>
-    <!-- Bootstrap Styles-->
-    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
-    <!-- FontAwesome Styles-->
-    <link href="assets/css/font-awesome.css" rel="stylesheet"/>
-    <!-- Morris Chart Styles-->
-    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet"/>
-    <!-- Custom Styles-->
-    <link href="assets/css/custom-styles.css" rel="stylesheet"/>
-    <!--&lt;!&ndash; Google Fonts&ndash;&gt;-->
-    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>-->
-    <!--<link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css">-->
+    <link rel="stylesheet" href="assets/layui/css/layui.css" media="all">
 </head>
-
-<body>
-
-<div id="wrapper">
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
     <div th:replace="title :: html"></div>
     <!--侧边栏-->
     <div th:replace="sidebar :: html"></div>
     <!--内容主体-->
-    <div id="page-wrapper">
+    <div  class="layui-body" id="page-wrapper">
         <!--内容主题-->
-        <div class="header">
-            <h1 class="page-header">
-                商品购买
-            </h1>
-        </div>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>商品购买 </legend>
+          </fieldset>
         <div id="page-inner">
             <!--自定义内容-->
             <!--<div class="container">-->
                 <div class="card">
                     <div class="card-content">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <input placeholder="商品号码" id="commodityId" type="text" class="validate" name="commodityId" required/>
-                                <label for="commodityId">商品号码</label>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <input placeholder="商品号码" id="commodityId" type="text" class="layui-input" name="commodityId" required/>
+                                <label class="layui-form-label" style="width: 120px;" for="commodityId">商品号码</label>
                             </div>
-                            <div class="input-field col s6">
-                                    <input id="memberId" onblur="confirmMemberId()" name="memberId" type="text" class="validate" placeholder="会员号码" required/>
-                                <label for="memberId">会员号码</label>
+                            <div class="layui-inline">
+                                    <input id="memberId" onblur="confirmMemberId()" name="memberId" type="text" class="layui-input" placeholder="会员号码" required/>
+                                <label class="layui-form-label" style="width: 120px;" for="memberId">会员号码</label>
                             </div>
                         </div>
                         <div class="switch">

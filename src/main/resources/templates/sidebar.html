@@ -1,114 +1,47 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<nav class="navbar-default navbar-side" role="navigation" th:fragment="sidebar">
-    <div class="sidebar-collapse">
-        <ul class="nav" id="main-menu">
-
-            <li>
-                <a class="active-menu waves-effect waves-dark" th:href="@{/}"><i class="fa fa-dashboard"></i>
-                    首页</a>
-            </li>
-            <!--会员管理栏-->
-            <li>
-                <a href="javascript:void(0)" class="waves-effect waves-dark"><i class="fa fa-user"></i>会员管理<span
-                        class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a th:href="@{/addMember}">添加会员</a>
-                    </li>
-                    <li>
-                        <a th:href="@{/queryMember}">查询会员</a>
-                    </li>
-                    <li>
-                        <a th:href="@{/memberGrade}">会员类别</a>
-                    </li>
-                    <li>
-                        <a th:href="@{/modifyMemberState}">会员状态修改</a>
-                    </li>
-
-                    <li>
-                        <a href="#">会员消费<span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li>
-                                <a th:href="@{/integralExchange}">积分兑换</a>
-                            </li>
-                            <li>
-                                <a th:href="@{/balanceRecharge}">余额充值</a>
-                            </li>
-                        </ul>
-
-                    </li>
-
-                    <li>
-                        <a th:href="@{/deleteMember}">会员注销</a>
-                    </li>
+<div class="layui-side layui-bg-black" th:fragment="sidebar1">
+    <div class="layui-side-scroll"> <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree" lay-filter="test">
+            <li class="layui-nav-item layui-nav-itemed"><a class="" href="javascript:;">会员管理</a>
+                <dl class="layui-nav-child">
+            <li><a th:href="@{/addMember}">添加会员</a></li>
+            <li><a th:href="@{/queryMember}">查询会员</a></li>
+            <li><a th:href="@{/memberGrade}">会员类别</a></li>
+            <li><a th:href="@{/modifyMemberState}">会员状态修改</a></li>
+            <li><a href="#">会员消费<span class="fa arrow"></span></a>
+                <ul class="nav nav-third-level">
+                    <li><a th:href="@{/integralExchange}">积分兑换</a></li>
+                    <li><a th:href="@{/balanceRecharge}">余额充值</a></li>
                 </ul>
             </li>
-            <!--礼品栏-->
-            <li>
-                <a href="javascript:void(0)" class="waves-effect waves-dark"><i class="fa fa-gift"></i>礼品消费<span
-                        class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a th:href="@{/setGift}">礼品设置</a>
-                    </li>
-
-                    <li>
-                        <a th:href="@{/modifyGiftNumber}">数量修改</a>
-                    </li>
-
-                    <li>
-                        <a th:href="@{/exchangeRecord}">兑换记录</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0)" class="waves-effect waves-dark"><i class="fa fa-gift"></i>活动管理<span
-                        class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a th:href="@{/addActivity}">活动添加</a>
-                    </li>
-
-                    <li>
-                        <a th:href="@{/queryActivity}">活动查询</a>
-                    </li>
-                </ul>
-            </li>
-            <!--商品消费-->
-            <li>
-                <a href="javascript:void(0)" class="waves-effect waves-dark"><i class="fa fa-yen"></i>商品消费<span
-                        class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a th:href="@{/addMarket}">添加商品</a>
-                    </li>
-
-                    <li>
-                        <a th:href="@{/queryMarket}">商品查询</a>
-                    </li>
-
-                    <li>
-                        <a th:href="@{/purchaseCommodity}">商品购买</a>
-                    </li>
-
-                    <li>
-                        <a th:href="@{/transactionRecord}">积分记录</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li>
-                <a class="waves-effect waves-dark" th:href="@{/birthdayWarning}"><i class="fa fa-birthday-cake"></i>
-                    生日提醒</a>
-            </li>
-
-            <li>
-                <a class="waves-effect waves-dark" th:href="@{/integralLottery}"><i class="fa fa-star"></i>
-                    积分抽奖</a>
-            </li>
-        </ul>
-
+            <li><a th:href="@{/deleteMember}">会员注销</a></li>
+            </dl> </li>
+            <li class="layui-nav-item"><a href="javascript:;">礼品消费</a>
+                <dl class="layui-nav-child">
+            <li><a th:href="@{/setGift}">礼品设置</a></li>
+            <li><a th:href="@{/modifyGiftNumber}">数量修改</a></li>
+            <li><a th:href="@{/exchangeRecord}">兑换记录</a></li>
+            </dl> </li>
+            <li class="layui-nav-item"><a href="javascript:;">商品消费</a>
+                <dl class="layui-nav-child">
+            <li><a th:href="@{/addMarket}">添加商品</a></li>
+            <li><a th:href="@{/queryMarket}">商品查询</a></li>
+            <li><a th:href="@{/purchaseCommodity}">商品购买</a></li>
+            <li><a th:href="@{/transactionRecord}">积分记录</a></li>
+            </dl> </li>
+            <li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">活动管理</a>
+                <dl class="layui-nav-child">
+            <li><a th:href="@{/addActivity}">活动添加</a></li>
+            <li><a th:href="@{/queryActivity}">活动查询</a></li>
+            </dl> </li> </ul>
     </div>
+</div>
+<script src="assets/layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
 
-</nav>
+    });
+</script>
 </html>
