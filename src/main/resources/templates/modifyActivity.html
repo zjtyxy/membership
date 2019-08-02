@@ -318,7 +318,7 @@ function addContent(cindex, t, c) {
 function addServer() {
     var name = $('#serverName').val();
     var desc = $('#serverDesc').val();
-    var htmlstr = '<div class="contents">\n' + '            <label placeholder="项目名称" id="increment.key" type="text">' + name + '</label>\n' + '<button type="button" onclick="removeServer(this)">删除</button>' + ' <input placeholder="项目介绍" id="increment" type="text" class="layui-input" name="increment[' + name + ']" value="' + desc + '"/>\n' + '            </div>'
+    var htmlstr = '<div class="contents">\n' + ' <label placeholder="项目名称" id="increment.key" type="text">' + name + '</label>\n' + '<button type="button" onclick="removeServer(this)">删除</button>' + ' <input placeholder="项目介绍" id="increment" type="text" class="layui-input" name="increment[' + name + ']" value="' + desc + '"/>\n' + '            </div>'
     $('#project').append(htmlstr);
 }
 
@@ -337,9 +337,67 @@ function removeServer(btn) {
 
 function showDayTrip(isnew) {
     $('#daytripcontent').empty();
-    if (!isnew)//是不是新添加 { tripday=$('#daytrip').children().length+1; tripdaycontent[tripday] = 0; $('#tripTitle').val(""); } else { var info = $(isnew).parent().children(); tripday = info[0].textContent.replace("第", "").replace("天", ""); $('#tripTitle').val($(info[2]).val()); var cccc = $('#daytripContent' + tripday).children(); tripdaycontent[tripday] = cccc.length/2; for (var i = 0; i < cccc.length; i+=2) { addContent(i, cccc[i].textContent, $(cccc[i+1]).val()) } }  $('#currentDay').html("第" + (tripday) + "天"); }  function addDayTrip() {  var name = $('#tripTitle').val(); var sd =$('#tdaytrip'+tripday); var htmlstr; if(sd.length>0)//是更新 { $(sd).empty(); htmlstr ='<label type="text">第' + tripday + '天</label>' + '<button type="button" onclick="showDayTrip(this)" data-toggle="modal" class="layui-btn layui-btn-xs" data-target="#tripModal">查看 </button>' + '<input placeholder="日程介绍" id="increment" type="text" class="layui-input" name="routingday[' + tripday + '].title" value="' + name + '"/>\n' + '<div class="contents" id="daytripContent' + tripday + '">'; for (var i = 0; i < tripdaycontent[tripday]; i++) { htmlstr +=   '<label type="text">'+ $('#contentTitle' + i).val()+'</label>'+ '<input  id="increment" type="text" class="layui-input" name="routingday[' + tripday + '].content[' + $('#contentTitle' + i).val() + ']" value="' + $('#contentDesc' + i).val() + '"/>\n'; } htmlstr += ' </div>' $(sd).append(htmlstr); } else { htmlstr = '<div id ="tdaytrip'+tripday+'" class="layui-inline" style="width: 96%;float: left;padding-left: 20px">\n' + '<label type="text">第' + tripday + '天</label>' + '<button type="button" onclick="showDayTrip(this)" class="layui-btn layui-btn-xs" data-toggle="modal"data-target="#tripModal">查看 </button>' + '<input placeholder="日程介绍" id="increment" type="text" class="layui-input" name="routingday[' + tripday + '].title" value="' + name + '"/>\n' + '<div class="contents" id="daytripContent' + tripday + '">'; for (var i = 0; i < tripdaycontent[tripday]; i++) { htmlstr +=   '<label type="text">'+ $('#contentTitle' + i).val()+'</label>' + '<input  type="text" class="layui-input" name="routingday[' + tripday + '].content[' + $('#contentTitle' + i).val() + ']" value="' + $('#contentDesc' + i).val() + '"/>\n'; } htmlstr += ' </div>' htmlstr += ' </div>' $('#daytrip').append(htmlstr); }  }   </script>
+    if (!isnew)//是不是新添加
+    {
+        tripday = $('#daytrip').children().length + 1;
+        tripdaycontent[tripday] = 0;
+        $('#tripTitle').val("");
+    } else {
+        var info = $(isnew).parent().children();
+        tripday = info[0].textContent.replace("第", "").replace("天", "");
+        $('#tripTitle').val($(info[2]).val());
+        var cccc = $('#daytripContent' + tripday).children();
+        tripdaycontent[tripday] = cccc.length / 2;
+        for (var i = 0; i < cccc.length; i += 2) {
+            var dd  = $(cccc[i + 1]).children();
+            addContent(i, cccc[i].textContent, $(dd).val())
+        }
+    }
+    $('#currentDay').html("第" + (tripday) + "天");
+}
+
+function addDayTrip() {
+    var name = $('#tripTitle').val();
+    var sd = $('#tdaytrip' + tripday);
+    var htmlstr;
+    if (sd.length > 0)//是更新
+    {
+        $(sd).empty();
+        htmlstr = '<label type="text">第' + tripday + '天</label>' + '<button type="button" onclick="showDayTrip(this)" data-toggle="modal" class="layui-btn layui-btn-xs" data-target="#tripModal">查看 </button>' + '<input placeholder="日程介绍" id="increment" type="text" class="layui-input" name="routingday[' + tripday + '].title" value="' + name + '"/>\n' + '<div class="contents" id="daytripContent' + tripday + '">';
+        for (var i = 0; i < tripdaycontent[tripday]; i++) {
+            htmlstr += '<label type="text">' + $('#contentTitle' + i).val() + '</label>' + '<input  id="increment" type="text" class="layui-input" name="routingday[' + tripday + '].content[' + $('#contentTitle' + i).val() + ']" value="' + $('#contentDesc' + i).val() + '"/>\n';
+        }
+        htmlstr += ' </div>'
+        $(sd).append(htmlstr);
+    } else {
+        htmlstr = '<div id ="tdaytrip' + tripday + '" class="layui-inline" style="width: 96%;float: left;padding-left: 20px">\n' + '<label type="text">第' + tripday + '天</label>' + '<button type="button" onclick="showDayTrip(this)" class="layui-btn layui-btn-xs" data-toggle="modal"data-target="#tripModal">查看 </button>' + '<input placeholder="日程介绍" id="increment" type="text" class="layui-input" name="routingday[' + tripday + '].title" value="' + name + '"/>\n' + '<div class="contents" id="daytripContent' + tripday + '">';
+        for (var i = 0; i < tripdaycontent[tripday]; i++) {
+            htmlstr += '<label type="text">' + $('#contentTitle' + i).val() + '</label>' + '<input  type="text" class="layui-input" name="routingday[' + tripday + '].content[' + $('#contentTitle' + i).val() + ']" value="' + $('#contentDesc' + i).val() + '"/>\n';
+        }
+        htmlstr += ' </div>'
+        htmlstr += ' </div>'
+        $('#daytrip').append(htmlstr);
+    }
+}   </script>
 <script> layui.use('upload', function () {
     var $ = layui.jquery,
-        upload = layui.upload;  //普通图片上传 var uploadInst =  upload.render({ elem: '#test2' ,url: '/minapp/upload/' ,multiple: true ,before: function(obj){ //预读本地文件示例，不支持ie8 obj.preview(function(index, file, result){ $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">') }); } ,done: function(res){ //上传完毕 } });     }); layui.use(['element', 'layer'], function(){ var element = layui.element; var layer = layui.layer; }); </script>
+        upload = layui.upload;  //普通图片上传
+    var uploadInst = upload.render({
+        elem: '#test2',
+        url: '/minapp/upload/',
+        multiple: true,
+        before: function (obj) { //预读本地文件示例，不支持ie8
+            obj.preview(function (index, file, result) {
+                $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+            });
+        },
+        done: function (res) { //上传完毕
+        }
+    });
+});
+layui.use(['element', 'layer'], function () {
+    var element = layui.element;
+    var layer = layui.layer;
+}); </script>
 </body>
 </html>
