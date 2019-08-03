@@ -2,10 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Home</title>
-    < <link rel="stylesheet" href="assets/layui/css/layui.css" media="all">
+    <div th:replace="links::header"></div>
+    <div th:replace="script::js_footer"></div>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -64,7 +63,6 @@
                                     </td>
                                 </tr>
                             </table>
-
                             <div aria-label="Page navigation example">
                                 <ul class="pagination" id="page">
                                     <li class="page-item"><a class="page-link" th:text="'当前第'+${pageNum+1}+'页总共'+${totalPages+1}+'页'"></a></li>
@@ -92,7 +90,6 @@
 
     </div>
 </div>
-<script src="assets/js/jquery-1.10.2.js"></script>
 <script>
 
     function deleteActivity(id) {

@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     <title>商品</title>
-    <link rel="stylesheet" href="assets/layui/css/layui.css" media="all">
+    <div th:replace="links::header"></div>
+    <div th:replace="script::js_footer"></div>
 
 </head>
 <body class="layui-layout-body">
@@ -106,7 +106,6 @@
 
     </div>
 </div>
-<script src="assets/js/jquery-1.10.2.js"></script>
 <script>
     function deleteMarket(id) {
         if (confirm('确认删除此条记录？删除以后不可恢复！')) {
