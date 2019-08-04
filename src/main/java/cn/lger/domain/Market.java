@@ -10,9 +10,6 @@ public class Market  {
     private Integer id;
     //商品名称
     private String name;
-
-
-
     //商品图片
     private String link;
     //商品折扣价格
@@ -124,4 +121,13 @@ public class Market  {
 //    }
 
 
+    @Override
+    public String toString() {
+        return "Market{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", discountPrice='" + discountPrice + '\'' +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }

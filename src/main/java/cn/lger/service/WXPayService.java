@@ -44,7 +44,7 @@ public class WXPayService {
             data.put("total_fee", price + ""); // 订单金额, 单位分
             data.put("spbill_create_ip", "192.168.31.166"); // 下单ip
             data.put("openid", openid); // 微信公众号统一标示openid
-            data.put("notify_url", "http://wxlj.oopmind.com/payCallback"); // 订单结果通知, 微信主动回调此接口
+            data.put("notify_url", "https://minapp.tangyuanwenhua.com/minapp/payCallback"); // 订单结果通知, 微信主动回调此接口
             data.put("trade_type", "JSAPI"); // 固定填写
             Map<String, String> dd = wxpay.unifiedOrder(data);
             if (dd.get("return_code").equals("SUCCESS") && dd.get("result_code").equals("SUCCESS")) {
@@ -73,6 +73,10 @@ public class WXPayService {
                 order.setSignType("MD5");
                 order.setTradeStateDesc("未支付");
                 return order;
+
+            }
+            else
+            {
 
             }
 

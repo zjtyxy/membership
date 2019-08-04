@@ -22,6 +22,35 @@ public class Order {
     private  String  tradeState;
     private  String  tradeStateDesc;
 
+    //商品id
+    private  Integer  productId;
+    private  Integer  productNum;
+    //订单类型0会费，1.产品，2活动
+    private  Integer  orderType;
+
+    public Integer getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(Integer orderType) {
+        this.orderType = orderType;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
+    public Integer getProductNum() {
+        return productNum;
+    }
+
+    public void setProductNum(Integer productNum) {
+        this.productNum = productNum;
+    }
 
     public String getId() {
         return id;

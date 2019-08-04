@@ -18,6 +18,8 @@ public class Activity {
     @Column(length = 50000)
     private String info;
     //行程列表
+    //活动类型目前两种。"研学"，"征文"
+    private String atype ="研学";
 
     @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     private Map<Integer,DayTrip> routingday = new HashMap<>();
@@ -154,5 +156,13 @@ public class Activity {
 
     public void setImageurls(Set<String> imageurls) {
         this.imageurls = imageurls;
+    }
+
+    public String getAtype() {
+        return atype;
+    }
+
+    public void setAtype(String atype) {
+        this.atype = atype;
     }
 }
