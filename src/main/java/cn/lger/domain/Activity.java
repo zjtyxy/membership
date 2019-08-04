@@ -42,6 +42,10 @@ public class Activity {
     //活动相册
     @ElementCollection(fetch = FetchType.EAGER)
      private Set<String> imageurls = new HashSet<>();
+    @OneToMany(cascade =  CascadeType.ALL ,fetch = FetchType.EAGER)
+    private  Set<ActivitySingup> activitySingups = new HashSet<>();
+    @Transient
+    private ActivitySingup ActivitySingup;
 
      private  String userName;
      private  String userDate;
@@ -111,6 +115,8 @@ public class Activity {
     }
 
     public Integer getMaxNumber() {
+        if(maxNumber==null)
+            return 0;
         return maxNumber;
     }
 
@@ -164,5 +170,26 @@ public class Activity {
 
     public void setAtype(String atype) {
         this.atype = atype;
+    }
+
+    public Set<ActivitySingup> getActivitySingups() {
+        return activitySingups;
+    }
+
+    public void setActivitySingups(Set<ActivitySingup> activitySingups) {
+        this.activitySingups = activitySingups;
+    }
+
+    public cn.lger.domain.ActivitySingup getActivitySingup() {
+        return ActivitySingup;
+    }
+
+    public void setActivitySingup(cn.lger.domain.ActivitySingup activitySingup) {
+        ActivitySingup = activitySingup;
+    }
+
+    @Override
+    public String toString() {
+        return "活动名称：" + name + '\n';
     }
 }

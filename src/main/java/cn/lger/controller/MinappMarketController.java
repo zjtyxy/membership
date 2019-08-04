@@ -36,7 +36,7 @@ public class MinappMarketController {
             Optional<Member> rst = memberDao.findById(memberId);
             if (rst.isPresent()) {
                 Member ds = rst.get();
-                Order order = wXPayService.unifiedOrder(ds.getOpenid(), ds.getShenfenzheng() + new Date().getYear() + "m", "会费支付", 10);
+                Order order = wXPayService.unifiedOrder(ds.getOpenid(), ds.getShenfenzheng() + new Date().getYear() + "m", "会费支付", 10,"https://minapp.tangyuanwenhua.com/minapp/payCallback");
             }
 //           if(order!=null) {
 //               orderDao.save(order);
@@ -77,7 +77,7 @@ public class MinappMarketController {
         Optional<Market> prduncts = marketDao.findById(productId);
         if(prduncts.isPresent())
         {
-            Order order = wXPayService.unifiedOrder(openid, now.getTime()+"p", prduncts.get().toString(), price);
+            Order order = wXPayService.unifiedOrder(openid, now.getTime()+"p", prduncts.get().toString(), price,"https://minapp.tangyuanwenhua.com/minapp/payCallback");
             if (order != null) {
                 order.setOrderType(1);
                 order.setProductId(productId);
@@ -112,7 +112,7 @@ public class MinappMarketController {
         Optional<Member> memberp = memberDao.findById(memberId);
         if (memberp.isPresent()) {
             Member ds = memberp.get();
-            Order order = wXPayService.unifiedOrder(ds.getOpenid(), ds.getShenfenzheng() + new Date().getYear() + "m", "会费支付", 10);
+            Order order = wXPayService.unifiedOrder(ds.getOpenid(), ds.getShenfenzheng() + new Date().getYear() + "m", "会费支付", 10,"https://minapp.tangyuanwenhua.com/minapp/payCallback");
             if (order != null) {
                 order.setOrderType(0);
                 orderDao.save(order);
@@ -130,25 +130,7 @@ public class MinappMarketController {
         return rst;
     }
 
-    /**
-     * 活动下单
-     * @return
-     */
-    @RequestMapping("/minapp/activityUnified")
-    public Order gerOrder(String openid,Integer activityId,Integer price) {
-//        Optional<Member> rst = memberDao.findById(memberId);
-//        if (rst.isPresent()) {
-//            Member ds = rst.get();
-//            Order order = wXPayService.unifiedOrder(ds.getOpenid(), ds.getShenfenzheng() + new Date().getYear() + "m", "会费支付", 10);
-//            if (order != null) {
-//                order.setOrderType(0);
-//                orderDao.save(order);
-//                return order;
-//            }
-//
-//        }
-        return null;
-    }
+
 
     /**
      * 支付成功回调
@@ -159,4 +141,19 @@ public class MinappMarketController {
 
         return null;
     }
+
+    @RequestMapping("/minapp/findMarket")
+    public  Market findMarket(Integer id)
+    {
+        Market rst =  marketDao.findById(id).get();
+        return  rst;
+    }
+    @RequestMapping("/minapp/market")
+    public Iterable<Market>  market(){
+        System.out.println("微信小程序正在调用。。。");
+        Iterable<Market> market = marketDao.findAll();
+        System.out.println("微信小程序调用完成。。。");
+        return market;
+    }
+
 }

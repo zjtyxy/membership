@@ -33,30 +33,14 @@ public class MiniAppController {
     @Resource
     private GiftDao giftDao;
 
-    @Resource
-    private MarketDao marketDao;
 
-    @Resource
-    private ActivityDao activityDao;
 
     //@Resource
     //private BCryptPasswordEncoder encoder;
     @Resource
     private MemberGradeDao memberGradeDao;
 
-    @RequestMapping("/minapp/findMarket")
-    public  Market findMarket(Integer id)
-    {
-        Market rst =  marketDao.findById(id).get();
-        return  rst;
-    }
 
-    @RequestMapping("/minapp/findActivity")
-    public  Activity findActivity(Integer id)
-    {
-        Activity rst =  activityDao.findById(id).get();
-        return  rst;
-    }
 
     @RequestMapping("/minapp/findAddress")
     public MiniAppRest findAddress(String memberId)
@@ -152,21 +136,8 @@ public class MiniAppController {
         return rs;
     }
 
-    @RequestMapping("/minapp/activity")
-    public Iterable<Activity>  activity(){
-        System.out.println("微信小程序正在调用。。。");
-        Iterable<Activity> acticity = activityDao.findAll();
-        System.out.println("微信小程序调用完成。。。");
-        return acticity;
-    }
 
-    @RequestMapping("/minapp/market")
-    public Iterable<Market>  market(){
-        System.out.println("微信小程序正在调用。。。");
-        Iterable<Market> market = marketDao.findAll();
-        System.out.println("微信小程序调用完成。。。");
-        return market;
-    }
+
 
     @RequestMapping("/minapp/findCommodity")
     public Page<Commodity> findCommodity(Integer currentPage) {

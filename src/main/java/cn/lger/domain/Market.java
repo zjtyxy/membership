@@ -123,11 +123,10 @@ public class Market  {
 
     @Override
     public String toString() {
-        return "Market{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", discountPrice='" + discountPrice + '\'' +
-                ", title='" + title + '\'' +
-                '}';
+        return
+                "编号：" + id + '\n' +
+                "名称：" + name + '\n' +
+                "价格：" + discountPrice + '\n' +
+                "title：" + title + '\n' ;
     }
 }
