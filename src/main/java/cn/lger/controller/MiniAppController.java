@@ -20,16 +20,14 @@ import java.util.*;
 public class MiniAppController {
 
     private  static  String  uploadImagePath="d:/upload/images/";
-    @Resource
-    WXPayService wXPayService;
+
 
 
     @Resource
     private MemberDao memberDao;
     @Resource
     private MemberAddressDao memberAddressDao;
-    @Resource
-    private OrderDao orderDao;
+
     @Resource
     private CommodityDao commodityDao;
     @Resource
@@ -92,12 +90,7 @@ public class MiniAppController {
         Member rst =  memberDao.findMemberByOpenid(openid);
         return  rst;
     }
-    @RequestMapping("/minapp/findOrder")
-    public  Order findOrder(String id)
-    {
-        Order rst =  orderDao.findById(id).get();
-        return  rst;
-    }
+
 
     /**
      * 会员注册
@@ -139,44 +132,7 @@ public class MiniAppController {
         return rst;
     }
 
-    /**
-     * 支付下单
-     * @param order
-     * @return
-     */
-    @RequestMapping("/minapp/unifiedorder")
-    public String  addOrder(String memberId) {
-       try {
-           Optional<Member> rst = memberDao.findById(memberId);
-           if (rst.isPresent()) {
-               Member ds = rst.get();
-               Order order = wXPayService.unifiedOrder(ds.getOpenid(), ds.getShenfenzheng() + new Date().getYear() + "m", "会费支付", 10);
-           }
-//           if(order!=null) {
-//               orderDao.save(order);
-//           }
-//           orderDao.save(order);
-           return  "success";
-       }catch (Exception e)
-       {
 
-       }
-        return "fail";
-    }
-    @RequestMapping("/minapp/getorder")
-    public Order  gerOrder(String memberId) {
-        Optional<Member> rst = memberDao.findById(memberId);
-        if (rst.isPresent()) {
-            Member ds = rst.get();
-            Order order = wXPayService.unifiedOrder(ds.getOpenid(), ds.getShenfenzheng() + new Date().getYear() + "m", "会费支付", 10);
-            if(order!=null) {
-                orderDao.save(order);
-                return order;
-            }
-
-        }
-        return null;
-    }
     @RequestMapping("/minapp/member")
     public Page<Member> findMember(Integer currentPage) {
         if (currentPage == null) {
