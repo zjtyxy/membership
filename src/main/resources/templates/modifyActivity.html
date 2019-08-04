@@ -136,6 +136,21 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
+                            <label class="layui-form-label" style="width: 120px;">活动类型</label>
+                            <div class="layui-input-block" style="margin-left: 130px;width: 89%;">
+                                <select lay-verify="required"   th:field="*{atype}">
+                                    <option value="研学行">研学行</option>
+                                    <option value="有奖征文">有奖征文</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label"  style="width: 120px;">普通文本域</label>
+                            <div class="layui-input-block" style="margin-left: 130px;width: 89%;">
+                                <textarea class="layui-textarea" th:field="*{info}" placeholder="请输入内容">请输入内容</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
                             <div class="layui-collapse" lay-filter="test">
                                 <div class="layui-colla-item"><h2 class="layui-colla-title">活动日程</h2>
                                     <div class="layui-colla-content">
@@ -398,6 +413,11 @@ function addDayTrip() {
 layui.use(['element', 'layer'], function () {
     var element = layui.element;
     var layer = layui.layer;
-}); </script>
+});
+layui.use('form', function(){
+    var form = layui.form;
+
+});
+</script>
 </body>
 </html>
