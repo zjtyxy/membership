@@ -27,11 +27,6 @@ public class MemberService {
         return memberDao.save(member);
     }
 
-    public Member findMemberById(String id){
-        return memberDao.findById(id).get();
-    }
-
-
 
     public Page<Member> findMembers(Integer currentPage){
         if (currentPage == null){

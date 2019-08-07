@@ -124,9 +124,9 @@ public class Market  {
     @Override
     public String toString() {
         return
-                "编号：" + id + '\n' +
-                "名称：" + name + '\n' +
-                "价格：" + discountPrice + '\n' +
-                "title：" + title + '\n' ;
+                "编号：" + id + "<br>" + "标题：" + title + "<br>" +
+                "名称：" + name + "<br>" +
+                "价格：" + discountPrice + "<br>";
+
     }
 }

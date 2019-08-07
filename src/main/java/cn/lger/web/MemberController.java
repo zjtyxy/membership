@@ -47,7 +47,7 @@ import java.util.*;
 
 @Controller
 public class MemberController {
-    private  static  String  wordTempltePath="D:/upload/template/";
+    private  static  String  wordTempltePath="c:/upload/template/";
     @Resource
     OrderDao orderDao;
     @Resource

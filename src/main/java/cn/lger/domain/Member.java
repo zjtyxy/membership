@@ -87,6 +87,8 @@ public class Member implements Serializable {
     private String zhengzhimianmao;
     private String sex;
     private LocalDate birthday;
+    //会员到期时间
+    private LocalDate memberDay;
 
     public LocalDate getBirthday() {
         return birthday;
@@ -305,7 +307,13 @@ public class Member implements Serializable {
         this.state = state;
     }
 
+    public LocalDate getMemberDay() {
+        return memberDay;
+    }
 
+    public void setMemberDay(LocalDate memberDay) {
+        this.memberDay = memberDay;
+    }
 
     @Override
     public String toString() {

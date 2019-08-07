@@ -21,8 +21,6 @@ public class MiniAppController {
 
     private  static  String  uploadImagePath="d:/upload/images/";
 
-
-
     @Resource
     private MemberDao memberDao;
     @Resource
@@ -33,13 +31,8 @@ public class MiniAppController {
     @Resource
     private GiftDao giftDao;
 
-
-
-    //@Resource
-    //private BCryptPasswordEncoder encoder;
     @Resource
     private MemberGradeDao memberGradeDao;
-
 
 
     @RequestMapping("/minapp/findAddress")
