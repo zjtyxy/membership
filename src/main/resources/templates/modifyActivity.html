@@ -238,7 +238,7 @@
                                             <div class="layui-card" th:each="stat:*{getImageurls()}">
 
                                                 <img th:src="${stat}" class="layui-upload-img">
-                                                <button type="button" class="layui-btn layui-btn-xs"
+                                                <button type="button" class="layui-btn layui-btn-danger layui-btn-xs"
                                                         onclick="removeImage(this)">删除
                                                 </button>
                                                 <input placeholder="活动图片" id="imageurls" type="hidden" class="layui-input"
@@ -328,7 +328,7 @@
 function addImageUrl(imagurl) {
     var htmlstr ='<div class="layui-card">\n'+
     '<img src="' + imagurl + '" class="layui-upload-img">'+
-    '<button type="button" class="layui-btn layui-btn-xs" onclick="removeImage(this)">删除 </button>'+
+    '<button type="button" class="layui-btn layui-btn-danger layui-btn-xs" onclick="removeImage(this)">删除 </button>'+
     '<input placeholder="活动图片" id="imageurls" type="hidden" value="'+imagurl+'" class="layui-input" name="imageurls" />\n' +
     '</div>'
 
