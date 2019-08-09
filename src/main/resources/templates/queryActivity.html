@@ -59,7 +59,7 @@
 <!--                                    <td th:text="${entity.getInfo()}"></td>-->
 <!--                                    <td th:text="${entity.getUrl()}"></td>-->
                                     <td><a  class="layui-btn layui-btn-primary layui-btn-xs" th:href="@{/addActivity(id=${entity.getId()})}">编辑</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-xs"  th:href="@{/deleteActivity(id=${entity.getId()})}">删除</a>
+                                        <button  class="layui-btn layui-btn-danger layui-btn-xs" th:onclick="deleteActivity([[${entity.getId()}]])">删除</button>
                                     </td>
                                 </tr>
                             </table>

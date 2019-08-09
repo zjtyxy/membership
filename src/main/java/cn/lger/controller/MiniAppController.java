@@ -4,6 +4,7 @@ import cn.lger.dao.*;
 import cn.lger.domain.*;
 
 import cn.lger.service.WXPayService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +17,12 @@ import javax.annotation.Resource;
 import java.io.*;
 import java.util.*;
 
+import static com.sun.xml.internal.fastinfoset.util.DuplicateAttributeVerifier.MAP_SIZE;
+
 @RestController
 public class MiniAppController {
 
-    private  static  String  uploadImagePath="d:/upload/images/";
+    private  static  String  uploadImagePath="c:/work/upload/images";
 
     @Resource
     private MemberDao memberDao;
@@ -141,7 +144,8 @@ public class MiniAppController {
         return commodityDao.findAll(pageable);
     }
     @RequestMapping(value = "/minapp/upload", method = RequestMethod.POST)
-    public String uploadImage(@RequestParam(value = "file") MultipartFile file) throws RuntimeException {
+    @ResponseBody
+    public String uploadImage(@RequestParam(value = "file") MultipartFile file) {
         if (file.isEmpty()) {
             return "文件不能为空";
         }
@@ -170,6 +174,28 @@ public class MiniAppController {
         }
         return "文件上传失败";
     }
-
+    @RequestMapping(value = "/minapp/uploadFile")
+    public String uploadImage1(@RequestParam("file") MultipartFile file) {
+        if (!file.isEmpty()) {
+            Map<String, String> resObj = new HashMap<>(MAP_SIZE);
+            try {
+                BufferedOutputStream out = new BufferedOutputStream(
+                        new FileOutputStream(new File(uploadImagePath, file.getOriginalFilename())));
+                out.write(file.getBytes());
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                resObj.put("msg", "error");
+                resObj.put("code", "1");
+                return JSONObject.toJSONString(resObj);
+            }
+            resObj.put("msg", "ok");
+            resObj.put("code", "0");
+            resObj.put("url","/upload/images/"+file.getOriginalFilename());
+            return JSONObject.toJSONString(resObj);
+        } else {
+            return null;
+        }
+    }
 
 }

@@ -66,12 +66,19 @@
                             </div>
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
                                     class="layui-form-label" style="width: 120px;" for="link">主页图片地址</label>
-                                <div class="layui-input-block" style="margin-left: 130px;"><input id="link" name="link"
-                                                                                                  type="url"
+
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                    <img th:src="*{link}" class="layui-upload-img" id="mainimage">
+                                    <input id="link" name="link"
+                                                                                                  type="hidden"
                                                                                                   class="layui-input"
                                                                                                   placeholder="主页图片地址"
                                                                                                   th:value="*{getLink()}"
                                                                                                   required/></div>
+                                <button class="layui-btn layui-btn-sm" id="test1"
+                                        type="button">上传
+                                </button>
+
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -218,18 +225,23 @@
                                 </div>
                                 <div class="layui-colla-item"><h2 class="layui-colla-title">活动图片列表</h2>
                                     <div class="layui-colla-content">
-                                        <div class="layui-inline" style="width: 100%;float: left;padding-left: 20px">
+
+
+
+                                        <div class="layui-inline" style="width: 100%;float: left;padding-left: 20px" >
                                             <label>活动图片列表</label>
-                                            <button class="layui-btn layui-btn-sm" onclick="addImageUrl()"
+                                            <button class="layui-btn layui-btn-sm" id="test2"
                                                     type="button">添加图片
                                             </button>
                                         </div>
                                         <div class="layui-form-item" id="imgurllist">
                                             <div class="layui-card" th:each="stat:*{getImageurls()}">
+
+                                                <img th:src="${stat}" class="layui-upload-img">
                                                 <button type="button" class="layui-btn layui-btn-xs"
                                                         onclick="removeImage(this)">删除
                                                 </button>
-                                                <input placeholder="活动图片" id="imageurls" type="url" class="layui-input"
+                                                <input placeholder="活动图片" id="imageurls" type="hidden" class="layui-input"
                                                        name="imageurls" th:value="${stat}" required/></div>
                                         </div>
                                     </div>
@@ -313,8 +325,13 @@
     $('#modifyActivity').submit();
 }
 
-function addImageUrl() {
-    var htmlstr = '<div class="contents">\n' + '            <input placeholder="活动图片" id="imageurls" type="text" class="layui-input" name="imageurls" />\n' + '            </div>'
+function addImageUrl(imagurl) {
+    var htmlstr ='<div class="layui-card">\n'+
+    '<img src="' + imagurl + '" class="layui-upload-img">'+
+    '<button type="button" class="layui-btn layui-btn-xs" onclick="removeImage(this)">删除 </button>'+
+    '<input placeholder="活动图片" id="imageurls" type="hidden" value="'+imagurl+'" class="layui-input" name="imageurls" />\n' +
+    '</div>'
+
     $('#imgurllist').append(htmlstr);
 }
 
@@ -399,14 +416,46 @@ function addDayTrip() {
         upload = layui.upload;  //普通图片上传
     var uploadInst = upload.render({
         elem: '#test2',
-        url: '/minapp/upload/',
+        url: '/minapp/uploadFile/',
         multiple: true,
         before: function (obj) { //预读本地文件示例，不支持ie8
-            obj.preview(function (index, file, result) {
-                $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
-            });
+            // obj.preview(function (index, file, result) {
+            //     $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+            // });
         },
         done: function (res) { //上传完毕
+            if(res.code==0)
+            {
+                addImageUrl(res.url)
+            }
+        }
+    });
+    upload.render({
+        elem: '#test1'
+        ,url: '/minapp/uploadFile/'
+        ,before: function(obj){
+            //预读本地文件示例，不支持ie8
+
+        }
+        ,done: function(res){
+            //如果上传失败
+            if(res.code > 0){
+                return layer.msg('上传失败');
+            }
+            else
+            {
+                $("#mainimage").prop("src",res.url);
+                $("#link").val(res.url);
+            }
+            //上传成功
+        }
+        ,error: function(){
+            // //演示失败状态，并实现重传
+            // var demoText = $('#demoText');
+            // demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+            // demoText.find('.demo-reload').on('click', function(){
+            //     uploadInst.upload();
+            // });
         }
     });
 });
