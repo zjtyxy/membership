@@ -18,6 +18,13 @@ import java.util.Set;
 @Entity
 public class Member implements Serializable {
 
+    public static  final Map<Integer,Integer> levenMoney= new HashMap<>();
+    static {
+        levenMoney.put(0,200);
+        levenMoney.put(1,488);
+    }
+
+
     @Id
     @GeneratedValue(generator="id")
     @GenericGenerator(name="id",strategy="uuid")
@@ -111,6 +118,8 @@ public class Member implements Serializable {
     private String jinengtechang;
     private String fuwuyixiang;
     private String zhiye;
+    //付费级别
+    private  Integer paylevel;
 
     public String getZhiwu() {
         return zhiwu;
@@ -330,5 +339,13 @@ public class Member implements Serializable {
                 ", balance=" + balance +
                 ", state='" + state + '\'' +
                 '}';
+    }
+
+    public Integer getPaylevel() {
+        return paylevel;
+    }
+
+    public void setPaylevel(Integer paylevel) {
+        this.paylevel = paylevel;
     }
 }

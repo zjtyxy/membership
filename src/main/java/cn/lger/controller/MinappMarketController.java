@@ -105,7 +105,7 @@ public class MinappMarketController {
         Optional<Member> memberp = memberDao.findById(memberId);
         if (memberp.isPresent()) {
             Member ds = memberp.get();
-            Order order = wXPayService.unifiedOrder(ds.getOpenid(), new Date().getTime() + "m", "会费支付", 10, "https://minapp.tangyuanwenhua.com/minapp/payCallback");
+            Order order = wXPayService.unifiedOrder(ds.getOpenid(), new Date().getTime() + "m", "会费支付",Member.levenMoney.get(ds.getPaylevel())*100 , "https://minapp.tangyuanwenhua.com/minapp/payCallback");
             if (order != null) {
                 order.setOrderType(0);
                 order.setMemberId(memberId);

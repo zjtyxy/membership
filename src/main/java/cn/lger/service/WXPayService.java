@@ -35,6 +35,15 @@ public class WXPayService {
         }
     }
 
+    /**
+     * 下单
+     * @param openid
+     * @param tradeno
+     * @param orderDesc
+     * @param price 单位分
+     * @param backUrl
+     * @return
+     */
     public Order unifiedOrder(String openid, String tradeno, String orderDesc, int price,String backUrl) {
         try {
             WXPay wxpay = new WXPay(MyPayConfig.getInstance());
