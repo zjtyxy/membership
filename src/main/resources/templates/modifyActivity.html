@@ -123,15 +123,6 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
-                                    class="layui-form-label" style="width: 120px;" for="money">活动费用</label>
-                                <div class="layui-input-block" style="margin-left: 130px;"><input placeholder="活动费用"
-                                                                                                  id="money"
-                                                                                                  type="number"
-                                                                                                  class="layui-input"
-                                                                                                  th:field="*{money}"
-                                                                                                  required/></div>
-                            </div>
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
                                     class="layui-form-label" style="width: 120px;" for="userName">发布者</label>
                                 <div class="layui-input-block" style="margin-left: 130px;"><input id="userName"
                                                                                                   name="userName"
@@ -139,6 +130,27 @@
                                                                                                   class="layui-input"
                                                                                                   th:field="*{userName}"
                                                                                                   placeholder="发布者"
+                                                                                                  required/></div>
+                            </div>
+                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
+                                    class="layui-form-label" style="width: 120px;" for="money">发布时间</label>
+                                <div class="layui-input-block" style="margin-left: 130px;"><input placeholder="发布时间"
+                                                                                                  id="userDate"
+                                                                                                  type="date"
+                                                                                                  name="userDate"
+                                                                                                  class="layui-input"
+                                                                                                  th:field="*{userDate}"
+                                                                                                  required/></div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"><label
+                                    class="layui-form-label" style="width: 120px;" for="money">活动费用</label>
+                                <div class="layui-input-block" style="margin-left: 130px;"><input placeholder="活动费用"
+                                                                                                  id="money"
+                                                                                                  type="number"
+                                                                                                  class="layui-input"
+                                                                                                  th:field="*{money}"
                                                                                                   required/></div>
                             </div>
                         </div>
