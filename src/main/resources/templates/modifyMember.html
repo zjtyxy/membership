@@ -24,149 +24,171 @@
             <div class="card">
                 <div class="card-content">
 
-                    <form th:action="@{/modifyMember}" method="post" id="modifyMember" th:object="${member}"  >
+                    <form th:action="@{/modifyMember}" method="post" class="layui-form" id="modifyMember" th:object="${member}"  >
                         <div class="layui-form-item">
-                            <div class="file-path-wrapper">
+                            <div class="file-path-wrapper"  style="width: 20%;margin:0 auto">
                                 <img id="myimg" th:src="*{getIconPath()}" class="img-responsive img-thumbnail"
-                                     style="width: 20%;height: 20%"/>
+                                     style="width: 100%;height: 20%"/>
                             </div>
                         </div>
                         <div class="layui-form-item">
 
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="memberName">会员名</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input placeholder="会员名" id="memberName" type="text" class="layui-input" name="memberName" th:value="*{getMemberName()}"
                                        required/>
+                                </div>
 
                             </div>
 
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="phone">联系电话</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input id="phone" name="phone" type="tel" class="layui-input" placeholder="联系电话"  th:value="*{getPhone()}" required/>
-
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="zhiwu">职务</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input placeholder="职务" id="zhiwu" type="text" class="layui-input" name="zhiwu" th:value="*{getZhiwu()}" required/>
-
+                                </div>
                             </div>
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="zhengzhimianmao">政治面貌</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input id="zhengzhimianmao" name="zhengzhimianmao" type="text" class="layui-input"
                                        placeholder="政治面貌" th:value="*{getZhengzhimianmao()}" required/>
-
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="memberName">民族</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input placeholder="民族" id="minzu" type="text" class="layui-input" name="minzu" th:value="*{getMinzu()}" required/>
-
+                                </div>
                             </div>
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="shenfenzheng">身份证号</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input id="shenfenzheng" name="shenfenzheng" type="text" class="layui-input" th:value="*{getShenfenzheng()}"
                                        placeholder="身份证号" required/>
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="gongzuodanwei">现在工作单位</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input placeholder="现在工作单位" id="gongzuodanwei" type="text" class="layui-input"
                                        name="gongzuodanwei" th:value="*{getGongzuodanwei()}" required/>
+                                </div>
                             </div>
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="jiankangzhuangkuang">健康状况</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input id="jiankangzhuangkuang" name="jiankangzhuangkuang" type="text" class="layui-input"
                                        placeholder="健康状况" th:value="*{getJiankangzhuangkuang()}" required/>
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
 
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="email">邮箱</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input id="email" name="email" type="email" class="layui-input" th:value="*{getEmail()}" placeholder="邮箱" required/>
-
+                                </div>
                             </div>
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
-                                性别：
-                                <input name="sex" type="radio" id="man" value="男" th:attr ="checked=${member.getSex()=='男'?true:false}"/>
-                                <label class="layui-form-label" style="width: 120px;" for="man">男</label>
-                                <input name="sex" type="radio" id="woman" value="女" th:attr ="checked=${member.getSex()=='女'?true:false}"/>
-                                <label class="layui-form-label" style="width: 120px;" for="woman">女</label>
+                            <div class="layui-inline">
+                                <label class="layui-form-label" style="width: 120px;">性别</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                    <input type="radio" name="sex" value="男"  class="layui-input" title="男" th:attr ="checked=${member.getSex()=='男'?true:false}"/>
+                                    <input type="radio" name="sex" value="女"  class="layui-input" title="女" th:attr ="checked=${member.getSex()=='女'?true:false}"/>
+                                </div>
                             </div>
-                        </div>
 
-                        <div>
-                            <label class="layui-form-label" style="width: 120px;" for="birthday">会员生日</label>
-                            <input id="birthday" name="birthday" type="date" class="layui-input" placeholder="会员生日" th:value="*{getBirthday()}"
-                                   required/>
                         </div>
-
                         <div class="layui-form-item">
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
-                                <label class="layui-form-label" style="width: 120px;" for="address">通讯地址</label>
-                                <input placeholder="通讯地址" id="address" type="text" class="layui-input" name="address" th:value="*{getAddress()}"
-                                       required/>
 
+                                <label class="layui-form-label" style="width: 120px;" for="address">通讯地址</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                    <input placeholder="通讯地址" id="address" type="text" class="layui-input" name="address" th:value="*{getAddress()}"
+                                           required/>
+                                </div>
                             </div>
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="youzhengbianma">邮政编码</label>
-                                <input id="youzhengbianma" name="youzhengbianma" type="tel" class="layui-input" th:value="*{getYouzhengbianma()}"
-                                       placeholder="邮政编码" required/>
-
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                    <input id="youzhengbianma" name="youzhengbianma" type="tel" class="layui-input" th:value="*{getYouzhengbianma()}"
+                                           placeholder="邮政编码" required/>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label" style="width: 120px;" for="huodongjianjie">参加活动简介</label>
-                                <input placeholder="参加活动简介" id="huodongjianjie" type="text" class="layui-input" th:value="*{getHuodongjianjie()}"
-                                       name="huodongjianjie" required/>
-
-                            </div>
-
-                        </div>
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label" style="width: 120px;" for="jinengtechang">特长技能</label>
-                                <input placeholder="特长技能" id="jinengtechang" type="text" class="layui-input" th:value="*{getJinengtechang()}"
-                                       name="jinengtechang" required/>
-
-                            </div>
-
-                        </div>
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label" style="width: 120px;" for="fuwuyixiang">服务意向</label>
-                                <input placeholder="服务意向" id="fuwuyixiang" type="text" class="layui-input" th:value="*{getFuwuyixiang()}"
-                                       name="fuwuyixiang" required/>
-
-                            </div>
-
-                        </div>
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label" style="width: 120px;" for="zhiye">从事何种职业</label>
-                                <input placeholder="从事何种职业" id="zhiye" type="text" class="layui-input" name="zhiye" th:value="*{getZhiye()}"
-                                       required/>
-
+                        <div>
+                            <label class="layui-form-label" style="width: 120px;" for="birthday">会员生日</label>
+                            <div class="layui-input-block" style="margin-left: 130px;">
+                            <input id="birthday" name="birthday" type="date" class="layui-input" placeholder="会员生日" th:value="*{getBirthday()}"
+                                   required/>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <div class="input-field col s2">
-                                会员等级：
-                            </div>
+
+                            <label class="layui-form-label" style="width: 120px;" for="inputState">会员等级</label>
                             <div class="col s10">
                                 <label style="display: none" for="inputState">State</label>
-                                <select id="inputState" class="form-control" name="gradeName" th:value="*{getMemberGrade().getGradeName()}" required>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                    <select id="inputState" class="form-control" name="gradeName" th:value="*{getMemberGrade().getGradeName()}" required>
 
-                                </select>
+                                    </select>
+                                </div>
                             </div>
 
                         </div>
+
+
+                        <div class="layui-form-item">
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label" style="width: 120px;" for="huodongjianjie">参加活动简介</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                    <textarea placeholder="请输入内容" class="layui-textarea" id="huodongjianjie" th:field="*{huodongjianjie}"></textarea>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label" style="width: 120px;" for="jinengtechang">特长技能</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                    <textarea placeholder="请输入内容" class="layui-textarea" id="jinengtechang" th:field="*{jinengtechang}"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label" style="width: 120px;" for="fuwuyixiang">服务意向</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                    <textarea placeholder="请输入内容" class="layui-textarea" id="fuwuyixiang" th:field="*{fuwuyixiang}"></textarea>
+
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label" style="width: 120px;" for="zhiye">从事何种职业</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                    <textarea placeholder="请输入内容" class="layui-textarea" id="zhiye" th:field="*{zhiye}"></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+
                        <div class="layui-form-item">
                            <button th:onclick="submitPrint([[${member.getId()}]])"  class="waves-effect waves-light btn" type="button" >打印报名表</button>
                            <button th:onclick="submitPass([[${member.getId()}]])" class="waves-effect waves-light btn" type="button" th:style="'display:' + @{(${member.getApprovedState()=='报名审核'} ? 'inline-block' : 'none')} + ''">报名确认</button>
@@ -190,6 +212,13 @@
 </div>
 
 <script>
+    layui.use(['form'], function(){
+        var form = layui.form;
+
+
+
+
+    });
     function submitForm() {
         if (confirmPassword())
             $('#addMember').submit();
@@ -228,7 +257,7 @@
             window.location.href="/exportWord?memberid="+memberId;
 
         }
-    }
+    };
 
 </script>
 </body>
