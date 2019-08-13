@@ -12,57 +12,52 @@
     <!--侧边栏-->
     <div th:replace="sidebar :: html"></div>
     <!--内容主体-->
-    <div  class="layui-body" id="page-wrapper">
+    <div class="layui-body" id="page-wrapper">
         <!--内容主题-->
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                会员类别
-          </fieldset>
+            管理员信息维护
+        </fieldset>
         <div id="page-inner">
             <!--自定义内容-->
             <div class="card">
                 <div class="card-content">
 
                     <div class="layui-form-item">
+
                         <div class="layui-inline">
-                            <span>用户名：</span>
-                        </div>
-                        <div class="layui-inline">
-                            <input id="username" name="username" type="text" th:value="${session.admin.username}" class="validate valid" placeholder="用户名" required/>
-                            <label class="layui-form-label" style="width: 120px;" for="username" class="active">用户名</label>
+                            <input id="username" name="username" type="text" th:value="${session.admin.username}"
+                                   class="validate valid" placeholder="用户名" required/>
+                            <label class="layui-form-label" style="width: 120px;" for="username">用户名</label>
                         </div>
                     </div>
                     <div class="layui-form-item">
+
                         <div class="layui-inline">
-                            <span>密码：</span>
-                        </div>
-                        <div class="layui-inline">
-                            <input id="password" name="password" type="password" class="validate valid" placeholder="密码"/>
-                            <label class="layui-form-label" style="width: 120px;" for="password" class="active">密码</label>
+                            <input id="password" name="password" type="password" class="validate valid"
+                                   placeholder="密码"/>
+                            <label class="layui-form-label" style="width: 120px;" for="password">密码</label>
                         </div>
                     </div>
 
                     <div class="layui-form-item">
+
                         <div class="layui-inline">
-                            <span>邮箱：</span>
-                        </div>
-                        <div class="layui-inline">
-                            <input id="email" name="email" type="text" th:value="${session.admin.email}" class="validate valid" placeholder="邮箱" required/>
-                            <label class="layui-form-label" style="width: 120px;" for="email" class="active">邮箱</label>
+                            <input id="email" name="email" type="text" th:value="${session.admin.email}"
+                                   class="validate valid" placeholder="邮箱" required/>
+                            <label class="layui-form-label" style="width: 120px;" for="email">邮箱</label>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <span>联系电话：</span>
-                        </div>
-                        <div class="layui-inline">
-                            <input id="phone" name="phone" type="text" th:value="${session.admin.phone}" class="validate valid" placeholder="电话" required/>
-                            <label class="layui-form-label" style="width: 120px;" for="phone" class="active">电话</label>
+                            <input id="phone" name="phone" type="text" th:value="${session.admin.phone}"
+                                   class="validate valid" placeholder="电话" required/>
+                            <label class="layui-form-label" style="width: 120px;" for="phone">电话</label>
                         </div>
                     </div>
 
                 </div>
                 <div class="card-action">
-                    <a href="javascript:void(0)" onclick="modify()">修改</a>
+                    <a class="layui-btn layui-btn-normal" href="javascript:void(0)" onclick="modify()">修改</a>
                 </div>
             </div>
             <!--页脚-->
@@ -76,8 +71,6 @@
 </div>
 
 
-
-
 <script>
 
     function modify() {
@@ -89,7 +82,7 @@
             $.ajax({
                 url: '/modifyAdmin',
                 type: 'POST',
-                data:{email:email,password:password,username:username, phone:phone},
+                data: {email: email, password: password, username: username, phone: phone},
                 success: function (data) {
                     alert(data);
                 }

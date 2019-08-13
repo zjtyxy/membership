@@ -2,7 +2,7 @@
 <div class="layui-side layui-bg-black" th:fragment="sidebar1">
     <div class="layui-side-scroll"> <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
         <ul class="layui-nav layui-nav-tree" lay-filter="test">
-            <li class="layui-nav-item layui-nav-itemed"><a class="" href="javascript:;">会员管理</a>
+            <li class="layui-nav-item"><a class="" href="javascript:;">会员管理</a>
                 <dl class="layui-nav-child">
             <li><a th:href="@{/queryMember}">查询会员</a></li>
             <li><a th:href="@{/memberGrade}">会员类别</a></li>
@@ -17,18 +17,30 @@
             <li><a th:href="@{/modifyGiftNumber}">数量修改</a></li>
             <li><a th:href="@{/exchangeRecord}">兑换记录</a></li>
             </dl> </li>
-            <li class="layui-nav-item"><a href="javascript:;">商品消费</a>
+            <li class="layui-nav-item">
+                <a href="javascript:;">商品消费</a>
                 <dl class="layui-nav-child">
             <li><a th:href="@{/addMarket}">添加商品</a></li>
             <li><a th:href="@{/queryMarket}">商品查询</a></li>
             <li><a th:href="@{/purchaseCommodity}">商品购买</a></li>
             <li><a th:href="@{/transactionRecord}">积分记录</a></li>
-            </dl> </li>
-            <li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">活动管理</a>
+            </dl>
+            </li>
+            <li class="layui-nav-item"><a href="javascript:;">活动管理</a>
                 <dl class="layui-nav-child">
             <li><a th:href="@{/addActivity}">活动添加</a></li>
             <li><a th:href="@{/queryActivity}">活动查询</a></li>
-            </dl> </li> </ul>
+            </dl>
+            </li>
+            <li class="layui-nav-item"><a href="javascript:;">订单管理</a>
+                <dl class="layui-nav-child">
+            <li><a th:href="@{/addActivity}">商品订单</a></li>
+            <li><a th:href="@{/queryActivity}">活动订单</a></li>
+            <li><a th:href="@{/addActivity}">礼品订单</a></li>
+            <li><a th:href="@{/queryActivity}">会费订单</a></li>
+            </dl>
+            </li>
+        </ul>
     </div>
 </div>
 
