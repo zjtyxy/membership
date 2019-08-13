@@ -91,17 +91,19 @@ public class MemberController {
         }
         throw new RuntimeException("MemberGrade中不存在当前的id:"+memberId);
     }
-    @GetMapping("/addMember")
-    public String getAddMemberView() {
-        return "addMember";
-    }
+
     @GetMapping("/getMember")
-    public String getMember(String id,Model model)
+    public String getMember(@RequestParam(required = false)String id,Model model)
     {
-        Optional<Member> users = memberDao.findById(id);
-        if(users.isPresent())
+        if(id == null)
         {
-            model.addAttribute("member",users.get());
+            model.addAttribute("member",new Member());
+        }
+        else {
+            Optional<Member> users = memberDao.findById(id);
+            if (users.isPresent()) {
+                model.addAttribute("member", users.get());
+            }
         }
         return  "modifyMember";
     }

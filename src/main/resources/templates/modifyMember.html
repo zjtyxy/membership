@@ -142,7 +142,7 @@
                             <div class="col s10">
                                 <label style="display: none" for="inputState">State</label>
                                 <div class="layui-input-block" style="margin-left: 130px;">
-                                    <select id="inputState" class="form-control" name="gradeName" th:value="*{getMemberGrade().getGradeName()}" required>
+                                    <select id="inputState" class="form-control"  th:field="*{memberGrade.gradeName}" required>
 
                                     </select>
                                 </div>
