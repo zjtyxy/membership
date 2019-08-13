@@ -5,7 +5,11 @@
     <title>商品页面</title>
     <div th:replace="links::header"></div>
     <div th:replace="script::js_footer"></div>
-
+    <style> .layui-upload-img {
+        width: 360px;
+        height: 292px;
+        margin: 0 10px 10px 0;
+    } </style>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -28,75 +32,109 @@
                         <div class="layui-form-item">
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="name">商品名称</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input id="name" name="name" type="text" class="layui-input" placeholder="商品名称"
                                        th:value="*{getName()}" required/>
+                                </div>
                             </div>
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="link">商品图片地址</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input id="link" name="link" type="text" class="layui-input"
                                        placeholder="商品图片地址" th:value="*{getLink()}" required/>
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="normalPrice">商品正价</label>
-                                <input id="normalPrice" name="normalPrice" type="text" class="layui-input"
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                <input id="normalPrice" name="normalPrice" type="number" class="layui-input"
                                        th:value="*{getNormalPrice()}"
                                        placeholder="商品正价" required/>
+                                </div>
                             </div>
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="discountPrice">商品折扣价</label>
-                                <input placeholder="商品折扣价" id="discountPrice" type="text" class="layui-input"
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                <input placeholder="商品折扣价" id="discountPrice" type="number" class="layui-input"
                                        name="discountPrice" th:value="*{getDiscountPrice()}" required/>
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
+                            <div class="layui-inline" style="width: 97%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="title">详情标题</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input placeholder="详情标题" id="title" type="text" class="layui-input" name="title"
                                        th:value="*{getTitle()}" required/>
+                                </div>
                             </div>
                         </div>
-                        <div class="layui-form-item" id="imgurllist">
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"
-                                 th:each="stat:*{getImgsUrl()}">
-                                <label class="layui-form-label" style="width: 120px;" for="imgsUrl">商品图片1</label>
-                                <input id="imgsUrl" name="imgsUrl" type="text" class="layui-input" th:value="${stat}"
-                                       placeholder="商品图片1" required/>
-                            </div>
 
-                        </div>
-                        <div class="layui-form-item">
-                            <button onclick="addImageUrl()" class="waves-effect waves-light btn" type="button">添加图片
-                            </button>
-                        </div>
                         <div class="layui-form-item">
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="value">商品规格</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <input id="value" name="value" type="text" class="layui-input"
                                        placeholder="商品规格" th:value="*{getValue()}" required/>
+                                </div>
                             </div>
                             <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">
                                 <label class="layui-form-label" style="width: 120px;" for="num">商品数量</label>
-                                <input id="num" name="num" type="text" class="layui-input" th:value="*{getNum()}"
-                                       placeholder="详情图片集" required/>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                <input id="num" name="num" type="number" class="layui-input" th:value="*{getNum()}"
+                                       placeholder="商品数量" required/>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="layui-form-item" id="urllist">
-                            <div class="layui-inline" style="width: 48%;float: left;padding-left: 20px"
-                                 th:each="stat1:*{getUrl()}">
-                                <label class="layui-form-label" style="width: 120px;" for="url">详情图片</label>
-                                <input placeholder="详情图片" id="url" type="text" class="layui-input" name="url"
-                                       th:value="${stat1}" required/>
-                            </div>
+                        <div class="layui-form-item">
+                            <div class="layui-collapse" lay-filter="test">
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">商品图片</h2>
+                                    <div class="layui-colla-content">
+                                        <div class="layui-form-item" id="imgurllist">
+                                            <div class="layui-card" th:each="stat:*{getImgsUrl()}">
+                                                <img th:src="${stat}" class="layui-upload-img">
+                                                <button type="button" class="layui-btn layui-btn-danger layui-btn-xs" onclick="removeImage(this)">删除 </button>
+                                                <input id="imgsUrl" name="imgsUrl" type="hidden" class="layui-input" th:value="${stat}"
+                                                       placeholder="商品图片1" required/>
+                                            </div>
 
-                        </div>
-                        <div class="layui-form-item">
-                            <button onclick="addUrl()" class="waves-effect waves-light btn" type="button">添加详情图片
-                            </button>
-                        </div>
-                        <div class="layui-form-item">
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <button id="addimage" class="waves-effect waves-light btn" type="button">添加图片
+                                            </button>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="layui-colla-item"><h2 class="layui-colla-title">商品详情图片</h2>
+                                    <div class="layui-colla-content">
+
+
+                                        <div class="layui-form-item" id="urllist">
+                                            <div class="layui-card"
+                                                 th:each="stat1:*{getUrl()}">
+                                                <img th:src="${stat1}" class="layui-upload-img">
+                                                <button type="button" class="layui-btn layui-btn-danger layui-btn-xs" onclick="removeImage(this)">删除 </button>
+                                                <input placeholder="详情图片" id="url" type="hidden" class="layui-input" name="url"
+                                                       th:value="${stat1}" required/>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <button id="addurl" class="waves-effect waves-light btn" type="button">添加详情图片
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                             <button onclick="submitForm()" class="waves-effect waves-light btn" type="button">确认修改
                             </button>
                         </div>
@@ -122,23 +160,65 @@
         $('#modifyMarket').submit();
     }
 
-    function addImageUrl() {
-        let htmlstr = '<div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">\n' +
-            '            <label class="layui-form-label" style="width: 120px;" for="imgsUrl">商品图片</label>\n' +
-            '            <input placeholder="商品图片" id="imgsUrl" type="text" class="layui-input" name="imgsUrl" />\n' +
-            '            </div>'
-        var htmllet = '<p>' + 'sdfasdf' + '</p>'
+    function addImageUrl(imagurl) {
+        var htmlstr ='<div class="layui-card">\n'+
+            '<img src="' + imagurl + '" class="layui-upload-img">'+
+            '<button type="button" class="layui-btn layui-btn-danger layui-btn-xs" onclick="removeImage(this)">删除 </button>'+
+            '<input placeholder="商品图片" id="imgsUrl" type="hidden" value="'+imagurl+'" class="layui-input" name="imgsUrl" />\n' +
+            '</div>'
         $('#imgurllist').append(htmlstr);
     }
 
-    function addUrl() {
-        let htmlstr = '<div class="layui-inline" style="width: 48%;float: left;padding-left: 20px">\n' +
-            '            <label class="layui-form-label" style="width: 120px;" for="url">详情图片</label>\n' +
-            '            <input placeholder="详情图片" id="url" type="text" class="layui-input" name="url" />\n' +
-            '            </div>'
-        var htmllet = '<p>' + 'sdfasdf' + '</p>'
+    function addUrl(imagurl) {
+        var htmlstr ='<div class="layui-card">\n'+
+            '<img src="' + imagurl + '" class="layui-upload-img">'+
+            '<button type="button" class="layui-btn layui-btn-danger layui-btn-xs" onclick="removeImage(this)">删除 </button>'+
+            '<input placeholder="详情图片" id="url" type="hidden" value="'+imagurl+'" class="layui-input" name="url" />\n' +
+            '</div>'
         $('#urllist').append(htmlstr);
     }
+    function removeImage(btn) {
+        $(btn).parent().remove();
+    }
+
+    layui.use('upload', function () {
+        var $ = layui.jquery,
+            upload = layui.upload;  //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#addimage',
+            url: '/minapp/uploadFile/',
+            multiple: true,
+            before: function (obj) { //预读本地文件示例，不支持ie8
+                // obj.preview(function (index, file, result) {
+                //     $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+                // });
+            },
+            done: function (res) { //上传完毕
+                if(res.code==0)
+                {
+                    addImageUrl(res.url)
+                }
+            }
+        });
+        upload.render({
+            elem: '#addurl'
+            ,url: '/minapp/uploadFile/'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code==0)
+                {
+                    addUrl(res.url)
+                }
+                //上传成功
+            }
+            ,error: function(){
+            }
+        });
+    });
 </script>
 </body>
 
