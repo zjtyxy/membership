@@ -24,14 +24,18 @@
                     <div class="card-content">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <input id="memberId" onblur="confirmMemberId()" name="memberId" type="text" class="layui-input" placeholder="会员号码" required/>
                                 <label class="layui-form-label" style="width: 120px;" for="memberId">会员号码</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                <input id="memberId" onblur="confirmMemberId()" name="memberId" type="text" class="layui-input" placeholder="会员号码" required/>
+                                </div>
                             </div>
                             <div class="layui-inline">
                                 <label style="display: none" for="giftName"></label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
                                 <select class="form-control" name="giftName" id="giftName">
                                     <option th:each="gift:${gifts}" th:unless="${gift.giftNumber == 0}" th:id="${gift.id}" th:text="${gift.giftName}"></option>
                                 </select>
+                                </div>
                             </div>
                         </div>
                     </div>

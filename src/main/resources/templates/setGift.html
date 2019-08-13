@@ -24,22 +24,30 @@
                     <div class="card-content">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <input placeholder="礼品名" id="giftName" type="text" class="layui-input" name="giftName" required/>
                                 <label class="layui-form-label" style="width: 120px;" for="giftName">礼品名</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                <input placeholder="礼品名" id="giftName" type="text" class="layui-input" name="giftName" required/>
+                                </div>
                             </div>
                             <div class="layui-inline">
-                                <input id="giftIntegral" onblur="confirmNumAndIntegral()" name="giftIntegral" type="text" class="layui-input" placeholder="礼品积分" required/>
                                 <label class="layui-form-label" style="width: 120px;" for="giftIntegral">礼品积分</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                <input id="giftIntegral" onblur="confirmNumAndIntegral()" name="giftIntegral" type="number" class="layui-input" placeholder="礼品积分" required/>
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <input placeholder="礼品数量" onblur="confirmNumAndIntegral()" id="giftNumber" type="text" class="layui-input" name="giftNumber" required/>
                                 <label class="layui-form-label" style="width: 120px;" for="giftNumber">礼品数量</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                <input placeholder="礼品数量" onblur="confirmNumAndIntegral()" id="giftNumber" type="number" class="layui-input" name="giftNumber" required/>
+                                </div>
                             </div>
                             <div class="layui-inline">
-                                <input id="giftPrice" onchange="confirmPrice()" name="giftPrice" type="text" class="layui-input" placeholder="礼品价值" required/>
                                 <label class="layui-form-label" style="width: 120px;" for="giftPrice">礼品价值</label>
+                                <div class="layui-input-block" style="margin-left: 130px;">
+                                <input id="giftPrice" onchange="confirmPrice()" name="giftPrice" type="number" class="layui-input" placeholder="礼品价值" required/>
+                                </div>
                             </div>
                         </div>
                     </div>

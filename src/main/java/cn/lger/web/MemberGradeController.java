@@ -1,14 +1,19 @@
 package cn.lger.web;
 
+import cn.lger.dao.MemberGradeDao;
 import cn.lger.domain.MemberGrade;
-import cn.lger.service.MemberGradeService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 /**
  * Code that Changed the World
@@ -18,25 +23,32 @@ import javax.annotation.Resource;
 @Controller
 public class MemberGradeController {
 
+
     @Resource
-    private MemberGradeService memberGradeService;
+    private MemberGradeDao memberGradeDao;
 
-    @GetMapping("/memberGrade")
-    public String getMemberGradeView(){
+
+    @RequestMapping("/memberGrade")
+    public String memberGrade(Model model, @RequestParam(defaultValue = "0",required = false) Integer  currentPage){
+        if(currentPage == null)
+            currentPage=0;
+        //  Sort sort = Sort.by(new Sort.Order(Sort.Direction.DESC,"level"));
+        Pageable page =PageRequest.of(currentPage,10);
+        Page<MemberGrade> pages=memberGradeDao.findAll(page);
+        model.addAttribute("entitylist",pages.getContent());
+        model.addAttribute("page",pages);
+        model.addAttribute("pageNum",currentPage);
+        model.addAttribute("totalPages",pages.getTotalPages());
+        model.addAttribute("totalElements",pages.getTotalElements());
         return "memberGrade";
-    }
 
-    @PostMapping("/memberGrade")
-    @ResponseBody
-    public Page<MemberGrade> memberGrade(Integer currentPage){
-        return memberGradeService.findAll(currentPage);
     }
 
     @PostMapping("/updateMemberGrade")
     @ResponseBody
     public String updateMemberGrade(MemberGrade memberGrade){
         try{
-            memberGradeService.updateMemberGrade(memberGrade);
+            memberGradeDao.save(memberGrade);
         } catch (Exception e){
             e.printStackTrace();
             return "error";
@@ -47,7 +59,19 @@ public class MemberGradeController {
     @PostMapping("/addMemberGrade")
     @ResponseBody
     public MemberGrade addMemberGrade(MemberGrade memberGrade){
-        return memberGradeService.add(memberGrade);
+        return memberGradeDao.save(memberGrade);
+    }
+
+    @PostMapping("/deleteMemberGrade")
+    @ResponseBody
+    public String delMemberGrade(Integer id){
+        Optional<MemberGrade> rst = memberGradeDao.findById(id);
+        if(rst.isPresent())
+        {
+            memberGradeDao.deleteById(id);
+            return  "success";
+        }
+        return "fail";
     }
 
 }

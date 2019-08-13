@@ -8,12 +8,8 @@
             <li><a th:href="@{/queryMember}">查询会员</a></li>
             <li><a th:href="@{/memberGrade}">会员类别</a></li>
             <li><a th:href="@{/modifyMemberState}">会员状态修改</a></li>
-            <li><a href="#">会员消费<span class="fa arrow"></span></a>
-                <ul class="nav nav-third-level">
-                    <li><a th:href="@{/integralExchange}">积分兑换</a></li>
-                    <li><a th:href="@{/balanceRecharge}">余额充值</a></li>
-                </ul>
-            </li>
+            <li><a th:href="@{/integralExchange}">积分兑换</a></li>
+            <li><a th:href="@{/balanceRecharge}">余额充值</a></li>
             <li><a th:href="@{/deleteMember}">会员注销</a></li>
             </dl> </li>
             <li class="layui-nav-item"><a href="javascript:;">礼品消费</a>
@@ -38,7 +34,7 @@
 </div>
 
 <script>
-    layui.use('element', function(){
+    layui.use('element', function () {
         var element = layui.element;
 
     });

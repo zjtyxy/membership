@@ -5,26 +5,17 @@ import cn.lger.dao.MemberGradeDao;
 import cn.lger.dao.OrderDao;
 import cn.lger.domain.Member;
 import cn.lger.domain.MemberGrade;
-import cn.lger.domain.Order;
 import cn.lger.domain.Progeress;
-import cn.lger.exception.IdNotFoundException;
-import cn.lger.exception.IntegralNotEnoughException;
-import cn.lger.service.GiftService;
-import cn.lger.service.MemberGradeService;
 import cn.lger.service.MemberService;
-import cn.lger.service.WXPayService;
 import cn.lger.util.FileUploadUtil;
-import cn.lger.util.MemberNumberRandomUtil;
 import cn.lger.util.UUIDRandomUtil;
 import cn.lger.util.WordUtils;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,7 +25,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
@@ -57,9 +47,8 @@ public class MemberController {
     @Resource
     private MemberService memberService;
     @Resource
-    private MemberGradeService memberGradeService;
-    @Resource
     private BCryptPasswordEncoder encoder;
+
 
     /**
      * 审批报名表

@@ -66,14 +66,20 @@
                                     </td>
                                     <td>
                                         <button type="button" class="btn waves-effect waves-light" onclick="addMemberGrade()">添加</button>
+
                                     </td>
                                 </tr>
                                 </tbody>
 
-                                <tbody id="tableContent">
-
-
-                                </tbody>
+                                <tr th:each="entity,userStat : ${entitylist}">
+                                    <td style="display:none" th:text="${entity.id}"></td>
+                                    <td th:text="${entity.gradeName}"></td>
+                                    <td th:text="${entity.discount}"></td>
+                                    <td th:text="${entity.comment}"></td>
+                                    <td><button class="waves-effect waves-light btn" data-toggle="modal" data-target="#myModal" onclick="openModelWindow(this)">修改</button>
+                                        <button type="button" class="btn waves-effect waves-light" th:onclick="deleteGrade([[${entity.getId()}]])">删除</button>
+                                    </td>
+                                <tr>
 
                             </table>
 
@@ -125,6 +131,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn waves-effect waves-light" onclick="updateMemberGrade()">保存修改</button>
+
             </div>
         </div>
     </div>
@@ -161,7 +168,9 @@
                             '<td>' + content.gradeName + '</td>' +
                             '<td>' + content.discount + '</td>' +
                             '<td>' + content.comment + '</td>' +
-                            '<td><button class="waves-effect waves-light btn" data-toggle="modal" data-target="#myModal" onclick="openModelWindow(this)">修改</button></td>' +
+                            '<td><button class="waves-effect waves-light btn" data-toggle="modal" data-target="#myModal" onclick="openModelWindow(this)">修改</button>' +
+                            '<button type="button" class="btn waves-effect waves-light" onclick="delMemberGrade()">删除</button>'+
+                            '</td>' +
                             '</tr>';
                     }
                 });
@@ -194,20 +203,16 @@
         })
     }
 
-    updateData(1);
+    //updateData(1);
 
     var info;
     function openModelWindow(btn) {
         info = $(btn).parent().parent();
-//        console.log(info);
-//        console.log(info.children()[1]);
-//        console.log(info.children()[2]);
-//        console.log(info.children()[3]);
         $('#gradeId').val($(info.children()[0]).text());
         $('#gradeName').val($(info.children()[1]).text());
         $('#discount').val($(info.children()[2]).text());
         $('#comment').val($(info.children()[3]).text());
-        $('#myModal').modal('show');
+      //  $('#myModal').modal('show');
     }
 
     function updateMemberGrade() {
@@ -246,18 +251,27 @@
             type:'POST',
             data:{gradeName: gradeName, discount: discount, comment: comment},
             success:function (data) {
-                var tableContent = $('#tableContent');
-                var addHTML = '<tr class="gradeU odd">' +
-                    '<td style="display:none">' + data.id + '</td>' +
-                    '<td>' + data.gradeName + '</td>' +
-                    '<td>' + data.discount + '</td>' +
-                    '<td>' + data.comment + '</td>' +
-                    '<td><button class="waves-effect waves-light btn" onclick="openModelWindow(this)">修改</button></td>' +
-                    '</tr>';
-                tableContent.html(tableContent.html() + addHTML);
+                window.location.href ="/memberGrade";
             }
         })
 
+    }
+
+    function deleteGrade(id) {
+        if (confirm('确认删除此条记录？删除以后不可恢复！')) {
+            $.ajax({
+                url: '/deleteMemberGrade',
+                type: 'POST',
+                data: {id: id},
+                success: function (data) {
+                    alert(data);
+                    if (data === 'success'){
+                        window.location.href ="/memberGrade";
+                    }
+                }
+
+            })
+        }
     }
 
 </script>
