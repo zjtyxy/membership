@@ -2,14 +2,10 @@ package cn.lger.security;
 
 import cn.lger.domain.Admin;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
-
 /**
  * Code that Changed the World
  * Pro said

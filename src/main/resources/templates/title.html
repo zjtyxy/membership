@@ -1,17 +1,17 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
     <div class="layui-header" th:fragment="title">
         <div class="layui-logo">中华志愿者广东联络站</div>
         <ul class="layui-nav layui-layout-left">
 
         </ul>
-        <ul class="layui-nav layui-layout-right">
+        <ul class="layui-nav layui-layout-right"   sec:authorize="isAuthenticated()">
             <li class="layui-nav-item">
-                <a href="javascript:;" th:text="${session.admin.username}">
+                <a href="javascript:;"  th:text="${session.admin.username}">
 
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="/myAccount">基本资料</a></dd>
-                    <dd><a href="/addAdmin">管理员列表</a></dd>
+                    <dd sec:authorize="hasRole('英勇青铜')"><a href="/addAdmin" >管理员列表</a></dd>
                     <dd><a href="/addAdmin">添加管理员</a></dd>
                 </dl>
             </li>
