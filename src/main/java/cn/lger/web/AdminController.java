@@ -9,9 +9,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -32,9 +34,9 @@ public class AdminController {
     @Resource
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @PostMapping("/modifyAdmin")
+    @PostMapping("/modifyAccount")
     @ResponseBody
-    public String modifyAdmin(Admin admin, HttpSession session){
+    public String modifyAccount(Admin admin, HttpSession session){
         Admin adminSession = (Admin) session.getAttribute("admin");
         Optional<Admin> optional = adminDao.findById(adminSession.getId());
         if (optional.isPresent()) {
@@ -53,21 +55,37 @@ public class AdminController {
         return "修改失败";
     }
 
-    @GetMapping("/addAdmin")
-    public String getAddAdminView(){
-        return "addAdmin";
-    }
 
-    @GetMapping("/deleteAdmin")
+
+    @GetMapping("/queryAdmin")
     public String getDeleteView(){
-        return "deleteAdmin";
+        return "queryAdmin";
     }
 
+    /**
+     * 修改自己账户信息
+     * @return
+     */
     @GetMapping("/myAccount")
     public String getAccountView(){
+        return "modifyAccount";
+    }
+    @GetMapping("/addAdmin")
+    public String addAdmin(Model model, Admin market){
+        Admin rst = market;
+        if(market.getId()!=null)
+        {
+            rst =  adminDao.findById(market.getId()).get();
+
+        }
+        model.addAttribute("entity",rst);
         return "modifyAdmin";
     }
-
+    @RequestMapping("/modifyAdmin")
+    public String modifyMarket(Model model,Admin market) {
+        adminDao.save(market);
+        return "redirect:queryAdmin";
+    }
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.removeAttribute("admin");
@@ -83,7 +101,7 @@ public class AdminController {
             return "你不是超级管理员";
         }
         admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
-        admin.setRole(AdminRole.G_ADMIN);
+        admin.setRole(AdminRole.G_ADMIN.toString());
         adminDao.save(admin);
         return "添加成功";
     }

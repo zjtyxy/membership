@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 /**
  * Code that Changed the World
@@ -66,7 +65,7 @@ public class Admin {
         return role;
     }
 
-    public void setRole(@NotNull AdminRole role) {
+    public void setRole(String role) {
         this.role = role.toString();
     }
 }

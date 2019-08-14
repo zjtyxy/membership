@@ -11,7 +11,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="/myAccount">基本资料</a></dd>
-                    <dd sec:authorize="hasRole('英勇青铜')"><a href="/addAdmin" >管理员列表</a></dd>
+                    <dd sec:authorize="hasAnyAuthority('S_ADMIN')"><a href="/addAdmin" >管理员列表</a></dd>
                     <dd><a href="/addAdmin">添加管理员</a></dd>
                 </dl>
             </li>

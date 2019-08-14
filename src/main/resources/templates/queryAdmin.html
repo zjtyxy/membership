@@ -9,64 +9,9 @@
 
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <nav class="navbar navbar-default top-navbar" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse"
-                    data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand waves-effect waves-dark" th:href="@{/}"><i
-                    class="large material-icons">insert_chart</i>
-                <strong>Lger 会员系统</strong></a>
-
-            <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
-        </div>
-        <!--用户登录信息-->
-        <ul class="nav navbar-top-links navbar-right">
-            <li><a class="dropdown-button waves-effect waves-dark" href="#" data-activates="dropdown1"><i
-                    class="fa fa-user fa-fw"></i> <b th:unless="${session.admin == null}" th:text="${session.admin.username}"></b> <i
-                    class="material-icons right">arrow_drop_down</i></a></li>
-        </ul>
-    </nav>
-    <!--用户登录栏的具体信息-->
-    <ul id="dropdown1" class="dropdown-content">
-        <li><a th:href="@{/myAccount}"><i class="fa fa-user fa-fw"></i>我的账户</a>
-        </li>
-        <li><a th:href="@{/logout}"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
-        </li>
-    </ul>
+    <div th:replace="title :: html"></div>
     <!--侧边栏-->
-    <nav class="navbar-default navbar-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="main-menu">
-
-                <li>
-                    <a class="waves-effect waves-dark" th:href="@{/}"><i class="fa fa-dashboard"></i>
-                        首页</a>
-                </li>
-
-                <li class="">
-                    <a th:href="@{/myAccount}" class="waves-effect waves-dark"><i class="fa fa-user"></i>
-                        管理员信息</a>
-                </li>
-
-                <li>
-                    <a class="waves-effect waves-dark" th:href="@{/addAdmin}"><i class="fa fa-plus"></i>
-                        添加管理员</a>
-                </li>
-
-                <li class="active">
-                    <a class="active-menu waves-effect waves-dark" th:href="@{/deleteAdmin}"><i class="fa fa-minus"></i>
-                        删除管理员</a>
-                </li>
-            </ul>
-
-        </div>
-
-    </nav>
+    <div th:replace="sidebar :: html"></div>
     <!--内容主体-->
     <div  class="layui-body" id="page-wrapper">
         <!--内容主题-->
@@ -155,7 +100,8 @@
                             '<td>' + content.username + '</td>' +
                             '<td>' + content.email + '</td>' +
                             '<td>'+content.phone+'</td>' +
-                            '<td><button class="btn-danger btn" onclick="deleteAdmin(this)">删除</button></td></tr>';
+                            '<td><button class="btn-danger btn" onclick="modifyAdmin(this)">编辑1</button>'+
+                            '<button class="btn-danger btn" onclick="deleteAdmin(this)">删除</button></td></tr>';
                     }
                 });
 
@@ -206,6 +152,11 @@
 
             })
         }
+    }
+    function modifyAdmin(btn) {
+            var info = $(btn).parent().parent();
+            var id = $(info.children()[0]).text();
+            window.location.href ="/addAdmin?id="+id;
     }
 </script>
 
