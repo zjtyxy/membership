@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="card-action">
+                    <div class="card-action" style="padding-left: 50px;">
                         <a href="javascript:void(0)" onclick="integralExchange()">兑换礼品</a>
                     </div>
                 <!--</div>-->
@@ -74,18 +74,19 @@
     }
     
     function integralExchange() {
-        if (confirmMemberId())
-        if (confirm('确认兑换该礼品吗？')) {
-            var obj1= document.getElementById('memberId').value;
-            var obj2 = $('#giftName').find('option:selected').attr('id');
-            $.ajax({
-                url: '/integralExchange',
-                type: 'POST',
-                data: {memberId: obj1, giftId:obj2},
-                success: function (data) {
-                    alert(data);
-                }
-            })
+        if (confirmMemberId()){
+            if (confirm('确认兑换该礼品吗？')) {
+                var obj1= document.getElementById('memberId').value;
+                var obj2 = $('#giftName').find('option:selected').attr('id');
+                $.ajax({
+                    url: '/integralExchange',
+                    type: 'POST',
+                    data: {memberId: obj1, giftId:obj2},
+                    success: function (data) {
+                        alert(data);
+                    }
+                })
+            }
         }
     }
 
