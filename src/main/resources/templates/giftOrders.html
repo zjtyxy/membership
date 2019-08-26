@@ -15,7 +15,7 @@
     <div  class="layui-body" id="page-wrapper">
         <!--内容主题-->
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>活动订单 </legend>
+            <legend>礼品订单 </legend>
         </fieldset>
         <div id="page-inner">
             <!--自定义内容-->
@@ -25,7 +25,7 @@
                         <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
                             <div class="layui-form-item">
                                 <div class="col-sm-6">
-                                    <div id="dataTables-example_filter" class="dataTables_filter"><label>搜索活动:
+                                    <div id="dataTables-example_filter" class="dataTables_filter"><label>搜索礼品:
                                         <input onkeydown="if(event.keyCode===13) updateData(1);" id="search" type="search" class="form-control input-sm"
                                                aria-controls="dataTables-example"></label></div>
                                 </div>
@@ -40,19 +40,23 @@
                                     </th>
                                     <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Rendering engine: activate to sort column ascending"
-                                        aria-sort="ascending">活动编号
+                                        aria-sort="ascending">礼品编号
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Browser: activate to sort column ascending"
-                                    >活动名称
+                                    >礼品名称
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="Platform(s): activate to sort column ascending"
-                                    >发布者
+                                    >礼品数量
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                         colspan="1" aria-label="CSS grade: activate to sort column ascending"
-                                    >发布时间
+                                    >礼品价值
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >礼品积分
                                     </th>
                                 </tr>
                                 </thead>
@@ -86,12 +90,12 @@
     function updateData(pageNum) {
         if (pageNum < 1 || pageNum > totalPages)
             return;
-        var activityId = document.getElementById('search').value;
+        var giftId = document.getElementById('search').value;
         $.ajax({
-            url: '/activityOrders',
+            url: '/giftOrders',
             dataType: 'JSON',
             type: 'POST',
-            data: {currentPage: pageNum - 1, activityId:activityId},
+            data: {currentPage: pageNum - 1, giftId:giftId},
             success: function (data) {
                 console.log(data);
                 totalPages =data.totalPages;
@@ -108,10 +112,11 @@
                     function fillTableHtml(clazz, content) {
                         return '<tr class="' + clazz + '">' +
                             '<td>' + content.id + '</td>' +
-                            '<td>' + content.activity.id + '</td>' +
-                            '<td>' + content.activity.name + '</td>' +
-                            '<td>' + content.activity.username + '</td>' +
-                            '<td>' + content.activity.userDate + '</td>' +
+                            '<td>' + content.gift.id + '</td>' +
+                            '<td>' + content.gift.giftName + '</td>' +
+                            '<td>' + content.gift.giftNumber + '</td>' +
+                            '<td>' + content.gift.giftPrice + '</td>' +
+                            '<td>' + content.gift.giftIntegral + '</td>' +
                             '</tr>';
                     }
                 });
