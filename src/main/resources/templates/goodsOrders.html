@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home</title>
+    <div th:replace="links::header"></div>
+    <div th:replace="script::js_footer"></div>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div th:replace="title :: html"></div>
+    <!--侧边栏-->
+    <div th:replace="sidebar :: html"></div>
+    <!--内容主体-->
+    <div  class="layui-body" id="page-wrapper">
+        <!--内容主题-->
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>商品订单 </legend>
+        </fieldset>
+        <div id="page-inner">
+            <!--自定义内容-->
+            <div class="card">
+                <div class="card-content">
+                    <div class="table-responsive">
+                        <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                            <div class="layui-form-item">
+                                <div class="col-sm-6">
+                                    <div id="dataTables-example_filter" class="dataTables_filter"><label>搜索商品:
+                                        <input onkeydown="if(event.keyCode===13) updateData(1);" id="search" type="search" class="form-control input-sm"
+                                               aria-controls="dataTables-example"></label></div>
+                                </div>
+                            </div>
+                            <table class="layui-table"
+                                   id="dataTables-example" aria-describedby="dataTables-example_info">
+                                <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >交易号
+                                    </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="Rendering engine: activate to sort column ascending"
+                                        aria-sort="ascending">商品编号
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending"
+                                    >商品名称
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                    >商品正价
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >商品折扣价
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >商品规格
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                    >商品数量
+                                    </th>
+<!--                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"-->
+<!--                                        colspan="1" aria-label="CSS grade: activate to sort column ascending"-->
+<!--                                    >商品积分-->
+<!--                                    </th>-->
+                                </tr>
+                                </thead>
+                                <tbody id="tableContent">
+
+
+                                </tbody>
+                            </table>
+
+                            <div aria-label="Page navigation example">
+                                <ul class="pagination" id="page">
+                                    <!--<li class="page-item"><a class="page-link" href="#">aaa</a></li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--页脚-->
+            <br>
+            <br>
+            <br>
+            <div th:replace="footer :: html"></div>
+        </div>
+
+    </div>
+</div>
+<script>
+    var totalPages = 1;
+
+    function updateData(pageNum) {
+        if (pageNum < 1 || pageNum > totalPages)
+            return;
+        var marketId = document.getElementById('search').value;
+        $.ajax({
+            url: '/goodsOrders',
+            dataType: 'JSON',
+            type: 'POST',
+            data: {currentPage: pageNum - 1, marketId:marketId},
+            success: function (data) {
+                console.log(data);
+                totalPages =data.totalPages;
+                var flag = 0;
+                var tableContent = $('#tableContent');
+                tableContent.html('');
+                $.each(data.content, function (index, content) {
+                    console.log(content);
+                    if (flag % 2 === 1)
+                        tableContent.html(tableContent.html() + fillTableHtml('gradeU odd', content));
+                    else
+                        tableContent.html(tableContent.html() + fillTableHtml('gradeU even', content));
+
+                    function fillTableHtml(clazz, content) {
+                        return '<tr class="' + clazz + '">' +
+                            '<td>' + content.id + '</td>' +
+                            '<td>' + content.market.id + '</td>' +
+                            '<td>' + content.market.name + '</td>' +
+                            '<td>' + content.market.normalPrice + '</td>' +
+                            '<td>' + content.market.discountPrice + '</td>' +
+                            '<td>' + content.market.value + '</td>' +
+                            '<td>' + content.market.num + '</td>' +
+                            '</tr>';
+                    }
+                });
+
+                //totalPages
+                if (data.number+1 >= totalPages-1)
+                    var inHTML = '<li class="page-item"><a class="page-link" onclick="updateData(' + (totalPages-1) + ')" href="javascript:void(0)">上一页</a></li>';
+                if (data.number <= 0 )
+                    inHTML = '<li class="page-item"><a class="page-link" onclick="updateData(' + 1 + ')" href="javascript:void(0)">上一页</a></li>';
+                else
+                    inHTML = '<li class="page-item"><a class="page-link" onclick="updateData(' + data.number + ')" href="javascript:void(0)">上一页</a></li>';
+
+                for (var i = data.number - 1; i <= data.number + 3; i++) {
+                    if (i<1)
+                        continue;
+                    if (i>data.totalPages)
+                        break;
+                    if (data.number+1 === i)
+                        inHTML += '<li class="active page-item"><a class="page-link" onclick="updateData(' + i+ ')" href="javascript:void(0)">'+i+'</a></li>';
+                    else
+                        inHTML += '<li class="page-item"><a class="page-link" onclick="updateData(' + i+ ')" href="javascript:void(0)">'+i+'</a></li>';
+                }
+                if (data.number + 1 >= totalPages)
+                    inHTML += '<li class="page-item"><a class="page-link" onclick="updateData(' + totalPages + ')" href="javascript:void(0)">下一页</a></li>';
+                else
+                    inHTML += '<li class="page-item"><a class="page-link" onclick="updateData(' + (data.number + 2) + ')" href="javascript:void(0)">下一页</a></li>';
+                $('#page').html(inHTML);
+
+            }
+        })
+    }
+
+    updateData(1);
+
+</script>
+
+</body>
+
+</html>
